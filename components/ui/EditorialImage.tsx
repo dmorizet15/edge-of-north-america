@@ -113,35 +113,25 @@ function Placeholder({
         }}
       />
 
-      {/* Editorial metadata — the sourcing brief, rendered as design. */}
-      <div className="absolute inset-0 flex flex-col justify-between p-[clamp(1rem,3vw,2.5rem)]">
-        <div className="flex items-start justify-between gap-4">
+      {/* Editorial metadata — the sourcing brief, kept as a compact caption in
+          the top corner so a section's own title (usually anchored lower) has
+          clean room. Disappears the moment a real photograph loads. */}
+      <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-6 p-[clamp(1.1rem,3vw,2.5rem)]">
+        <div className="max-w-md">
           <span
             className="eyebrow"
             style={{ color: accent, letterSpacing: "0.34em" }}
           >
             Photograph to place
           </span>
-          <span
-            className="eyebrow tabular-nums"
-            style={{ color: fgQuiet }}
-          >
-            {photo.aspectRatio}
-          </span>
-        </div>
-
-        <div className="max-w-prose">
-          <div
-            className="mb-4 h-px w-full max-w-[8rem]"
-            style={{ background: hair }}
-          />
+          <div className="my-3 h-px w-full max-w-[6rem]" style={{ background: hair }} />
           <p
-            className="font-serif text-[clamp(1.15rem,2.4vw,2rem)] leading-[1.15]"
+            className="font-serif text-[clamp(0.98rem,1.7vw,1.35rem)] leading-[1.2]"
             style={{ color: fg }}
           >
             {photo.location}
           </p>
-          <div className="mt-4 grid gap-2 sm:max-w-lg">
+          <div className="mt-3 grid gap-1.5">
             <MetaLine label="Search" value={photo.searchTerms} color={fgQuiet} accent={accent} />
             <MetaLine label="Compose" value={photo.composition} color={fgQuiet} accent={accent} />
             {photo.note && (
@@ -149,6 +139,9 @@ function Placeholder({
             )}
           </div>
         </div>
+        <span className="eyebrow tabular-nums shrink-0" style={{ color: fgQuiet }}>
+          {photo.aspectRatio}
+        </span>
       </div>
     </div>
   );
@@ -166,10 +159,10 @@ function MetaLine({
   accent: string;
 }) {
   return (
-    <p className="flex gap-3 text-[0.78rem] leading-relaxed">
+    <p className="flex gap-2.5 text-[0.72rem] leading-relaxed">
       <span
-        className="eyebrow shrink-0 pt-[0.15rem]"
-        style={{ color: accent, fontSize: "0.6rem" }}
+        className="eyebrow shrink-0 pt-[0.1rem]"
+        style={{ color: accent, fontSize: "0.55rem" }}
       >
         {label}
       </span>
