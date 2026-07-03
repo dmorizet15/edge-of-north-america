@@ -53,6 +53,19 @@ export default function Home() {
       {/* 04 — Route Overview · the whole shape, drawn */}
       <RouteSection />
 
+      {/* Road North · the departure before dawn — first coordinate, mainland leaving */}
+      <PhotoChapter
+        photo="roadNorth"
+        index=""
+        chapter="The Road North"
+        title="The house is asleep. The road is not."
+        coord="41.70° N · 73.92° W"
+        place="Hudson Valley — before dawn"
+        placement="bottom-left"
+        scale="md"
+        overlay="strong"
+      />
+
       {/* 05 — The Ferry · the crossing you sleep through */}
       <Ferry />
 
