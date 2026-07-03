@@ -12,6 +12,9 @@ import CapeSpear from "@/components/sections/CapeSpear";
 import WhyThisWorks from "@/components/sections/WhyThisWorks";
 import MelissasQuestions from "@/components/sections/MelissasQuestions";
 import Closing from "@/components/sections/Closing";
+import ActTwoIntro from "@/components/sections/ActTwoIntro";
+import DayChapter from "@/components/sections/DayChapter";
+import { DAYS } from "@/content/itinerary";
 
 /**
  * EDGE OF NORTH AMERICA
@@ -254,6 +257,12 @@ export default function Home() {
 
       {/* 24 — Closing · the return, and the only question left */}
       <Closing />
+
+      {/* ─────────────── ACT TWO · The Journey, Day by Day ─────────────── */}
+      <ActTwoIntro />
+      {DAYS.map((day) => (
+        <DayChapter key={day.n} day={day} />
+      ))}
     </main>
   );
 }

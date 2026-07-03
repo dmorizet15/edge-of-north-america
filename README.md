@@ -140,3 +140,15 @@ If Apple hired National Geographic to convince someone to take this exact trip,
 this is what they'd publish. If any page ever starts to feel like a brochure, a
 template, or a tourism site — make it darker, quieter, and larger until it
 doesn't.
+
+## Act Two — The Journey, Day by Day
+
+After the cinematic first act, a second act answers "when do we go?" with a
+15-day expedition guide. Each day is its own editorial spread — a photo band, an
+hour-by-hour timeline (wake, breakfast, drive, scenic stops with timings, lunch,
+afternoon, dinner, evening), a practical sidebar (stay, drive, walking, EV
+charging, wildlife, rainy-day backup) with a bespoke per-day map, and a
+"Today's Memory" callout. Content lives in [`/content/itinerary.ts`](content/itinerary.ts);
+the day layout is [`/components/sections/DayChapter.tsx`](components/sections/DayChapter.tsx)
+and the per-day map is [`/components/DayMap.tsx`](components/DayMap.tsx).
+Timings and distances are honest working estimates — verify before booking.
