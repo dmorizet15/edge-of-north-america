@@ -136,6 +136,17 @@ export const WAYPOINTS: Waypoint[] = [
   },
 ];
 
+/**
+ * Minor points of interest — drawn as small unlabeled dots, NOT part of the
+ * route line. They sit almost on top of a labeled neighbour, so they stay
+ * label-free to protect the map's whitespace.
+ */
+export const MINOR_POINTS: { id: string; lat: number; lon: number }[] = [
+  { id: "westernbrook", lat: 49.78, lon: -57.83 },
+  { id: "tablelands", lat: 49.47, lon: -57.95 },
+  { id: "signalhill", lat: 47.57, lon: -52.68 },
+];
+
 /** The single easternmost fact the whole piece points toward. */
 export const CAPE_SPEAR = {
   coord: "47.5236° N · 52.6194° W",

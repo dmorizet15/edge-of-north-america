@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { WAYPOINTS } from "@/content/route";
+import { WAYPOINTS, MINOR_POINTS } from "@/content/route";
 
 /**
  * Bespoke route map — a National Geographic-inspired SVG, not a screenshot.
@@ -35,12 +35,15 @@ function project() {
   const offX = (innerW - (maxX - minX) * scale) / 2;
   const offY = (innerH - (maxY - minY) * scale) / 2;
 
-  return WAYPOINTS.map((w, i) => ({
-    ...w,
-    x: VB.pad + offX + (xs[i] - minX) * scale,
-    // invert Y so north is up
-    y: VB.pad + offY + (maxY - ys[i]) * scale,
-  }));
+  // Shared projector so minor points use the exact same transform.
+  const toXY = (lat: number, lon: number) => ({
+    x: VB.pad + offX + (lon * k - minX) * scale,
+    y: VB.pad + offY + (maxY - lat) * scale, // invert Y so north is up
+  });
+
+  const pts = WAYPOINTS.map((w) => ({ ...w, ...toXY(w.lat, w.lon) }));
+  const minor = MINOR_POINTS.map((m) => ({ ...m, ...toXY(m.lat, m.lon) }));
+  return { pts, minor };
 }
 
 // Small per-label placement tweaks so nothing collides in the eastern cluster.
@@ -66,7 +69,7 @@ const LABEL: Record<
 
 export default function RouteMap() {
   const reduce = useReducedMotion();
-  const pts = project();
+  const { pts, minor } = project();
 
   // Build the route path, segment by segment (so ferry legs can be dashed).
   const segments = pts.slice(0, -1).map((p, i) => {
@@ -103,6 +106,13 @@ export default function RouteMap() {
           <line x1="0" y1="440" x2={VB.w} y2="440" />
           <line x1="360" y1="0" x2="360" y2={VB.h} />
           <line x1="680" y1="0" x2="680" y2={VB.h} />
+        </g>
+
+        {/* Minor points of interest — small unlabeled dots, off the route line */}
+        <g fill="rgba(244,239,231,0.4)">
+          {minor.map((m) => (
+            <circle key={m.id} cx={m.x} cy={m.y} r={1.5} />
+          ))}
         </g>
 
         {/* Route segments */}
