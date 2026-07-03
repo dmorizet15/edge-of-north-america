@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { Photo } from "@/content/photos";
 import { TONES } from "@/lib/tones";
 
@@ -42,8 +42,20 @@ export default function EditorialImage({
 }: Props) {
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
   const tone = TONES[photo.tone];
   const showPlaceholder = failed || !loaded;
+
+  // If the image is served from cache it can finish loading before React
+  // attaches onLoad, so the event never fires. Catch that on mount.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (!img) return;
+    if (img.complete) {
+      if (img.naturalWidth > 0) setLoaded(true);
+      else setFailed(true);
+    }
+  }, []);
 
   const wrapperStyle = fill
     ? { position: "absolute" as const, inset: 0 }
@@ -58,6 +70,7 @@ export default function EditorialImage({
       {!failed && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
+          ref={imgRef}
           src={photo.src}
           alt={photo.location}
           loading={priority ? "eager" : "lazy"}
