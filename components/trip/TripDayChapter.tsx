@@ -1,6 +1,6 @@
 import type { TripDay, TripStop } from "@/lib/trip-types";
 import EditorialImage from "@/components/ui/EditorialImage";
-import DayMap from "@/components/DayMap";
+import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
 import Reveal from "@/components/ui/Reveal";
 import { renderText } from "@/lib/richtext";
 
@@ -58,7 +58,12 @@ export default function TripDayChapter({ day }: { day: TripDay }) {
           <div className="lg:col-span-5">
             <Reveal delay={0.1}>
               <div className="rounded-sm border border-paper/10 bg-black/20 p-6">
-                <DayMap points={day.map} />
+                <ScrollRouteMap
+                  points={day.map}
+                  mapId={`ns-day-${day.n}`}
+                  variant="day"
+                  ariaLabel={`Map of day ${day.n}: ${day.map.map((p) => p.label).join(" to ")}.`}
+                />
                 <dl className="mt-6 divide-y divide-paper/10">
                   <Detail label="Stay" value={day.hotel} />
                   <Detail label="Drive" value={day.drive} />

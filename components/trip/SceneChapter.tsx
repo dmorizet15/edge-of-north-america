@@ -1,4 +1,7 @@
-import type { ReactNode } from "react";
+"use client";
+
+import { useRef, type ReactNode } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import type { Photo } from "@/content/photos";
 import EditorialImage from "@/components/ui/EditorialImage";
 import Reveal from "@/components/ui/Reveal";
@@ -24,6 +27,8 @@ interface Props {
   priority?: boolean;
   /** Show the placeholder sourcing brief. Off for pure cinematic frames. */
   showBrief?: boolean;
+  /** Scroll-linked parallax on the image (depth as you pass the scene). */
+  parallax?: boolean;
 }
 
 // NOTE: this is a `flex flex-col`, so `justify-*` is the vertical axis and
@@ -84,16 +89,28 @@ export default function SceneChapter({
   drift = true,
   priority = false,
   showBrief = false,
+  parallax = false,
 }: Props) {
   const isCenter = placement === "center";
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-9%", "9%"]);
 
   return (
     <section
+      ref={ref}
       className={`relative w-full overflow-hidden ${
         height === "screen" ? "h-screen min-h-[640px]" : "min-h-[86vh]"
       }`}
     >
-      <EditorialImage photo={photo} fill drift={drift} priority={priority} showBrief={showBrief} />
+      {parallax && !reduce ? (
+        <motion.div className="absolute inset-0 scale-[1.18]" style={{ y: imgY }}>
+          <EditorialImage photo={photo} fill drift={drift} priority={priority} showBrief={showBrief} />
+        </motion.div>
+      ) : (
+        <EditorialImage photo={photo} fill drift={drift} priority={priority} showBrief={showBrief} />
+      )}
 
       <div
         className={`pointer-events-none absolute inset-0 bg-gradient-to-t ${OVERLAY[overlay]}`}

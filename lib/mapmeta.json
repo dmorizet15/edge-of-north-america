@@ -1,0 +1,292 @@
+{
+  "nf-day-01": {
+    "center": [
+      42.96780084976974,
+      -71.49000000000001
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-01.png"
+  },
+  "nf-day-02": {
+    "center": [
+      45.15775274139778,
+      -66.82
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-02.png"
+  },
+  "nf-day-03": {
+    "center": [
+      46.835094748938445,
+      -61.955
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-03.png"
+  },
+  "nf-day-04": {
+    "center": [
+      48.55439351779688,
+      -58.510000000000005
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-04.png"
+  },
+  "nf-day-05": {
+    "center": [
+      49.65017359617565,
+      -57.855000000000004
+    ],
+    "zoom": 10,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-05.png"
+  },
+  "nf-day-06": {
+    "center": [
+      50.57147754199453,
+      -56.705
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-06.png"
+  },
+  "nf-day-07": {
+    "center": [
+      50.28371813931488,
+      -55.215
+    ],
+    "zoom": 6,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-07.png"
+  },
+  "nf-day-08": {
+    "center": [
+      49.6150433452266,
+      -54.7
+    ],
+    "zoom": 11,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-08.png"
+  },
+  "nf-day-09": {
+    "center": [
+      49.47538818416895,
+      -54.475
+    ],
+    "zoom": 9,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-09.png"
+  },
+  "nf-day-10": {
+    "center": [
+      49.72003707064477,
+      -54.11
+    ],
+    "zoom": 11,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-10.png"
+  },
+  "nf-day-11": {
+    "center": [
+      48.92563167881948,
+      -53.89
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-11.png"
+  },
+  "nf-day-12": {
+    "center": [
+      47.74304070733782,
+      -53.644999999999996
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-12.png"
+  },
+  "nf-day-13": {
+    "center": [
+      47.29566400995133,
+      -53.335
+    ],
+    "zoom": 9,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-13.png"
+  },
+  "nf-day-14": {
+    "center": [
+      47.57003436869974,
+      -52.695
+    ],
+    "zoom": 11,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-14.png"
+  },
+  "nf-day-15": {
+    "center": [
+      47.43016055287486,
+      -53.305
+    ],
+    "zoom": 9,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/nf/nf-day-15.png"
+  },
+  "ns-day-01": {
+    "center": [
+      42.77146612103982,
+      -72.03
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-01.png"
+  },
+  "ns-day-02": {
+    "center": [
+      44.43000614777162,
+      -68.655
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-02.png"
+  },
+  "ns-day-03": {
+    "center": [
+      45.44624643263455,
+      -65.815
+    ],
+    "zoom": 8,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-03.png"
+  },
+  "ns-day-04": {
+    "center": [
+      45.243063519660375,
+      -64.26
+    ],
+    "zoom": 8,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-04.png"
+  },
+  "ns-day-05": {
+    "center": [
+      44.66000086236862,
+      -63.57
+    ],
+    "zoom": 12,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-05.png"
+  },
+  "ns-day-06": {
+    "center": [
+      44.515156373685656,
+      -63.974999999999994
+    ],
+    "zoom": 9,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-06.png"
+  },
+  "ns-day-07": {
+    "center": [
+      45.24650951008308,
+      -62.53
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-07.png"
+  },
+  "ns-day-08": {
+    "center": [
+      46.42596880264272,
+      -60.92
+    ],
+    "zoom": 8,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-08.png"
+  },
+  "ns-day-09": {
+    "center": [
+      46.73009270231861,
+      -60.68
+    ],
+    "zoom": 10,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-09.png"
+  },
+  "ns-day-10": {
+    "center": [
+      45.277764163423385,
+      -63.255
+    ],
+    "zoom": 6,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-10.png"
+  },
+  "ns-day-11": {
+    "center": [
+      44.1156398833026,
+      -67.185
+    ],
+    "zoom": 8,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-11.png"
+  },
+  "ns-day-12": {
+    "center": [
+      43.14298234715242,
+      -71
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-day-12.png"
+  },
+  "nf-route": {
+    "center": [
+      46.87769529940401,
+      -63.269999999999996
+    ],
+    "zoom": 5,
+    "w": 1200,
+    "h": 760,
+    "src": "/assets/maps/nf/nf-route.png"
+  },
+  "ns-route": {
+    "center": [
+      44.324270463485426,
+      -67.095
+    ],
+    "zoom": 6,
+    "w": 1200,
+    "h": 760,
+    "src": "/assets/maps/ns/ns-route.png"
+  }
+}

@@ -25,7 +25,7 @@ export default function Whales() {
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
-          <p className="max-w-reading font-sans text-[clamp(0.95rem,1.6vw,1.1rem)] font-light leading-relaxed text-paper/60">
+          <p className="max-w-prose font-sans text-[clamp(1.05rem,1.7vw,1.25rem)] font-light leading-relaxed text-paper/70">
             You hear it before you see it — a slow exhale across the water. A
             back, a fluke, and the sea closing over the space where it was.
           </p>

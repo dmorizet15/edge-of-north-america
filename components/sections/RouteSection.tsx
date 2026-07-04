@@ -1,4 +1,5 @@
-import RouteMap from "@/components/RouteMap";
+import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
+import { WAYPOINTS } from "@/content/route";
 import Reveal from "@/components/ui/Reveal";
 import ChapterLabel from "@/components/ui/ChapterLabel";
 
@@ -23,7 +24,12 @@ export default function RouteSection() {
 
         <Reveal delay={0.16}>
           <div className="mt-16">
-            <RouteMap />
+            <ScrollRouteMap
+              points={WAYPOINTS}
+              mapId="nf-route"
+              variant="route"
+              ariaLabel="Route map from the Hudson Valley, by ferry to Newfoundland, west to east across the island to Cape Spear, and home from Argentia."
+            />
           </div>
         </Reveal>
 
@@ -46,7 +52,7 @@ function RouteNote({ k, v }: { k: string; v: string }) {
         {k}
       </span>
       <span className="h-px w-6 bg-paper/20" />
-      <p className="max-w-[15rem] font-sans text-sm font-light leading-relaxed text-paper/65">
+      <p className="max-w-[16rem] font-sans text-[1.02rem] font-light leading-relaxed text-paper/70">
         {v}
       </p>
     </div>

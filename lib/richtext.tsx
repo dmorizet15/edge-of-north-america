@@ -25,9 +25,13 @@ export function renderText(input?: string): ReactNode {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="underline decoration-amber/50 underline-offset-[3px] transition-colors duration-200 hover:text-amber hover:decoration-amber"
+        style={{ color: "#E0A24A" }}
+        className="font-medium underline decoration-2 decoration-[#E0A24A]/45 underline-offset-[3px] transition-all duration-200 hover:decoration-[#E0A24A] hover:brightness-110"
       >
         {label}
+        <span aria-hidden className="ml-[0.15em] text-[0.72em] align-baseline opacity-70">
+          ↗
+        </span>
       </a>
     );
     last = m.index + m[0].length;

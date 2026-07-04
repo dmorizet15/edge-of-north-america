@@ -60,7 +60,7 @@ export default function WhyThisWorks() {
                 <h3 className="font-serif text-[1.35rem] font-normal leading-snug tracking-title text-ink">
                   {p.t}
                 </h3>
-                <p className="font-sans text-[0.98rem] font-light leading-relaxed text-ink/65">
+                <p className="font-sans text-[1.1rem] font-light leading-relaxed text-ink/75">
                   {p.b}
                 </p>
               </div>

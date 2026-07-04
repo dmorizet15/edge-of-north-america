@@ -6,10 +6,11 @@ import Reveal from "@/components/ui/Reveal";
 import ChapterLabel from "@/components/ui/ChapterLabel";
 import EditorialImage from "@/components/ui/EditorialImage";
 import SceneChapter from "@/components/trip/SceneChapter";
-import TripRouteMap from "@/components/trip/TripRouteMap";
+import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
+import Starfield from "@/components/trip/Starfield";
 import TripDayChapter from "@/components/trip/TripDayChapter";
 import { NS_PHOTOS } from "@/content/nova-scotia/photos";
-import { NS_WAYPOINTS, NS_LABELS } from "@/content/nova-scotia/route";
+import { NS_WAYPOINTS } from "@/content/nova-scotia/route";
 import { NS_DAYS, NS_GLANCE, NS_ROUTE_NOTES } from "@/content/nova-scotia/itinerary";
 
 export const metadata: Metadata = {
@@ -48,6 +49,7 @@ export default function NovaScotiaTrip() {
         scale="xl"
         overlay="medium"
         priority
+        parallax
       />
 
       {/* 02 — Why this feels easier */}
@@ -170,7 +172,8 @@ function DarkSkyBand() {
     <section className="relative w-full overflow-hidden bg-nearblack">
       <div className="relative h-[42vh] min-h-[300px] w-full overflow-hidden">
         <EditorialImage photo={NS_PHOTOS.nightSky} fill drift showBrief={false} />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-nearblack via-nearblack/50 to-black/30" />
+        <Starfield count={130} seed={17} className="mix-blend-screen" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-nearblack via-nearblack/50 to-black/25" />
       </div>
       <div className="mx-auto max-w-5xl px-[clamp(1.4rem,5vw,4.5rem)] py-[10vh]">
         <Reveal>
@@ -207,20 +210,6 @@ function DarkSkyBand() {
   );
 }
 
-/** Stylized, abstract landmasses for the Nova Scotia route map. */
-function NSLandmasses() {
-  return (
-    <>
-      {/* New England / Maine (lower-left) */}
-      <path d="M20,368 C110,300 210,300 285,352 C338,392 350,472 306,545 C252,608 120,616 48,562 C6,505 -6,428 20,368 Z" />
-      {/* New Brunswick + mainland Nova Scotia (center) */}
-      <path d="M352,176 C470,146 604,168 706,220 C778,257 810,334 766,404 C714,478 600,524 498,512 C416,502 378,452 368,382 C362,320 332,238 352,176 Z" />
-      {/* Cape Breton Island (upper-right) */}
-      <path d="M792,150 C862,130 940,152 968,214 C992,266 980,326 934,364 C888,400 822,398 788,356 C762,322 764,250 774,212 C779,187 782,164 792,150 Z" />
-    </>
-  );
-}
-
 /** The whole shape, drawn, plus the trip's headline numbers. */
 function RouteBand() {
   return (
@@ -238,11 +227,10 @@ function RouteBand() {
 
         <Reveal delay={0.16}>
           <div className="mt-16">
-            <TripRouteMap
-              waypoints={NS_WAYPOINTS}
-              labels={NS_LABELS}
-              landmasses={<NSLandmasses />}
-              highlightId="ingonish"
+            <ScrollRouteMap
+              points={NS_WAYPOINTS}
+              mapId="ns-route"
+              variant="route"
               ariaLabel="Route map: Salt Point, New York, north up the Maine coast into Canada, a loop around Nova Scotia to Cape Breton, and home by ferry from Yarmouth to Bar Harbor, Maine."
             />
           </div>

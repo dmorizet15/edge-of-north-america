@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { PHOTOS } from "@/content/photos";
 import EditorialImage from "@/components/ui/EditorialImage";
+import Starfield from "@/components/trip/Starfield";
 
 /**
  * Hero / Cover. Before dawn. The destination is withheld.
@@ -18,6 +19,13 @@ export default function Hero() {
       {/* Deepen the dark, keep the horizon breathing. */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80" />
       <div className="pointer-events-none absolute inset-0 bg-nearblack/25" />
+
+      {/* A field of stars over the pre-dawn Atlantic. */}
+      <Starfield
+        count={80}
+        seed={3}
+        className="opacity-70 [mask-image:linear-gradient(to_bottom,black_0%,black_42%,transparent_72%)]"
+      />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
         <motion.p

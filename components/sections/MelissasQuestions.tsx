@@ -53,7 +53,7 @@ export default function MelissasQuestions() {
                 <h3 className="font-serif text-[clamp(1.2rem,2.2vw,1.6rem)] font-normal leading-snug tracking-title text-paper md:col-span-5">
                   {item.q}
                 </h3>
-                <p className="font-sans text-[clamp(0.98rem,1.5vw,1.1rem)] font-light leading-relaxed text-paper/65 md:col-span-7">
+                <p className="font-sans text-[clamp(1.08rem,1.6vw,1.28rem)] font-light leading-relaxed text-paper/75 md:col-span-7">
                   {item.a}
                 </p>
               </div>

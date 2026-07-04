@@ -68,7 +68,7 @@ export default function TextChapter({
       {footnote && (
         <Reveal delay={0.2 + lines.length * 0.14}>
           <p
-            className={`mt-14 max-w-reading font-sans text-[clamp(0.95rem,1.4vw,1.05rem)] font-light leading-relaxed ${foot}`}
+            className={`mt-14 max-w-prose font-sans text-[clamp(1.05rem,1.6vw,1.2rem)] font-light leading-relaxed ${foot}`}
           >
             {footnote}
           </p>

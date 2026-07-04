@@ -29,7 +29,7 @@ export default function FogoInn() {
             </h2>
           </Reveal>
           <Reveal delay={0.18}>
-            <p className="max-w-reading font-sans text-[clamp(0.95rem,1.5vw,1.08rem)] font-light leading-relaxed text-paper/65">
+            <p className="max-w-prose font-sans text-[clamp(1.05rem,1.6vw,1.25rem)] font-light leading-relaxed text-paper/75">
               A room the size of the weather. Wood, wool, and a window that
               holds the whole North Atlantic. Two nights here is not a stop on
               the way — it is the reason the rest of the drive feels easy.
