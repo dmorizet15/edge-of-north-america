@@ -15,7 +15,7 @@ import { NS_DAYS, NS_GLANCE, NS_ROUTE_NOTES } from "@/content/nova-scotia/itiner
 export const metadata: Metadata = {
   title: "Nova Scotia — The Ocean Road",
   description:
-    "The warmer, easier one: ocean roads and historic inns, seafood and the Cabot Trail, dark skies over Cape Breton, and a ferry home across the Gulf of Maine. A 14-day 2026 road trip.",
+    "The warmer, easier one: ocean roads and historic inns, seafood and the Cabot Trail, dark skies over Cape Breton, and a ferry home across the Gulf of Maine. A 12-day 2026 road trip (Aug 7–18).",
 };
 
 /**
@@ -142,7 +142,7 @@ export default function NovaScotiaTrip() {
         index="—"
         chapter="Home by a different sea"
         title="Say yes to the easy one."
-        line="Fourteen days, one ocean crossing home, and the trip you'll keep talking about. When do we go?"
+        line="Twelve days, one ocean crossing home, and the trip you'll keep talking about. August 7–18, 2026 — when do we go?"
         placement="center"
         scale="lg"
         overlay="strong"
@@ -182,7 +182,7 @@ function DarkSkyBand() {
           </h2>
         </Reveal>
         <Reveal delay={0.16}>
-          <p className="mx-auto mt-8 max-w-reading text-center font-sans text-[clamp(0.98rem,1.6vw,1.12rem)] font-light leading-relaxed text-paper/70">
+          <p className="mx-auto mt-8 max-w-prose text-center font-sans text-[clamp(1.08rem,1.7vw,1.28rem)] font-light leading-relaxed text-paper/75">
             No one can promise stars — only clear, moonless nights can. But this
             route strings together some of the darkest skies in the Maritimes,
             and on the nights it works, it&rsquo;s the kind of sky most people
@@ -195,7 +195,7 @@ function DarkSkyBand() {
             {candidates.map((c) => (
               <li key={c} className="flex items-start gap-3">
                 <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-ice/80" aria-hidden />
-                <span className="font-sans text-[0.95rem] font-light leading-relaxed text-paper/75">
+                <span className="font-sans text-[1.05rem] font-light leading-relaxed text-paper/80">
                   {c}
                 </span>
               </li>
@@ -256,7 +256,7 @@ function RouteBand() {
                   {n.k}
                 </span>
                 <span className="h-px w-6 bg-paper/20" />
-                <p className="max-w-[15rem] font-sans text-sm font-light leading-relaxed text-paper/65">
+                <p className="max-w-[16rem] font-sans text-[1.02rem] font-light leading-relaxed text-paper/70">
                   {n.v}
                 </p>
               </div>
@@ -301,11 +301,12 @@ function ActTwoIntroNS() {
         <div className="mx-auto mt-10 h-px w-16 bg-paper/25" />
       </Reveal>
       <Reveal delay={0.28}>
-        <p className="mt-10 max-w-reading font-serif text-[clamp(1.05rem,2.1vw,1.45rem)] font-light italic leading-relaxed text-paper/75">
-          Fourteen days from Salt Point to the Cabot Trail and home across the
-          Gulf of Maine — planned around the meals, the views, the rest, and the
-          charging. Each day is a luxury guide, not a spreadsheet: where to wake,
-          where to stop, where to look up.
+        <p className="mt-10 max-w-prose font-serif text-[clamp(1.2rem,2.2vw,1.6rem)] font-light italic leading-relaxed text-paper/80">
+          Twelve days from Salt Point to the Cabot Trail and home across the
+          Gulf of Maine — August 7 to 18, 2026, timed around the Yarmouth ferry.
+          Planned around the meals, the views, the rest, and the charging. Each
+          day is a luxury guide, not a spreadsheet: where to wake, where to stop,
+          where to look up.
         </p>
       </Reveal>
     </section>

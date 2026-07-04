@@ -40,7 +40,7 @@ export default function Home() {
           <div className="mx-auto mt-10 h-px w-16 bg-paper/25" />
         </Reveal>
         <Reveal delay={0.24}>
-          <p className="mx-auto mt-10 max-w-reading font-serif text-[clamp(1.05rem,2.1vw,1.45rem)] font-light italic leading-relaxed text-paper/75">
+          <p className="mx-auto mt-10 max-w-prose font-serif text-[clamp(1.2rem,2.3vw,1.6rem)] font-light italic leading-relaxed text-paper/80">
             One is a dramatic expedition to the edge of the continent. One is a
             warmer, easier ocean road that ends with a ferry home. Choose a
             journey — the whole thing unfolds from there.
@@ -62,7 +62,7 @@ export default function Home() {
         </div>
 
         <Reveal delay={0.2}>
-          <p className="mx-auto mt-16 max-w-reading text-center font-sans text-sm font-light leading-relaxed text-paper/45">
+          <p className="mx-auto mt-16 max-w-prose text-center font-sans text-[clamp(0.95rem,1.4vw,1.05rem)] font-light leading-relaxed text-paper/55">
             Two trips today, more to come. Each is a full cinematic overview and
             a day-by-day guide — planned around the meals, the views, and the
             rest. Timings and distances are honest working estimates; verify

@@ -29,7 +29,7 @@ export const TRIPS: TripSummary[] = [
     subtitle: "The Ocean Road",
     description:
       "The warmer, easier one. Ocean roads and historic inns, seafood and the Cabot Trail, dark skies over Cape Breton — and a ferry home across the Gulf of Maine.",
-    length: "14 days",
+    length: "12 days · Aug 2026",
     tone: "Warm · easy · coastal",
     route: "Salt Point → Maine → Nova Scotia → home by ferry",
     hero: NS_PHOTOS.cover,

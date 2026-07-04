@@ -2,6 +2,7 @@ import type { TripDay, TripStop } from "@/lib/trip-types";
 import EditorialImage from "@/components/ui/EditorialImage";
 import DayMap from "@/components/DayMap";
 import Reveal from "@/components/ui/Reveal";
+import { renderText } from "@/lib/richtext";
 
 /**
  * One day of a trip, rendered as a luxury expedition spread: a cinematic photo
@@ -35,7 +36,9 @@ export default function TripDayChapter({ day }: { day: TripDay }) {
           {/* The day, hour by hour */}
           <div className="lg:col-span-7">
             <Reveal>
-              <span className="eyebrow text-paper/55">The day</span>
+              <span className="eyebrow text-paper/60" style={{ fontSize: "0.74rem" }}>
+                The day
+              </span>
             </Reveal>
             <ol className="mt-8">
               <Moment label="Morning" body={day.morningLocation} />
@@ -74,11 +77,11 @@ export default function TripDayChapter({ day }: { day: TripDay }) {
             <figure className="mt-16 flex gap-5 rounded-sm border border-ice/20 bg-navy/25 p-6 sm:gap-6 sm:p-8">
               <StarMark />
               <div>
-                <figcaption className="eyebrow text-ice" style={{ fontSize: "0.6rem" }}>
+                <figcaption className="eyebrow text-ice" style={{ fontSize: "0.66rem" }}>
                   Tonight&rsquo;s sky
                 </figcaption>
-                <p className="mt-3 max-w-3xl font-sans text-[clamp(0.98rem,1.6vw,1.15rem)] font-light leading-relaxed text-paper/85">
-                  {day.sky}
+                <p className="mt-3 max-w-3xl font-sans text-[clamp(1.08rem,1.7vw,1.3rem)] font-light leading-relaxed text-paper/85">
+                  {renderText(day.sky)}
                 </p>
               </div>
             </figure>
@@ -88,11 +91,11 @@ export default function TripDayChapter({ day }: { day: TripDay }) {
         {/* Today's Memory */}
         <Reveal>
           <figure className="mt-16 border-l-2 border-amber pl-6 sm:pl-10">
-            <figcaption className="eyebrow text-amber" style={{ fontSize: "0.6rem" }}>
+            <figcaption className="eyebrow text-amber" style={{ fontSize: "0.66rem" }}>
               Today&rsquo;s memory
             </figcaption>
-            <blockquote className="mt-4 max-w-3xl font-serif text-[clamp(1.35rem,2.8vw,2.1rem)] font-normal italic leading-snug tracking-title text-paper/95">
-              {day.memory}
+            <blockquote className="mt-4 max-w-3xl font-serif text-[clamp(1.5rem,3vw,2.3rem)] font-normal italic leading-snug tracking-title text-paper/95">
+              {renderText(day.memory)}
             </blockquote>
           </figure>
         </Reveal>
@@ -105,24 +108,30 @@ function Header({ day }: { day: TripDay }) {
   return (
     <div className="max-w-3xl">
       <Reveal>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <span className="eyebrow tabular-nums text-amber">Day {day.n}</span>
+          {day.date && (
+            <>
+              <span className="h-px w-8 bg-paper/30" aria-hidden />
+              <span className="eyebrow tabular-nums text-paper/80">{day.date}</span>
+            </>
+          )}
           <span className="h-px w-8 bg-paper/30" aria-hidden />
           <span className="eyebrow text-paper/70">{day.region}</span>
         </div>
       </Reveal>
       <Reveal delay={0.08}>
-        <h3 className="mt-5 font-serif text-[clamp(2rem,5vw,3.6rem)] font-normal leading-[1.02] tracking-title text-paper">
+        <h3 className="mt-5 font-serif text-[clamp(2.3rem,5.4vw,4rem)] font-normal leading-[1.02] tracking-title text-paper">
           {day.title}
         </h3>
       </Reveal>
       <Reveal delay={0.16}>
-        <p className="mt-4 max-w-xl font-serif text-[clamp(1rem,1.8vw,1.35rem)] font-light italic leading-relaxed text-paper/75">
+        <p className="mt-5 max-w-xl font-serif text-[clamp(1.2rem,2vw,1.6rem)] font-light italic leading-relaxed text-paper/80">
           {day.subtitle}
         </p>
       </Reveal>
       <Reveal delay={0.22}>
-        <p className="eyebrow mt-6 text-paper/45" style={{ fontSize: "0.6rem" }}>
+        <p className="eyebrow mt-6 text-paper/55" style={{ fontSize: "0.68rem" }}>
           {day.leg}
         </p>
       </Reveal>
@@ -150,7 +159,9 @@ function Moment({
           style={last ? { display: "none" } : undefined}
         />
         <span className="pt-1 text-right">
-          <span className="eyebrow text-paper/50">{label}</span>
+          <span className="eyebrow text-paper/55" style={{ fontSize: "0.7rem" }}>
+            {label}
+          </span>
         </span>
         <span className="relative">
           <span
@@ -159,8 +170,8 @@ function Moment({
             }`}
             aria-hidden
           />
-          <p className="font-sans text-[clamp(0.95rem,1.4vw,1.05rem)] font-light leading-relaxed text-paper/80">
-            {body}
+          <p className="font-sans text-[clamp(1.05rem,1.5vw,1.2rem)] font-light leading-relaxed text-paper/85">
+            {renderText(body)}
           </p>
         </span>
       </li>
@@ -177,9 +188,11 @@ function StopMoment({ stop }: { stop: TripStop }) {
           aria-hidden
         />
         <span className="pt-1 text-right">
-          <span className="eyebrow text-amber">{stop.ferry ? "Ferry" : "Stop"}</span>
+          <span className="eyebrow text-amber" style={{ fontSize: "0.7rem" }}>
+            {stop.ferry ? "Ferry" : "Stop"}
+          </span>
           {stop.time && (
-            <span className="mt-1 block font-sans text-[0.7rem] tabular-nums text-paper/45">
+            <span className="mt-1 block font-sans text-[0.8rem] tabular-nums text-paper/55">
               {stop.time}
             </span>
           )}
@@ -189,11 +202,11 @@ function StopMoment({ stop }: { stop: TripStop }) {
             className="absolute -left-[calc(1.25rem+1px)] top-2 h-2 w-2 -translate-x-1/2 rounded-full bg-amber"
             aria-hidden
           />
-          <h4 className="font-serif text-[clamp(1.1rem,1.9vw,1.45rem)] font-normal leading-snug tracking-title text-paper">
-            {stop.name}
+          <h4 className="font-serif text-[clamp(1.25rem,2vw,1.6rem)] font-normal leading-snug tracking-title text-paper">
+            {renderText(stop.name)}
           </h4>
-          <p className="mt-2 font-sans text-[clamp(0.92rem,1.35vw,1.02rem)] font-light leading-relaxed text-paper/70">
-            {stop.note}
+          <p className="mt-2 font-sans text-[clamp(1rem,1.45vw,1.15rem)] font-light leading-relaxed text-paper/75">
+            {renderText(stop.note)}
           </p>
         </span>
       </li>
@@ -203,12 +216,12 @@ function StopMoment({ stop }: { stop: TripStop }) {
 
 function Detail({ label, value }: { label: string; value: string }) {
   return (
-    <div className="grid grid-cols-[6rem_1fr] gap-4 py-4">
-      <dt className="eyebrow pt-0.5 text-amber/90" style={{ fontSize: "0.58rem" }}>
+    <div className="grid grid-cols-[5.5rem_1fr] gap-4 py-4">
+      <dt className="eyebrow pt-0.5 text-amber/90" style={{ fontSize: "0.64rem" }}>
         {label}
       </dt>
-      <dd className="font-sans text-[0.92rem] font-light leading-relaxed text-paper/75">
-        {value}
+      <dd className="font-sans text-[1.02rem] font-light leading-relaxed text-paper/80">
+        {renderText(value)}
       </dd>
     </div>
   );

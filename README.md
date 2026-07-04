@@ -13,7 +13,7 @@ sequencing — never marketing language.
   Preserved exactly; only relocated to `/trips/newfoundland`.
 - **Nova Scotia — *The Ocean Road.*** The warmer, easier one: ocean roads and
   historic inns, seafood and the Cabot Trail, dark skies over Cape Breton, and a
-  ferry home across the Gulf of Maine. A relaxed 14-day 2026 road trip for
+  ferry home across the Gulf of Maine. A relaxed 12-day 2026 road trip (Aug 7–18) for
   Darren & Melissa, at `/trips/nova-scotia`.
 
 ```
@@ -99,7 +99,7 @@ app/
   trips/
     layout.tsx                   Shared trip chrome (the "All trips" back nav)
     newfoundland/page.tsx        Edge of North America (relocated, unchanged)
-    nova-scotia/page.tsx         The Ocean Road (overview + 14-day guide)
+    nova-scotia/page.tsx         The Ocean Road (overview + 12-day guide)
 components/
   RouteMap.tsx                   Newfoundland's bespoke route SVG
   DayMap.tsx                     Per-day mini-map (shared, registry-agnostic)
@@ -119,7 +119,7 @@ content/
   nova-scotia/
     photos.ts                    Nova Scotia photography registry
     route.ts                     Nova Scotia waypoints + map labels
-    itinerary.ts                 The 14-day guide + overview data
+    itinerary.ts                 The 12-day guide + overview data
 lib/
   fonts.ts                       Centralized typography
   tones.ts                       The darkness → first-light gradient system

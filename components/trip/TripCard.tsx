@@ -43,12 +43,12 @@ export default function TripCard({
             <h3 className="mt-3 font-serif text-[clamp(2rem,4.6vw,3.4rem)] font-normal leading-[0.98] tracking-title text-paper">
               {trip.name}
             </h3>
-            <p className="mt-4 max-w-md font-sans text-[clamp(0.92rem,1.4vw,1.02rem)] font-light leading-relaxed text-paper/75">
+            <p className="mt-4 max-w-md font-sans text-[clamp(1rem,1.5vw,1.15rem)] font-light leading-relaxed text-paper/80">
               {trip.description}
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
-              <span className="eyebrow text-paper/55" style={{ fontSize: "0.6rem" }}>
+              <span className="eyebrow text-paper/60" style={{ fontSize: "0.66rem" }}>
                 {trip.tone}
               </span>
             </div>

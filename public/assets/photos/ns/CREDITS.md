@@ -26,15 +26,16 @@ are listed; please keep this file with the project to satisfy attribution terms.
 | `15-cape-forchu.jpg` | Lighthouse NS-01674 - Cape Forchu Lighthouse (28831954855) | Dennis G. Jarvis | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Lighthouse_NS-01674_-_Cape_Forchu_Lighthouse_(28831954855).jpg) |
 | `16-ferry.jpg` | TV-009-0029 (14140143183) | André Carrotflower | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:TV-009-0029_(14140143183).jpg) |
 | `17-bar-harbor.jpg` | Frenchman Bay, Acadia National Park, Bar Harbor, Maine (68551213) | Ken Lund from Reno, Nevada, USA | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Frenchman_Bay,_Acadia_National_Park,_Bar_Harbor,_Maine_(68551213).jpg) |
-| `18-closing.jpg` | Acadia National Park, Schoodic Point coastline | National Park Service / Victoria Stauffenberg derivative work: User:Maps and stuff (cropped to 3:2 ratio; brightened dark areas; increased saturation slightly) | Public domain | [Commons](https://commons.wikimedia.org/wiki/File:Acadia_National_Park,_Schoodic_Point_coastline.jpg) |
+| `18-closing.jpg` | Acadia National Park, Schoodic Point coastline | National Park Service / Victoria Stauffenberg | Public domain | [Commons](https://commons.wikimedia.org/wiki/File:Acadia_National_Park,_Schoodic_Point_coastline.jpg) |
+| `19-night-sky.jpg` | Milky Way over Åbyfjorden (generic dark sky — see note) | W. Carter | CC0 (public domain) | [Commons](https://commons.wikimedia.org/wiki/File:Stars_and_Milky_Way_over_%C3%85byfjorden_2.jpg) |
 
-**Not yet placed**
-- `19-night-sky.jpg` — intentionally left as an elegant tonal placeholder. No
-  Nova Scotia-specific dark-sky photograph was available on Commons at suitable
-  resolution, and a generic Milky Way image would violate the project's
-  "never substitute one location for another" rule. The "Tonight's Sky" band
-  renders it as a clean dark field until a real Cape Breton / Kejimkujik
-  night-sky photo is placed here.
+**Note on the night sky (`19-night-sky.jpg`)**
+- This is a **generic** Milky Way photograph (taken in Sweden), used by explicit
+  request as an evocative stand-in for the "Tonight's Sky" band — the one place
+  the project's "never substitute one location for another" rule is deliberately
+  relaxed. It carries no identifiable foreground, so it reads simply as a dark
+  sky over water. Swap in a real Cape Breton / Kejimkujik night-sky photo if one
+  becomes available. (CC0 — no attribution required, but credited here anyway.)
 
 **Note on the ferry (`16-ferry.jpg`)**
 - A photograph of the specific *Yarmouth → Bar Harbor (The CAT)* vessel was not

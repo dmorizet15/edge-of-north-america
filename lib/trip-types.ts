@@ -36,6 +36,8 @@ export interface TripMapPoint {
  */
 export interface TripDay {
   n: string;
+  /** Human date for this day, e.g. "Friday · August 7, 2026". */
+  date?: string;
   region: string;
   leg: string;
   title: string;
@@ -83,7 +85,7 @@ export interface TripSummary {
   subtitle: string;
   /** One-line emotional description for the card. */
   description: string;
-  /** Trip length, e.g. "14 days". */
+  /** Trip length, e.g. "12 days". */
   length: string;
   /** Emotional tone, e.g. "Warm · easy · coastal". */
   tone: string;
