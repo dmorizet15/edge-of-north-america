@@ -5,6 +5,13 @@ the frame swaps automatically (the tonal placeholder fades out). Same rules as
 the Newfoundland set: **real photography only, no AI scenery, and one named
 location is never substituted for another.**
 
+> **Status:** 18 of 19 frames are already filled with location-correct,
+> freely-licensed photography from Wikimedia Commons — see
+> [`CREDITS.md`](CREDITS.md) for authors, licenses, and source links. Only
+> `19-night-sky.jpg` remains a placeholder (no Nova Scotia dark-sky photo was
+> available; a generic Milky Way would break the no-substitution rule). To
+> improve any frame, replace the file in place and update `CREDITS.md`.
+
 The single source of truth is [`content/nova-scotia/photos.ts`](../../../../content/nova-scotia/photos.ts).
 Each entry there also carries composition notes; the search terms below are the
 starting point for sourcing.
