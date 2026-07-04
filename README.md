@@ -1,10 +1,26 @@
-# Edge of North America
+# Trips — a private travel portal
 
-A cinematic, single-scroll pitch for a Newfoundland expedition — built to be
-experienced, not read. The piece opens before dawn, crosses an ocean at night,
-lands at first light, and climbs to Cape Spear, where the sun reaches North
-America first. The argument is made through photography, typography, pacing,
-whitespace, and sequencing — never through marketing language.
+A small, cinematic travel portal built to be *experienced*, not read. A landing
+page lets you choose a journey; each journey is a full cinematic overview plus a
+day-by-day guide, made through photography, typography, pacing, whitespace, and
+sequencing — never marketing language.
+
+**Two trips today:**
+
+- **Newfoundland — *The Edge of North America.*** The original: a dramatic
+  expedition that opens before dawn, crosses an ocean at night, lands at first
+  light, and climbs to Cape Spear, where the sun reaches the continent first.
+  Preserved exactly; only relocated to `/trips/newfoundland`.
+- **Nova Scotia — *The Ocean Road.*** The warmer, easier one: ocean roads and
+  historic inns, seafood and the Cabot Trail, dark skies over Cape Breton, and a
+  ferry home across the Gulf of Maine. A relaxed 14-day 2026 road trip for
+  Darren & Melissa, at `/trips/nova-scotia`.
+
+```
+/                       The menu — elegant trip cards
+/trips/newfoundland     The Edge of North America (unchanged)
+/trips/nova-scotia      The Ocean Road
+```
 
 Design references: Apple product pages, National Geographic, Condé Nast
 Traveler, Aesop, A24, Kinfolk.
@@ -51,12 +67,17 @@ location, suggested search terms, the ideal aspect ratio, and composition notes.
 The placeholders follow the darkness → first-light color arc, so the piece reads
 as intentional even before a single photo is dropped in.
 
-Every image is defined once in [`content/photos.ts`](content/photos.ts). To
-place a real photograph, simply drop a file at its `src` path inside
-[`public/assets/photos/`](public/assets/photos/) — the frame detects it and
-fades the real image in automatically. No code changes required. The expected
-filenames and locations are listed in
-[`public/assets/photos/README.md`](public/assets/photos/README.md).
+Every image is defined once per trip — Newfoundland in
+[`content/photos.ts`](content/photos.ts), Nova Scotia in
+[`content/nova-scotia/photos.ts`](content/nova-scotia/photos.ts). To place a
+real photograph, simply drop a file at its `src` path inside
+[`public/assets/photos/`](public/assets/photos/) (or
+[`public/assets/photos/ns/`](public/assets/photos/ns/) for Nova Scotia) — the
+frame detects it and fades the real image in automatically. No code changes
+required. Expected filenames and search terms are listed in each folder's
+README. On marquee frames (menu cards and heroes) the placeholder shows as a
+clean tonal field; the working sourcing brief stays visible on the day-by-day
+photo bands via the `showBrief` prop on `<EditorialImage>`.
 
 **Licensing flags**
 - **Fogo Island Inn** imagery requires a license or written permission — the
@@ -73,34 +94,70 @@ Commons, Unsplash, Pexels, licensed stock, official hotel media with permission.
 
 ```
 app/
-  layout.tsx            Root shell, fonts, metadata
-  page.tsx              The full 24-section sequence, assembled
+  layout.tsx                     Root shell, fonts, metadata
+  page.tsx                       The menu — trip cards, driven by lib/trips.ts
+  trips/
+    layout.tsx                   Shared trip chrome (the "All trips" back nav)
+    newfoundland/page.tsx        Edge of North America (relocated, unchanged)
+    nova-scotia/page.tsx         The Ocean Road (overview + 14-day guide)
 components/
-  RouteMap.tsx          Bespoke National Geographic-style SVG (projected coords)
-  sections/             One module per chapter (Hero, Ferry, CapeSpear, …)
-  ui/                   Reusable primitives:
-    EditorialImage        photo / premium placeholder
-    CoordinateBadge       reusable geographic marker
-    ChapterLabel          tracked chapter eyebrow
-    SectionDivider        quiet whitespace beat
-    Reveal                Framer Motion scroll reveal
-    ScrollProgress        hairline progress line
-    Section               band wrapper
+  RouteMap.tsx                   Newfoundland's bespoke route SVG
+  DayMap.tsx                     Per-day mini-map (shared, registry-agnostic)
+  sections/                      Newfoundland chapters (Hero, Ferry, CapeSpear, …)
+  trip/                          Reusable, trip-agnostic building blocks:
+    TripCard                       landing card (hero, tone, length, link)
+    SceneChapter                   full-bleed overview chapter (takes a Photo)
+    TripDayChapter                 luxury day spread (+ "Tonight's Sky")
+    TripRouteMap                   route SVG for any trip's waypoints
+    TripNav                        the quiet "All trips" back affordance
+  ui/                            Shared primitives (all reused by both trips):
+    EditorialImage                 photo / premium placeholder (+ showBrief)
+    CoordinateBadge, ChapterLabel, SectionDivider, Reveal,
+    ScrollProgress, Section
 content/
-  photos.ts             Photography registry (single source of truth)
-  route.ts              Waypoints + coordinates for the map & badges
+  photos.ts, route.ts, itinerary.ts    Newfoundland content
+  nova-scotia/
+    photos.ts                    Nova Scotia photography registry
+    route.ts                     Nova Scotia waypoints + map labels
+    itinerary.ts                 The 14-day guide + overview data
 lib/
-  fonts.ts              Centralized typography
-  tones.ts              The darkness → first-light gradient system
+  fonts.ts                       Centralized typography
+  tones.ts                       The darkness → first-light gradient system
+  trip-types.ts                  Shared TripDay / TripWaypoint / TripSummary
+  trips.ts                       The trip registry (drives the menu)
 public/assets/
-  photos/               Drop real photography here
-  maps/                 Supporting map assets
+  photos/                        Newfoundland photos (drop real images here)
+  photos/ns/                     Nova Scotia photos (see its README)
 styles/
-  globals.css           Base styles, grain, reduced-motion support
+  globals.css                    Base styles, grain, reduced-motion support
 ```
 
-Maps are their own reusable component. Coordinate badges, section dividers, and
-chapter labels are reusable. Typography and the palette are centralized.
+The `components/trip/*` set, `DayMap`, and every `components/ui/*` primitive are
+reusable across trips; typography, the palette, and the tonal placeholder system
+are centralized. The Newfoundland experience keeps its own original section
+components untouched.
+
+---
+
+## Adding a future trip
+
+The architecture is built so a new trip is additive — nothing existing has to
+change. To add, say, `prince-edward-island`:
+
+1. **Content** — create `content/prince-edward-island/`:
+   - `photos.ts` — export a registry `satisfies Record<string, Photo>` (reuse the
+     `Photo`/`Tone` types from `content/photos.ts`).
+   - `route.ts` — export `TripWaypoint[]` and a labels map.
+   - `itinerary.ts` — export `TripDay[]` (import `TripDay` from `lib/trip-types.ts`)
+     plus any overview/glance data.
+2. **Page** — add `app/trips/prince-edward-island/page.tsx`. Compose the overview
+   from `SceneChapter`, the map from `TripRouteMap`, and the guide by mapping your
+   days through `TripDayChapter`. Give it its own `export const metadata`.
+3. **Register** — add one `TripSummary` object to `TRIPS` in `lib/trips.ts` (name,
+   subtitle, description, length, tone, route, `hero` photo, `href`, `order`).
+
+That's it — the card appears on the menu, the back-nav works for free, and the
+day layout, maps, placeholders, and motion all come from the shared components.
 
 ---
 

@@ -22,6 +22,14 @@ interface Props {
   className?: string;
   /** Priority hint for above-the-fold frames. */
   priority?: boolean;
+  /**
+   * Show the in-frame sourcing brief (location / search / compose) on the
+   * placeholder. On by default so nothing is lost; set false on marquee
+   * cinematic frames (heroes, menu cards) that should read as pure image.
+   * The exact search terms still live in the photo registry and the photos
+   * README for whoever sources the real photography.
+   */
+  showBrief?: boolean;
 }
 
 /**
@@ -39,6 +47,7 @@ export default function EditorialImage({
   fill = false,
   className = "",
   priority = false,
+  showBrief = true,
 }: Props) {
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -84,7 +93,14 @@ export default function EditorialImage({
 
       {/* Tonal placeholder — visible until a real photo loads. */}
       {showPlaceholder && (
-        <Placeholder photo={photo} onDark={tone.onDark} accent={tone.accent} drift={drift} frame={tone.frame} />
+        <Placeholder
+          photo={photo}
+          onDark={tone.onDark}
+          accent={tone.accent}
+          drift={drift}
+          frame={tone.frame}
+          showBrief={showBrief}
+        />
       )}
     </div>
   );
@@ -96,12 +112,14 @@ function Placeholder({
   accent,
   drift,
   frame,
+  showBrief = true,
 }: {
   photo: Photo;
   onDark: boolean;
   accent: string;
   drift: boolean;
   frame: React.CSSProperties;
+  showBrief?: boolean;
 }) {
   const fg = onDark ? "rgba(244,239,231,0.92)" : "rgba(27,27,29,0.9)";
   const fgQuiet = onDark ? "rgba(244,239,231,0.5)" : "rgba(27,27,29,0.5)";
@@ -128,7 +146,9 @@ function Placeholder({
 
       {/* Editorial metadata — the sourcing brief, kept as a compact caption in
           the top corner so a section's own title (usually anchored lower) has
-          clean room. Disappears the moment a real photograph loads. */}
+          clean room. Disappears the moment a real photograph loads, and can be
+          suppressed entirely on marquee frames via `showBrief`. */}
+      {showBrief && (
       <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-6 p-[clamp(1.1rem,3vw,2.5rem)]">
         <div className="max-w-md">
           <span
@@ -156,6 +176,7 @@ function Placeholder({
           {photo.aspectRatio}
         </span>
       </div>
+      )}
     </div>
   );
 }

@@ -3,13 +3,16 @@ import { displaySerif, bodySans } from "@/lib/fonts";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Edge of North America",
+  title: {
+    default: "Trips — Two Roads North",
+    template: "%s",
+  },
   description:
-    "A journey from darkness to first light — a Newfoundland expedition, told as an experience.",
+    "A private travel portal: choose a journey. Newfoundland — the dramatic expedition to the easternmost light; or Nova Scotia — the warmer ocean road home by ferry.",
   openGraph: {
-    title: "Edge of North America",
+    title: "Trips — Two Roads North",
     description:
-      "A journey from darkness to first light — a Newfoundland expedition.",
+      "Choose a journey: Newfoundland, the dramatic expedition; or Nova Scotia, the warmer ocean road.",
     type: "website",
   },
 };
