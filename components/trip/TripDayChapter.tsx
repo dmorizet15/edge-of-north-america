@@ -54,8 +54,8 @@ export default function TripDayChapter({ day }: { day: TripDay }) {
             </ol>
           </div>
 
-          {/* Practical detail + map */}
-          <div className="lg:col-span-5">
+          {/* Practical detail + map — sticky so the map holds while you read the day */}
+          <div className="lg:col-span-5 lg:sticky lg:top-[10vh] lg:self-start">
             <Reveal delay={0.1}>
               <div className="rounded-sm border border-paper/10 bg-black/20 p-6">
                 <ScrollRouteMap

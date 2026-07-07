@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import {
   motion,
-  useScroll,
+  useMotionValue,
   useSpring,
   useTransform,
   useReducedMotion,
@@ -42,15 +42,38 @@ export default function ScrollRouteMap({ points, mapId, ariaLabel, variant = "da
   const ref = useRef<HTMLDivElement>(null);
   const meta = META[mapId];
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 0.85", "end 0.45"],
-  });
-  const progress = useSpring(reduce ? (1 as unknown as MotionValue<number>) : scrollYProgress, {
-    stiffness: 55,
-    damping: 22,
-    restDelta: 0.001,
-  });
+  // Drive the line-draw from the enclosing section's scroll position (not this
+  // element's), so when the map is pinned (sticky) the segment still completes
+  // as you scroll through the day, then holds — "scroll the segment, release the
+  // page". Completes over the first ~55% of the section while the map is in view.
+  const raw = useMotionValue(reduce ? 1 : 0);
+  useEffect(() => {
+    if (reduce) return;
+    const el = ref.current;
+    if (!el) return;
+    const track = (el.closest("section") as HTMLElement | null) ?? el;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const vh = window.innerHeight || 1;
+      const r = track.getBoundingClientRect();
+      const span = Math.max(r.height * 0.55, vh * 0.5);
+      const scrolled = vh * 0.82 - r.top;
+      raw.set(Math.min(1, Math.max(0, scrolled / span)));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [reduce, raw]);
+  const progress = useSpring(raw, { stiffness: 90, damping: 26, restDelta: 0.001 });
 
   const model = useMemo(() => {
     if (!meta) return null;
