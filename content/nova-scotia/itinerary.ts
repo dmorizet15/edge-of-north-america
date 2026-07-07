@@ -64,6 +64,7 @@ export const NS_DAYS: TripDay[] = [
       { label: "Salt Point", lat: 41.87, lon: -73.8 },
       { label: "Portsmouth", lat: 43.07, lon: -70.76 },
       { label: "Portland", lat: 43.66, lon: -70.26 },
+      { label: "Bangor", lat: 44.8, lon: -68.77 },
     ],
   },
   {
@@ -102,8 +103,7 @@ export const NS_DAYS: TripDay[] = [
     ],
     memory: "Crossing into Canada before lunch and feeling the whole trip downshift — chocolate in hand, a garden above the bay, and a long, slow afternoon with nowhere you had to be.",
     map: [
-      { label: "Portland", lat: 43.66, lon: -70.26 },
-      { label: "Wiscasset", lat: 44.0, lon: -69.66 },
+      { label: "Bangor", lat: 44.8, lon: -68.77 },
       { label: "St. Stephen", lat: 45.19, lon: -67.28 },
       { label: "St. Andrews", lat: 45.07, lon: -67.05 },
     ],
@@ -495,6 +495,7 @@ export const NS_DAYS: TripDay[] = [
       { label: "Yarmouth", lat: 43.84, lon: -66.12 },
       { label: "Bar Harbor", lat: 44.39, lon: -68.2, ferry: true },
       { label: "Acadia", lat: 44.34, lon: -68.25 },
+      { label: "Rockland", lat: 44.1, lon: -69.11 },
     ],
   },
   {
@@ -531,7 +532,7 @@ export const NS_DAYS: TripDay[] = [
     ],
     memory: "Pulling into Salt Point at dusk after a slow Rockland morning — the trip that was supposed to be the easy one, and turned out to be the one you'd keep talking about.",
     map: [
-      { label: "Bar Harbor", lat: 44.39, lon: -68.2 },
+      { label: "Rockland", lat: 44.1, lon: -69.11 },
       { label: "Portland", lat: 43.66, lon: -70.26 },
       { label: "Portsmouth", lat: 43.07, lon: -70.76 },
       { label: "Salt Point", lat: 41.87, lon: -73.8 },

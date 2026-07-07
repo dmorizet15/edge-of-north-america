@@ -14,7 +14,7 @@ import type { TripWaypoint } from "@/lib/trip-types";
 
 export const NS_WAYPOINTS: TripWaypoint[] = [
   { id: "saltpoint", label: "Salt Point, NY", lat: 41.87, lon: -73.8, major: true },
-  { id: "portland", label: "Portland, ME", lat: 43.66, lon: -70.26, major: true },
+  { id: "bangor", label: "Bangor, ME", lat: 44.8, lon: -68.77, major: true },
   { id: "standrews", label: "St. Andrews", lat: 45.07, lon: -67.05, major: true },
   { id: "hopewell", label: "Hopewell Rocks", lat: 45.82, lon: -64.58, major: true },
   { id: "wolfville", label: "Wolfville", lat: 45.09, lon: -64.36, major: true },
@@ -25,6 +25,7 @@ export const NS_WAYPOINTS: TripWaypoint[] = [
   { id: "ingonish", label: "Ingonish", lat: 46.68, lon: -60.39, major: true },
   { id: "yarmouth", label: "Yarmouth", lat: 43.84, lon: -66.12, major: true },
   { id: "barharbor", label: "Bar Harbor, ME", lat: 44.39, lon: -68.2, major: true, ferry: true },
+  { id: "rockland", label: "Rockland, ME", lat: 44.1, lon: -69.11, major: true },
 ];
 
 /**
@@ -36,7 +37,7 @@ export const NS_LABELS: Record<
   { dx: number; dy: number; anchor: "start" | "end" | "middle" }
 > = {
   saltpoint: { dx: 0, dy: 26, anchor: "middle" },
-  portland: { dx: -12, dy: 20, anchor: "end" },
+  bangor: { dx: -12, dy: -6, anchor: "end" },
   standrews: { dx: -12, dy: 4, anchor: "end" },
   hopewell: { dx: 0, dy: -14, anchor: "middle" },
   wolfville: { dx: -14, dy: 2, anchor: "end" },
@@ -47,6 +48,7 @@ export const NS_LABELS: Record<
   ingonish: { dx: 14, dy: -4, anchor: "start" },
   yarmouth: { dx: -14, dy: 10, anchor: "end" },
   barharbor: { dx: -14, dy: 20, anchor: "end" },
+  rockland: { dx: -14, dy: 4, anchor: "end" },
 };
 
 /** The single fact the whole return points toward. */
