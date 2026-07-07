@@ -20,6 +20,16 @@ export interface TripStop {
   ferry?: boolean;
 }
 
+/** One line in a day's expandable, at-a-glance Detailed Daily Plan. */
+export interface TripPlanRow {
+  /** Clock time or window, e.g. "9:30 AM", "1:45–3:00". */
+  time: string;
+  /** What happens, e.g. "Depart Bangor", "Jordan Pond popovers". */
+  label: string;
+  /** Optional extra detail. */
+  detail?: string;
+}
+
 /** A projected point on a day's small route map. */
 export interface TripMapPoint {
   label: string;
@@ -62,6 +72,8 @@ export interface TripDay {
    * on days where it makes sense; always phrased as weather-dependent.
    */
   sky?: string;
+  /** Optional expandable hour-by-hour plan for use on the road. */
+  detailedPlan?: TripPlanRow[];
   memory: string;
   map: TripMapPoint[];
 }

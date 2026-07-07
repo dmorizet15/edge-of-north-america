@@ -59,7 +59,7 @@ export default function NovaScotiaTrip() {
         variant="navy"
         lines={[
           "No overnight ferry to catch. No dark, pre-dawn start.",
-          "One long drive the whole trip — the rest are short.",
+          "Two longer drives — the first day and the reposition — and the rest are short.",
           "Historic inns, warm seafood, and a ferry that brings you home.",
         ]}
         footnote="Newfoundland is the expedition. This is the one you take because it's easy — and it turns out to be unforgettable anyway."
@@ -71,9 +71,9 @@ export default function NovaScotiaTrip() {
         index="03"
         chapter="The approach"
         title="North, the soft way"
-        line="Up the Maine coast to Portland, then a road-crossing into Canada you barely feel — Bangor and Calais, not a boat and the dark."
-        coord="43.66° N · 70.26° W"
-        place="Portland, Maine — the launch"
+        line="Up the Maine coast — a lobster roll under Portland Head Light — then on to Bangor for the night, and a road-crossing at Calais you barely feel."
+        coord="44.80° N · 68.77° W"
+        place="Bangor, Maine — the first night"
         placement="bottom-left"
         scale="lg"
         overlay="medium"
@@ -165,7 +165,7 @@ function DarkSkyBand() {
     "Cape Breton Highlands, the Gulf side",
     "Ingonish & the northern Highlands — the best bet",
     "Cape Forchu & the coast near Yarmouth",
-    "Acadia / Bar Harbor — an optional last look",
+    "The Maine coast on the ferry day — an optional last look",
   ];
 
   return (

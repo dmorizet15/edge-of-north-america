@@ -1,4 +1,4 @@
-import type { TripDay, TripStop } from "@/lib/trip-types";
+import type { TripDay, TripStop, TripPlanRow } from "@/lib/trip-types";
 import EditorialImage from "@/components/ui/EditorialImage";
 import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
 import Reveal from "@/components/ui/Reveal";
@@ -76,6 +76,13 @@ export default function TripDayChapter({ day }: { day: TripDay }) {
           </div>
         </div>
 
+        {/* Detailed Daily Plan — expandable, for use while travelling */}
+        {day.detailedPlan && day.detailedPlan.length > 0 && (
+          <Reveal>
+            <DetailedPlan rows={day.detailedPlan} />
+          </Reveal>
+        )}
+
         {/* Tonight's Sky — the recurring dark-sky element, only where it fits */}
         {day.sky && (
           <Reveal>
@@ -106,6 +113,45 @@ export default function TripDayChapter({ day }: { day: TripDay }) {
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function DetailedPlan({ rows }: { rows: TripPlanRow[] }) {
+  return (
+    <details className="group mt-14 rounded-sm border border-amber/25 bg-black/20 open:bg-black/30">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5">
+        <span className="eyebrow text-amber" style={{ fontSize: "0.7rem" }}>
+          Detailed daily plan — hour by hour
+        </span>
+        <span
+          className="font-sans text-[0.8rem] font-light text-paper/55 transition-transform group-open:rotate-180"
+          aria-hidden
+        >
+          &#9662;
+        </span>
+      </summary>
+      <div className="border-t border-paper/10 px-6 pb-6 pt-2">
+        <ol className="divide-y divide-paper/10">
+          {rows.map((r, i) => (
+            <li key={i} className="grid grid-cols-[6.5rem_1fr] gap-4 py-3 sm:grid-cols-[7.5rem_1fr]">
+              <span className="pt-0.5 font-sans text-[0.86rem] font-medium tabular-nums leading-snug text-amber/90">
+                {r.time}
+              </span>
+              <span>
+                <span className="font-sans text-[1rem] font-light leading-snug text-paper/90">
+                  {renderText(r.label)}
+                </span>
+                {r.detail && (
+                  <span className="mt-1 block font-sans text-[0.9rem] font-light leading-snug text-paper/60">
+                    {renderText(r.detail)}
+                  </span>
+                )}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </details>
   );
 }
 
