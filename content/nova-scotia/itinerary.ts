@@ -4,15 +4,19 @@ import { NS_PHOTOS } from "./photos";
 /**
  * NOVA SCOTIA — THE JOURNEY, DAY BY DAY  (itinerary v2.1)
  * ------------------------------------------------------
- * A relaxed 12-day 2026 road trip for Darren & Melissa. Reconciled to the
- * "Nova Scotia Hotel Master Plan V2.1" — the single source of truth — which
- * favours value over luxury: honest, well-reviewed inns that support the trip
- * instead of becoming it.
+ * A relaxed 12-day 2026 road trip for Darren & Melissa. Originally built from
+ * the "Nova Scotia Hotel Master Plan V2.1" spreadsheet, then reconciled again
+ * to the live Notion "MASTER Hotel Plan" — the actual source of truth for
+ * bookings, updated as reservations land — which favours value over luxury:
+ * honest, well-reviewed inns that support the trip instead of becoming it.
  *
  * Fixed points: the Yarmouth -> Bar Harbor CAT ferry on Monday, August 17
- * (booked). Locked overnights: Bangor (Aug 7), St. Andrews / Kennedy House,
- * Alma / Parkland Village Inn, Halifax / The Prince George, Lunenburg / Sail
- * Inn, Baddeck / Telegraph House, Chéticamp / Outback Inn, Ingonish / Seascape,
+ * (booked). Locked overnights: Bangor / Bangor Inn & Suites, St. Andrews /
+ * Kennedy House, Alma / Rodd Moncton (refundable fallback — Alma village was
+ * sold out; still chasing Alpine Motor Inn / Parkland Village Inn direct for
+ * an in-village upgrade), Halifax / Cambridge Suites, Lunenburg / Sail Inn,
+ * Baddeck / Telegraph House, Chéticamp / L'Auberge Doucet Inn (waitlisted for
+ * an upgrade to Outback Inn or Archie & Isidore), Ingonish / Seascape,
  * Yarmouth / Comfort Inn, and Rockland / Rockland Harbor Hotel (replacing Bar
  * Harbor). Added by request during planning: Blue Rocks, Ovens Natural Park,
  * and Meat Cove.
@@ -43,7 +47,7 @@ export const NS_DAYS: TripDay[] = [
     ],
     lunch: "Portland — a lobster roll or cold oysters in the Old Port; the last big-city meal before Canada.",
     afternoon: "The easy run up I-95 from Portland to Bangor — inland and quick, the coast behind you and Canada a short hop tomorrow.",
-    hotel: "[Country Inn at the Mall](https://countryinnatthemall.net), Bangor — the trip's value pick: 9.0 from 2,600+ guests, free breakfast and parking, and perfectly placed to make tomorrow's border run short.",
+    hotel: "[Bangor Inn & Suites](https://bangorinnandsuites.com/), Bangor — booked: a 9.0-rated deluxe king room with free continental breakfast and self parking, perfectly placed to make tomorrow's border run short.",
     dinner: "Bangor — Timber Kitchen & Bar (wood-fired) or the Sea Dog Brewing pub; downtown's indie spots are a 10-minute hop if you want livelier.",
     evening: "An early, easy night after the long haul — you have bought yourself a short, gentle Day 2.",
     charging: "Superchargers all the way up I-95 (Sturbridge, Portland, Augusta) — charge over lunch in Portland, then top up in Bangor (Broadway); Level 2 at the hotel overnight. Nothing to plan.",
@@ -54,7 +58,7 @@ export const NS_DAYS: TripDay[] = [
       { time: "12:00 PM", label: "Portsmouth, NH — 45 min", detail: "Leg-stretch and a first harbour smell." },
       { time: "1:00 PM", label: "Portland, ME — lunch + Portland Head Light", detail: "≈ 1 hr 15 — lobster roll, then the lighthouse. Supercharge here." },
       { time: "2:30 PM", label: "Drive Portland → Bangor", detail: "≈ 2 hr up I-95, inland and quick." },
-      { time: "4:45 PM", label: "Arrive Bangor — Country Inn at the Mall", detail: "Check in, unwind." },
+      { time: "4:45 PM", label: "Arrive Bangor — Bangor Inn & Suites", detail: "Check in, unwind." },
       { time: "6:45 PM", label: "Dinner — Timber Kitchen & Bar / Sea Dog" },
       { time: "7:52 PM", label: "Sunset ≈ 7:52 PM" },
       { time: "10:30 PM", label: "Early night", detail: "Long day done; tomorrow is short and gentle." },
@@ -125,7 +129,7 @@ export const NS_DAYS: TripDay[] = [
     ],
     lunch: "Saint John on the way, or hold out for Alma — lobster and chowder at the Tides, and a Kelly's sticky bun the size of your hand.",
     afternoon: "Hopewell Rocks at low tide, then Cape Enrage's cliffs; the sea floor you walked at noon is under three storeys of water by dusk.",
-    hotel: "[Parkland Village Inn](https://www.parklandvillageinn.com), Alma — oceanfront in the village, on-site restaurant, walk to the Fundy park gate. Book direct and early — Alma sells out; the verified fallback is the Four Points in Moncton (~45 min).",
+    hotel: "[Rodd Moncton](https://www.roddvacations.com/rodd-moncton) — booked (refundable): Alma village sold out everywhere, so tonight is Moncton, ~45 min from the Fundy park gate. Still chasing Alpine Motor Inn / Parkland Village Inn direct for an in-village upgrade — if one lands, reclaim the walk-to-the-gate evening below.",
     dinner: "The Tides at the Parkland, or Tipsy Tails — Fundy scallops and Alma lobster, the tide coming in outside the window.",
     evening: "Back to the flats at dusk to watch the water swallow the ground you stood on — the same view, twice, transformed.",
     charging: "Superchargers in Saint John and Moncton, both near food. Alma is remote — arrive with a good charge and top up before the park; the inn has Level 2.",
@@ -138,7 +142,7 @@ export const NS_DAYS: TripDay[] = [
       { time: "11:00 AM", label: "Saint John — Reversing Falls, ≈ 1 hr", detail: "Supercharge + a bite." },
       { time: "1:30 PM", label: "Hopewell Rocks — ≈ 1.5–2 hr", detail: "Walk the sea floor at low tide." },
       { time: "3:30 PM", label: "Alma — late lunch + Kelly's sticky bun" },
-      { time: "4:30 PM", label: "Arrive Parkland Village Inn (booked direct)" },
+      { time: "4:30 PM", label: "Arrive Rodd Moncton (booked, refundable)", detail: "~45 min from the Fundy park gate." },
       { time: "6:30 PM", label: "Dinner — the Tides / Tipsy Tails" },
       { time: "8:33 PM", label: "Sunset ≈ 8:33 PM ADT", detail: "Then the flats at high tide, transformed." },
       { time: "11:00 PM", label: "Stargaze if clear (Dark Sky Preserve), then bed" },
@@ -168,7 +172,7 @@ export const NS_DAYS: TripDay[] = [
     ],
     lunch: "Le Caveau at [Domaine de Grand Pré](https://www.grandprewines.com/), or the [Lightfoot & Wolfville](https://www.lightfootandwolfville.com/) terrace — valley-to-table with the Bay of Fundy shining below.",
     afternoon: "Walk the Grand-Pré dykelands, then the genuinely easy hour into Halifax — the biggest city of the trip arrives gently.",
-    hotel: "[The Prince George Hotel](https://www.princegeorgehotel.com), Halifax — refined and central, pedway to downtown, steps from the waterfront and Citadel; the smart two-night anchor without the luxury markup.",
+    hotel: "[Cambridge Suites Hotel](https://www.cambridgesuiteshalifax.com), Halifax — booked: a queen studio suite with breakfast, central and steps from the waterfront and Citadel — the value pick over the Prince George, same neighbourhood for less.",
     dinner: "[The Bicycle Thief](https://bicyclethief.ca/) on the boardwalk (reserve); or Bar Kismet if you want the local chefs' favourite.",
     evening: "The Halifax waterfront after dark — schooners, buskers, harbour lights, and the longest downtown boardwalk in the world underfoot.",
     charging: "Supercharge in Truro at the midpoint (or New Minas near Wolfville); Enfield and Halifax have Superchargers, and the hotel has valet Level 2 overnight.",
@@ -179,7 +183,7 @@ export const NS_DAYS: TripDay[] = [
       { time: "9:15 AM", label: "Depart over the isthmus into Nova Scotia" },
       { time: "12:15 PM", label: "Grand-Pré NHS — ≈ 1 hr", detail: "Dykelands and the Acadian story." },
       { time: "1:30 PM", label: "Wolfville — lunch + a tasting, ≈ 2 hr", detail: "Le Caveau or Lightfoot & Wolfville. Charge at New Minas." },
-      { time: "4:45 PM", label: "Arrive Halifax — The Prince George Hotel" },
+      { time: "4:45 PM", label: "Arrive Halifax — Cambridge Suites Hotel" },
       { time: "7:00 PM", label: "Dinner — The Bicycle Thief (reserve)" },
       { time: "8:12 PM", label: "Sunset ≈ 8:12 PM ADT", detail: "Boardwalk after dark." },
       { time: "11:00 PM", label: "Bedtime" },
@@ -210,8 +214,8 @@ export const NS_DAYS: TripDay[] = [
     ],
     lunch: "A lobster roll on the boardwalk, or the Battered Fish; keep it light and outdoors.",
     afternoon: "Take the Dartmouth ferry across the harbour and back — the oldest saltwater ferry in North America and, at a few dollars, the best harbour cruise there is.",
-    hotel: "The Prince George again — no repacking, no logistics, just a second easy night in the heart of downtown.",
-    dinner: "Bar Kismet (a seafood tasting) or the Stubborn Goat gastropub — then live East Coast fiddle at The Carleton.",
+    hotel: "Cambridge Suites again — no repacking, no logistics, just a second easy night in the heart of downtown.",
+    dinner: "[The Keg Steakhouse + Bar](https://thekeg.com/en/locations/halifax) (4.2, 545 reviews; 1712 Market St, 902-425-8355 — reserve) — scallops & bacon to start, a proper filet, and their signature Chocolate Lava Cake to close. Then live East Coast fiddle at The Carleton. (For a once-in-a-trip splurge instead, [Mystic](https://mysticnovascotia.ca/) at Queen's Marque is an 8-course tasting menu under a suspended ship's-hull sculpture — Canada's 100 Best, 2025; ≈$165/person, reserve well ahead.)",
     evening: "A pint and a tune at The Carleton or the Lower Deck — the real Maritime warmth, no cover charge on the feeling.",
     charging: "The car rests all day on the hotel's Level 2 — genuinely nothing to think about.",
     walking: "Easy — city strolling entirely at your own pace.",
@@ -340,7 +344,7 @@ export const NS_DAYS: TripDay[] = [
     ],
     lunch: "Chéticamp — Acadian seafood at Le Gabriel or the Co-op's Restaurant Acadien; a bowl of fish fricot, with a look at the famous rug hooking.",
     afternoon: "The [Cabot Trail's](https://cabottrail.travel/) western switchbacks and lookoffs at French and MacKenzie Mountains, an early dinner, then the Skyline for sunset.",
-    hotel: "[Cheticamp Outback Inn](https://www.cheticampoutbackinn.com) or [The Archie & Isidore Hotel](https://www.archieandisidore.ca) — small, exceptional-value village stays (both 9.6). Book direct now; Chéticamp sells out for August. Verified fallback: [Duck Cove Inn](https://www.duckcoveinn.ca) at Margaree Harbour.",
+    hotel: "[L'Auberge Doucet Inn](https://www.aubergedoucet.com/) — booked: a hilltop inn on the Cabot Trail, two double beds. Waitlisted for an upgrade to [Cheticamp Outback Inn](https://www.cheticampoutbackinn.com) or [The Archie & Isidore Hotel](https://www.archieandisidore.ca) (both 9.6) if a room opens up before August.",
     dinner: "An early Acadian supper in Chéticamp before the Skyline; if there's a kitchen party or a fiddle session on, follow the sound afterward.",
     evening: "The Gulf sunset from the Skyline headland, where the sun drops straight into the sea.",
     charging: "No Superchargers on Cape Breton. You arrived on a full charge from Aulds Cove; use the inn's Level 2 and the Parks Canada fast charger at the Chéticamp Visitor Centre, and treat the Trail as a loop, not a dash. Plan it once and the whole day stays stress-free.",
@@ -351,7 +355,7 @@ export const NS_DAYS: TripDay[] = [
       { time: "8:30 AM", label: "Breakfast on the water in Baddeck" },
       { time: "9:30 AM", label: "Alexander Graham Bell museum — ≈ 1.5–2 hr" },
       { time: "11:30 AM", label: "Drive the western Cabot Trail toward Chéticamp" },
-      { time: "1:00 PM", label: "Arrive Chéticamp — check in (booked direct)" },
+      { time: "1:00 PM", label: "Arrive Chéticamp — L'Auberge Doucet Inn" },
       { time: "1:30 PM", label: "Lunch — Le Gabriel / Restaurant Acadien" },
       { time: "3:00 PM", label: "French & MacKenzie Mountain lookoffs", detail: "Charge at the Parks Canada DCFC / inn L2." },
       { time: "5:30 PM", label: "Early Acadian dinner in Chéticamp" },
