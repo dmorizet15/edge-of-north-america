@@ -14,12 +14,15 @@ import { NS_PHOTOS } from "./photos";
  * (booked). Locked overnights: Bangor / Bangor Inn & Suites, St. Andrews /
  * Kennedy House, Alma / Rodd Moncton (refundable fallback — Alma village was
  * sold out; still chasing Alpine Motor Inn / Parkland Village Inn direct for
- * an in-village upgrade), Halifax / Cambridge Suites, Lunenburg / Sail Inn,
- * Baddeck / Telegraph House, Chéticamp / L'Auberge Doucet Inn (waitlisted for
- * an upgrade to Outback Inn or Archie & Isidore), Ingonish / Seascape,
- * Yarmouth / Comfort Inn, and Rockland / Rockland Harbor Hotel (replacing Bar
- * Harbor). Added by request during planning: Blue Rocks, Ovens Natural Park,
- * and Meat Cove.
+ * an in-village upgrade), Halifax / Cambridge Suites, Lunenburg / The Kinley
+ * House (Sail Inn sold out for this date), Baddeck / Auberge Gisele's Inn
+ * (Telegraph House archived — Gisele's won on king bed + rate), Chéticamp /
+ * L'Auberge Doucet Inn (waitlisted for an upgrade to Outback Inn or Archie &
+ * Isidore), Ingonish / Seascape, Yarmouth / Rodd Grand (Comfort Inn archived).
+ * Rockland is a PLACEHOLDER ONLY, not yet booked — Rockland Harbor Hotel is
+ * teed up (~$313, Hotels.com) but still being weighed against alternatives
+ * for the final night. Added by request during planning: Blue Rocks, Ovens
+ * Natural Park, and Meat Cove.
  *
  * Restaurants, inns, parks, and the ferry are linked with [label](url) — verify
  * hours and book ahead; timings, sunset times, and distances are honest
@@ -102,7 +105,7 @@ export const NS_DAYS: TripDay[] = [
       { time: "2:00 PM", label: "Arrive St. Andrews — Kennedy House", detail: "Check in, drop bags." },
       { time: "2:45 PM", label: "Kingsbrae Garden / the wharf — ≈ 1.5 hr", detail: "Or a whale-watch boat if one's sailing." },
       { time: "7:00 PM", label: "Dinner — Rossmount Inn (reserve)" },
-      { time: "8:20 PM", label: "Sunset ≈ 8:20 PM ADT", detail: "First stars from the wharf if it's clear." },
+      { time: "8:46 PM", label: "Sunset ≈ 8:46 PM ADT", detail: "First stars from the wharf if it's clear." },
       { time: "10:30 PM", label: "Bedtime" },
     ],
     memory: "Crossing into Canada before lunch and feeling the whole trip downshift — chocolate in hand, a garden above the bay, and a long, slow afternoon with nowhere you had to be.",
@@ -172,7 +175,7 @@ export const NS_DAYS: TripDay[] = [
     ],
     lunch: "Le Caveau at [Domaine de Grand Pré](https://www.grandprewines.com/), or the [Lightfoot & Wolfville](https://www.lightfootandwolfville.com/) terrace — valley-to-table with the Bay of Fundy shining below.",
     afternoon: "Walk the Grand-Pré dykelands, then the genuinely easy hour into Halifax — the biggest city of the trip arrives gently.",
-    hotel: "[Cambridge Suites Hotel](https://www.cambridgesuiteshalifax.com), Halifax — booked: a queen studio suite with breakfast, central and steps from the waterfront and Citadel — the value pick over the Prince George, same neighbourhood for less.",
+    hotel: "[Cambridge Suites Hotel](https://www.cambridgesuiteshalifax.com), Halifax — booked: a Superior Suite (one-bedroom, king bed) with breakfast, central and steps from the waterfront and Citadel — the value pick over the Prince George, same neighbourhood for less.",
     dinner: "[The Bicycle Thief](https://bicyclethief.ca/) on the boardwalk (reserve); or Bar Kismet if you want the local chefs' favourite.",
     evening: "The Halifax waterfront after dark — schooners, buskers, harbour lights, and the longest downtown boardwalk in the world underfoot.",
     charging: "Supercharge in Truro at the midpoint (or New Minas near Wolfville); Enfield and Halifax have Superchargers, and the hotel has valet Level 2 overnight.",
@@ -185,7 +188,7 @@ export const NS_DAYS: TripDay[] = [
       { time: "1:30 PM", label: "Wolfville — lunch + a tasting, ≈ 2 hr", detail: "Le Caveau or Lightfoot & Wolfville. Charge at New Minas." },
       { time: "4:45 PM", label: "Arrive Halifax — Cambridge Suites Hotel" },
       { time: "7:00 PM", label: "Dinner — The Bicycle Thief (reserve)" },
-      { time: "8:12 PM", label: "Sunset ≈ 8:12 PM ADT", detail: "Boardwalk after dark." },
+      { time: "8:28 PM", label: "Sunset ≈ 8:28 PM ADT", detail: "Boardwalk after dark." },
       { time: "11:00 PM", label: "Bedtime" },
     ],
     memory: "A glass of Tidal Bay on a vineyard patio, the Bay of Fundy shining below — the moment Nova Scotia stopped being a plan and started being the trip.",
@@ -228,7 +231,7 @@ export const NS_DAYS: TripDay[] = [
       { time: "3:15 PM", label: "Public Gardens — 45 min · coffee (Java Blend)" },
       { time: "4:15 PM", label: "Dartmouth ferry round-trip — 45 min" },
       { time: "7:00 PM", label: "Dinner — Bar Kismet, then fiddle at The Carleton" },
-      { time: "8:11 PM", label: "Sunset ≈ 8:11 PM ADT" },
+      { time: "8:27 PM", label: "Sunset ≈ 8:27 PM ADT" },
       { time: "11:30 PM", label: "Bedtime" },
     ],
     memory: "The harbour ferry at dusk, the city gold behind you, realizing you hadn't touched the car in a full day and hadn't missed it once.",
@@ -256,7 +259,7 @@ export const NS_DAYS: TripDay[] = [
     ],
     lunch: "Mahone Bay — Oh My Cod or Rebecca's; a pastry and a coffee by the water.",
     afternoon: "Into Lunenburg to drop bags, then the pair most visitors miss — the sea caves at Ovens Natural Park, and the blue-slate ledges of Blue Rocks in the low evening light.",
-    hotel: "[Sail Inn Lunenburg](https://www.sailinn.ca) — waterfront, sea-view rooms, 200 feet from the UNESCO Old Town; walkable value in the prettiest harbour on the coast.",
+    hotel: "[The Kinley House](https://thekinleyhouse.com/), Lunenburg — booked: a one-bedroom apartment suite with a king bed and kitchenette in a restored heritage home, 10–15 min walk to the UNESCO Old Town. Non-refundable, prepaid. (Sail Inn was the original pick but sold out for this date on both Booking.com and its own site.)",
     dinner: "Lunenburg — Bar Salvador for tapas (reserve), the Old Fish Factory in the Fisheries Museum, or the Half Shell for oysters.",
     evening: "The waterfront at blue hour — dories, rigging, and reflections; a nightcap on the inn porch.",
     charging: "Supercharge in Bridgewater (ten minutes from Lunenburg, and right by Ovens Natural Park) or back in Halifax; a short-mileage day makes charging an afterthought.",
@@ -267,11 +270,11 @@ export const NS_DAYS: TripDay[] = [
       { time: "7:00 AM", label: "Depart Halifax", detail: "Beat the buses to Peggy's Cove." },
       { time: "8:00 AM", label: "Peggy's Cove — ≈ 1 hr", detail: "Low light, empty granite." },
       { time: "10:00 AM", label: "Mahone Bay — ≈ 1 hr + brunch/coffee" },
-      { time: "12:30 PM", label: "Lunenburg — drop bags at Sail Inn, Old Town wander", detail: "Coffee at Laughing Whale." },
+      { time: "12:30 PM", label: "Lunenburg — drop bags at The Kinley House, Old Town wander", detail: "Coffee at Laughing Whale." },
       { time: "2:30 PM", label: "Ovens Natural Park — ≈ 1.5 hr", detail: "Sea-cave boardwalk; charge at Bridgewater nearby." },
       { time: "5:30 PM", label: "Blue Rocks — golden hour, ≈ 1 hr", detail: "The photographer's hamlet." },
       { time: "7:30 PM", label: "Dinner — Bar Salvador (reserve)" },
-      { time: "8:10 PM", label: "Sunset ≈ 8:10 PM ADT", detail: "Blue hour on the waterfront." },
+      { time: "8:27 PM", label: "Sunset ≈ 8:27 PM ADT", detail: "Blue hour on the waterfront." },
       { time: "11:00 PM", label: "Nightcap on the porch, then bed" },
     ],
     memory: "Peggy's Cove almost to yourselves at first light, and the blue ledges of Blue Rocks glowing at dusk — the famous coast and its quiet secret, both in one unhurried day.",
@@ -300,7 +303,7 @@ export const NS_DAYS: TripDay[] = [
     ],
     lunch: "Antigonish — a bistro on Main Street; unhurried, good coffee, no rush to the car.",
     afternoon: "Over the causeway and along the shore of Bras d'Or Lake — a vast inland sea — into Baddeck by late afternoon.",
-    hotel: "[Telegraph House](https://telegraphhouse.travel), Baddeck — a historic village inn (in operation since 1861, with an Alexander Graham Bell connection), central and great value; Auberge Gisele's is the step-up alternative.",
+    hotel: "[Auberge Gisele's Inn](https://giseles.com/), Baddeck — booked: a Deluxe King Room, central and great value; picked fresh over Telegraph House for the king bed at about $35 less. (Telegraph House — in operation since 1861, with an Alexander Graham Bell connection — was the original pick, archived when this beat it on rate and bed type.)",
     dinner: "Baddeck — the community tradition of [Baddeck Lobster Suppers](https://baddecklobstersuppers.ca/) (go early, no reservations), or the Bell Buoy.",
     evening: "The Bras d'Or shore at dusk — glass-calm water, loons calling, the quietest night of the trip so far.",
     charging: "Supercharge in Truro and near New Glasgow on the way, then top to 100% at Aulds Cove before the causeway — Cape Breton has no Superchargers. Baddeck has a FLO fast charger on Highway 105 and the inn has Level 2. This is your staging point for the Cabot Trail.",
@@ -313,7 +316,7 @@ export const NS_DAYS: TripDay[] = [
       { time: "11:30 AM", label: "Truro — 30 min charge + stretch" },
       { time: "1:00 PM", label: "Antigonish — lunch, ≈ 1 hr" },
       { time: "2:45 PM", label: "Aulds Cove — CHARGE TO 100%", detail: "Last fast charging before Cape Breton; then the Canso Causeway." },
-      { time: "4:00 PM", label: "Arrive Baddeck — Telegraph House" },
+      { time: "4:00 PM", label: "Arrive Baddeck — Auberge Gisele's Inn" },
       { time: "6:30 PM", label: "Dinner — Baddeck Lobster Suppers (go early)" },
       { time: "8:15 PM", label: "Sunset ≈ 8:15 PM ADT", detail: "Bras d'Or shore; stargaze if clear." },
       { time: "10:30 PM", label: "Bedtime (later if the sky delivers)" },
@@ -433,7 +436,7 @@ export const NS_DAYS: TripDay[] = [
     ],
     lunch: "Masstown Market — chowder and warm bread at a picnic table, then that ice cream for the road; or scallops if you dip down to Digby.",
     afternoon: "The easy 101 down the Fundy side of the valley, then out to Cape Forchu near Yarmouth for the evening light.",
-    hotel: "[Comfort Inn Yarmouth](https://www.choicehotels.com) — the sensible pre-ferry sleep stop: free breakfast and parking, quiet, and five minutes from the CAT terminal. (Rodd Grand is the harbour-front alternative.)",
+    hotel: "[Rodd Grand Yarmouth](https://www.roddvacations.com/rodd-grand-yarmouth) — booked: a King Room on Main St by the CAT terminal, pool + restaurant on site, fully refundable before Aug 15. (Comfort Inn was the original sensible pick, archived when this beat it by $31 all-in, plus One Key.)",
     dinner: "Yarmouth — Rudder's Seafood Restaurant & Brewpub on the harbour.",
     evening: "Sunset at Cape Forchu — the light, the rocks, the whole Atlantic going gold — the last, best Nova Scotia sundown before the crossing home.",
     charging: "A well-charged, well-fed long day: fast charging along the 104/102/101 at Port Hastings/Aulds Cove, Truro/Masstown, and New Minas; bring the car to full in Yarmouth tonight for the drive home after tomorrow's ferry.",
@@ -444,10 +447,10 @@ export const NS_DAYS: TripDay[] = [
       { time: "7:30 AM", label: "Early breakfast + depart Ingonish", detail: "Charge off the island via Baddeck / Aulds Cove." },
       { time: "11:00 AM", label: "Masstown Market — 45 min", detail: "Chowder + ice cream." },
       { time: "1:30 PM", label: "Annapolis Royal — 45 min–1 hr · lunch" },
-      { time: "6:30 PM", label: "Arrive Yarmouth — Comfort Inn, quick check-in" },
+      { time: "6:30 PM", label: "Arrive Yarmouth — Rodd Grand Yarmouth, quick check-in" },
       { time: "7:00 PM", label: "Dinner — Rudder's Brewpub" },
       { time: "7:45 PM", label: "Cape Forchu Lightstation for sunset — ≈ 1 hr" },
-      { time: "8:15 PM", label: "Sunset ≈ 8:15 PM ADT", detail: "The last Nova Scotia sundown." },
+      { time: "8:27 PM", label: "Sunset ≈ 8:27 PM ADT", detail: "The last Nova Scotia sundown." },
       { time: "10:30 PM", label: "Charge full for tomorrow, then bed" },
     ],
     memory: "A market ice cream mid-drive, then the sun dropping behind the apple-core light at Cape Forchu — the trip's long day turned out to be one of its best.",
@@ -475,7 +478,7 @@ export const NS_DAYS: TripDay[] = [
     ],
     lunch: "A lobster roll on the Bar Harbor pier once you land (Stewman's or Side Street Café) — take your time; there's no rush from here.",
     afternoon: "Acadia's Park Loop — Sand Beach, Thunder Hole, and popovers at Jordan Pond House — then charge at Ellsworth (right on the route) and drive on to Rockland by early evening.",
-    hotel: "[Rockland Harbor Hotel](https://www.rocklandharborhotel.com) — central, walkable, free breakfast; a calmer, better-value finish than Bar Harbor, an hour closer to home, in a town with the coast's best food and the Farnsworth (Wyeth) museum.",
+    hotel: "🟡 PLACEHOLDER — not yet booked: [Rockland Harbor Hotel](https://www.rocklandharborhotel.com) is teed up (~$313, Hotels.com) but still being weighed against alternatives for this final night — nothing here is locked. If it's the one: central, walkable, free breakfast; a calmer, better-value finish than Bar Harbor, an hour closer to home, in a town with the coast's best food and the Farnsworth (Wyeth) museum.",
     dinner: "Rockland — Archer's on the Pier right on the water, or In Good Company / Cafe Miranda a block off it (reserve). Sunset over the harbour.",
     evening: "A golden-hour harbour walk before dinner, then an easy, low-key last night on the Maine coast.",
     charging: "Supercharge at Ellsworth (8 stalls, ~20 min from Bar Harbor and directly on the route to Rockland) — no detour; Level 2 at the hotel overnight to leave full for the drive home.",
@@ -489,7 +492,7 @@ export const NS_DAYS: TripDay[] = [
       { time: "12:30 PM", label: "Lobster-roll lunch on the pier" },
       { time: "1:30 PM", label: "Acadia — Sand Beach, Thunder Hole, Jordan Pond popovers" },
       { time: "4:00 PM", label: "Charge at Ellsworth Supercharger — ~20 min", detail: "On the route; no detour." },
-      { time: "6:00 PM", label: "Arrive Rockland — Rockland Harbor Hotel", detail: "Harbour walk at golden hour." },
+      { time: "6:00 PM", label: "Arrive Rockland — hotel TBD (placeholder: Rockland Harbor Hotel)", detail: "Harbour walk at golden hour." },
       { time: "7:15 PM", label: "Dinner — Archer's on the Pier (reserve)" },
       { time: "7:38 PM", label: "Sunset ≈ 7:38 PM EDT" },
       { time: "10:30 PM", label: "Bedtime" },
@@ -532,7 +535,7 @@ export const NS_DAYS: TripDay[] = [
       { time: "12:30 PM", label: "Portland — lunch + Old Port stroll, ≈ 1 hr" },
       { time: "2:30 PM", label: "Portsmouth, NH — quick stretch (optional)" },
       { time: "6:30 PM", label: "Home — Salt Point, NY" },
-      { time: "7:36 PM", label: "Sunset ≈ 7:36 PM (on the road / home)" },
+      { time: "7:52 PM", label: "Sunset ≈ 7:52 PM (on the road / home)" },
     ],
     memory: "Pulling into Salt Point at dusk after a slow Rockland morning — the trip that was supposed to be the easy one, and turned out to be the one you'd keep talking about.",
     map: [
