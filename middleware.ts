@@ -17,8 +17,8 @@ const PUBLIC_PATHS = [
   "/trips/nova-scotia/family",
   "/trips/nova-scotia/unlock",
   "/api/nova-scotia/unlock",
-  // TEMPORARY: diagnostic self-test (key-guarded); remove after the upload fix.
-  "/api/nova-scotia/blob-selftest",
+  // Guestbook on the public family view — read + post, no passcode.
+  "/api/nova-scotia/comments",
 ];
 
 export async function middleware(req: NextRequest) {
