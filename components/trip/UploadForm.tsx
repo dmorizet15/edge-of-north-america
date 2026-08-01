@@ -35,6 +35,8 @@ export default function UploadForm({
   const [msg, setMsg] = useState("");
   const [done, setDone] = useState(0);
   const [total, setTotal] = useState(0);
+  const [pct, setPct] = useState(0);
+  const [step, setStep] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
   const stops = useMemo(
@@ -60,28 +62,64 @@ export default function UploadForm({
     setMsg("");
     setTotal(files.length);
     setDone(0);
+    setPct(0);
 
     let uploaded = 0;
     try {
       for (const file of Array.from(files)) {
         const safe = file.name.replace(/[^\w.\-]+/g, "-").slice(-80) || "photo.jpg";
-        const blob = await upload(`nova-scotia/${dayN}/${Date.now()}-${safe}`, file, {
-          access: "public",
-          handleUploadUrl: "/api/nova-scotia/blob-upload",
-          clientPayload: JSON.stringify({ day: dayN, stop, uploader }),
-        });
-        const res = await fetch("/api/nova-scotia/photos", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ day: dayN, stop, uploader, caption, url: blob.url }),
-        });
+
+        // Bound the whole per-file upload so a stalled request can't hang
+        // forever (the blob client otherwise retries ~10× with backoff, which
+        // looks like a permanent freeze). 2 minutes is generous for a phone
+        // photo on a slow connection.
+        setStep("Uploading photo");
+        setPct(0);
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 120_000);
+
+        let blob;
+        try {
+          blob = await upload(`nova-scotia/${dayN}/${Date.now()}-${safe}`, file, {
+            access: "public",
+            handleUploadUrl: "/api/nova-scotia/blob-upload",
+            clientPayload: JSON.stringify({ day: dayN, stop, uploader }),
+            abortSignal: controller.signal,
+            onUploadProgress: (p) => setPct(Math.round(p.percentage)),
+          });
+        } catch (uErr) {
+          if (uErr instanceof Error && uErr.name === "AbortError") {
+            throw new Error(
+              `The upload stalled and timed out at ${pct}%. If you opened this from a "…vercel.app/…-projects.vercel.app" preview link, use the main site (edge-of-north-america.vercel.app) instead — preview links are login-protected and block the upload.`
+            );
+          }
+          throw uErr;
+        } finally {
+          clearTimeout(timer);
+        }
+
+        setStep("Saving details");
+        const saveController = new AbortController();
+        const saveTimer = setTimeout(() => saveController.abort(), 20_000);
+        let res: Response;
+        try {
+          res = await fetch("/api/nova-scotia/photos", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ day: dayN, stop, uploader, caption, url: blob.url }),
+            signal: saveController.signal,
+          });
+        } finally {
+          clearTimeout(saveTimer);
+        }
         if (!res.ok) {
           const j = await res.json().catch(() => ({}));
-          throw new Error(j.error || "Could not save that photo's details.");
+          throw new Error(j.error || `Could not save that photo's details (HTTP ${res.status}).`);
         }
         uploaded += 1;
         setDone(uploaded);
       }
+      setStep("");
       setPhase("done");
       setMsg(
         `${uploaded} photo${uploaded === 1 ? "" : "s"} added to Day ${dayN}. They're in the family view now.`
@@ -89,6 +127,7 @@ export default function UploadForm({
       setCaption("");
       if (fileRef.current) fileRef.current.value = "";
     } catch (err) {
+      setStep("");
       setPhase("error");
       setMsg(
         (uploaded > 0 ? `${uploaded} uploaded, then ` : "") +
@@ -170,7 +209,11 @@ export default function UploadForm({
         disabled={working}
         className="mt-1 w-full rounded-sm bg-amber px-5 py-4 font-sans text-[1rem] font-semibold tracking-wide text-nearblack transition-all duration-200 hover:brightness-110 active:scale-[0.99] disabled:opacity-60"
       >
-        {working ? `Uploading ${done}/${total}…` : "Add to the trip"}
+        {working
+          ? step === "Saving details"
+            ? `Saving ${done + 1}/${total}…`
+            : `${step || "Uploading"} ${done + 1}/${total} · ${pct}%…`
+          : "Add to the trip"}
       </button>
 
       {msg && (

@@ -18,7 +18,9 @@ import { NextResponse, type NextRequest } from "next/server";
 export const runtime = "nodejs";
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
+  const hasToken = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
   const body = (await req.json()) as HandleUploadBody;
+  console.log("[blob-upload] event", body?.type, "blobTokenPresent:", hasToken);
   try {
     const json = await handleUpload({
       body,
@@ -29,8 +31,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         maximumSizeInBytes: 25 * 1024 * 1024,
       }),
     });
+    console.log("[blob-upload] ok", body?.type);
     return NextResponse.json(json);
   } catch (err) {
+    console.error("[blob-upload] error", body?.type, err instanceof Error ? err.message : err);
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "upload failed" },
       { status: 400 }
