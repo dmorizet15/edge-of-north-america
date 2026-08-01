@@ -1,20 +1,14 @@
-import TripNav from "@/components/trip/TripNav";
-
 /**
- * Shared chrome for every trip experience — just the quiet "All trips" back
- * affordance, layered above each trip's own full-bleed composition. Adding it
- * here (rather than inside any trip page) keeps the individual experiences
- * untouched and gives future trips the same navigation for free.
+ * Shared chrome for the trip experiences. Nova Scotia is currently the only
+ * active trip and the site launches straight into it, so there is no
+ * "All trips" back affordance — it would only reveal the unlinked Newfoundland
+ * trip. Kept as a pass-through layout so future trips can reintroduce shared
+ * navigation here without touching the individual pages.
  */
 export default function TripsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <TripNav />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
