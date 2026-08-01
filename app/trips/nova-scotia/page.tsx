@@ -11,6 +11,7 @@ import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
 import Starfield from "@/components/trip/Starfield";
 import TripDayChapter from "@/components/trip/TripDayChapter";
 import TwoPaths from "@/components/trip/TwoPaths";
+import SkipToItinerary from "@/components/trip/SkipToItinerary";
 import { NS_PHOTOS } from "@/content/nova-scotia/photos";
 import { NS_WAYPOINTS } from "@/content/nova-scotia/route";
 import { NS_DAYS, NS_GLANCE, NS_ROUTE_NOTES } from "@/content/nova-scotia/itinerary";
@@ -50,6 +51,11 @@ export default function NovaScotiaTrip() {
         </svg>
         Add photos
       </Link>
+
+      {/* Smart "skip to the itinerary" — jumps to today's day (Day 1 before the
+          trip, the Two Paths finale after). Client-computed so it stays current
+          without a redeploy. Only on this private view. */}
+      <SkipToItinerary />
 
       {/* ─────────── PART ONE · The cinematic overview (gated by SHOW_INTRO) ─────────── */}
       {showIntro && (
