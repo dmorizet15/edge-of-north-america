@@ -19,7 +19,7 @@ export default function TripDayChapter({ day }: { day: TripDay }) {
     >
       {day.photo ? (
         <div className="relative h-[52vh] min-h-[380px] w-full overflow-hidden">
-          <EditorialImage photo={day.photo} fill drift />
+          <EditorialImage photo={day.photo} fill drift showBrief={false} />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-nearblack via-black/30 to-black/40" />
           <div className="absolute inset-0 flex items-end p-[clamp(1.6rem,5vw,4.5rem)]">
             <Header day={day} />
