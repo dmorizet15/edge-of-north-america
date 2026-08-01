@@ -17,6 +17,8 @@ const PUBLIC_PATHS = [
   "/trips/nova-scotia/family",
   "/trips/nova-scotia/unlock",
   "/api/nova-scotia/unlock",
+  // TEMPORARY: diagnostic self-test (key-guarded); remove after the upload fix.
+  "/api/nova-scotia/blob-selftest",
 ];
 
 export async function middleware(req: NextRequest) {
