@@ -35,6 +35,7 @@ and **Nova Scotia**. Static, no backend. Deployed on Vercel.
   stop is one tap to GPS.
 - `[[dir|Address]]` → a compact "Directions" pill, added *alongside* a place
   that already has a website link.
+- `[[tel|207-555-0000]]` → a tap-to-call `tel:` link (for use on the road).
 - `**bold**` → inline emphasis (may contain links; rendered recursively).
 
 **Rule of thumb:** summary = website links; `detailedPlan` = GPS directions.
@@ -48,15 +49,34 @@ businesses (Battered Fish, Restaurant Acadien/Co-op, Keltic's Purple Thistle,
 Oh My Cod, and dropped Bar Kismet as the Monday backup; each now referenced only
 as closed). Every previously-empty meal slot now names a verified restaurant.
 
-**Intentionally left untouched (Rockland leg pending a later pass):**
+## Two Paths — the final-night branch (Days 11–12)
 
-- Day 11 (Aug 17): the **Rockland dinner and the Rockland stay** are unchanged;
-  the Rockland hotel field still carries its old `[[dir]]` button and the Rockland
-  dinner still uses `[[map]]` tokens. Yarmouth breakfast and Acadia content on
-  Day 11 *were* updated.
-- **All of Day 12 (Aug 18)** is unchanged. Note: **Brass Compass Cafe in Rockland
-  has been permanently closed since Nov 2021** and is still listed as a Day 12
-  breakfast option — fix it whenever the Rockland leg is revisited.
+The last night is an open decision made **Saturday, August 15** on the Mount
+Washington summit forecast, between **Path A · The Coast** (Acadia + Rockland)
+and **Path B · The Summit** (Mount Washington Auto Road + the Kancamagus, via
+Gorham NH). This is built as its own feature, not as ordinary `NS_DAYS` days:
+
+- `components/trip/TwoPaths.tsx` — a **client** component with three states
+  (`undecided` / `coast` / `summit`), persisted to `localStorage['ns-final-path']`
+  with a `?path=coast|summit` URL override that writes through. Reads happen in
+  `useEffect` (SSR renders `undecided`) so hydration stays clean. Honours
+  `prefers-reduced-motion`.
+- `content/nova-scotia/two-paths.ts` — all Two Paths content (decision gate,
+  comparison, both full itineraries, "Lock it in" checklists), token-authored.
+- `app/trips/nova-scotia/page.tsx` renders **Days 1–10** via `TripDayChapter`,
+  then `<TwoPaths/>` in place of Days 11–12. **`NS_DAYS` still holds all 12 days
+  of data** (the old Day 11/12 objects are intact, just not rendered) — Path A is
+  the corrected Rockland plan and supersedes them.
+- Two Tuesday closures were baked into Path A: the **Farnsworth Art Museum** and
+  **Home Kitchen Café** are both closed Tuesdays (Aug 18). Rockland dinner is now
+  **13 Oak** (the old In Good Company / Cafe Miranda backups are closed Mondays).
+- **Path B has no baked route map** — the day-map PNGs are framed for the Bar
+  Harbor/Rockland routing. New NH basemaps via `scripts/bake-ns-maps.py` are a
+  tracked follow-up; Path B renders a plain route list instead. Path B sunset
+  lines are omitted rather than showing the (wrong) Maine value.
+
+The **dining pass** below applies to Days 1–10 (and the shared Day 11 morning).
+Days 11–12 dining now lives in the Two Paths content.
 
 Hotels, drive times, sunset times, charging notes, and photos are booking-driven
 and were not changed in the dining pass (one factual exception: Day 3's Moncton→
