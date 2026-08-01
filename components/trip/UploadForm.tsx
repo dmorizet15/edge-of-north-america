@@ -16,9 +16,19 @@ type Phase = "idle" | "working" | "done" | "error";
  * straight to Vercel Blob via a short-lived client token (so large phone photos
  * aren't capped by the serverless body limit); metadata is then written to KV.
  */
-export default function UploadForm({ days }: { days: DayOption[] }) {
-  const [dayN, setDayN] = useState(days[0]?.n ?? "01");
-  const [stop, setStop] = useState(days[0]?.stops[0] ?? "The day (general)");
+export default function UploadForm({
+  days,
+  defaultDay,
+}: {
+  days: DayOption[];
+  defaultDay?: string;
+}) {
+  const initial =
+    defaultDay && days.some((d) => d.n === defaultDay) ? defaultDay : days[0]?.n ?? "01";
+  const [dayN, setDayN] = useState(initial);
+  const [stop, setStop] = useState(
+    days.find((d) => d.n === initial)?.stops[0] ?? "The day (general)"
+  );
   const [uploader, setUploader] = useState("Darren");
   const [caption, setCaption] = useState("");
   const [phase, setPhase] = useState<Phase>("idle");

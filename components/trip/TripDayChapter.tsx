@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { TripDay, TripStop, TripPlanRow } from "@/lib/trip-types";
 import EditorialImage from "@/components/ui/EditorialImage";
 import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
@@ -11,7 +12,14 @@ import { renderText } from "@/lib/richtext";
  * "Today's Memory" close. Registry-agnostic — any trip's <TripDay/> renders
  * here. National Geographic expedition guide, never a spreadsheet.
  */
-export default function TripDayChapter({ day }: { day: TripDay }) {
+export default function TripDayChapter({
+  day,
+  addPhotoHref,
+}: {
+  day: TripDay;
+  /** When set (private view only), shows an "Add a photo to this day" link. */
+  addPhotoHref?: string;
+}) {
   return (
     <section
       id={`day-${day.n}`}
@@ -71,6 +79,18 @@ export default function TripDayChapter({ day }: { day: TripDay }) {
                   <Detail label="Charging" value={day.charging} />
                   <Detail label="If it rains" value={day.rainy} />
                 </dl>
+                {addPhotoHref && (
+                  <Link
+                    href={addPhotoHref}
+                    className="mt-6 flex w-full items-center justify-center gap-2 rounded-sm border border-amber/40 bg-amber/[0.08] px-4 py-3 font-sans text-[0.9rem] font-semibold text-amber transition-colors duration-200 hover:border-amber hover:bg-amber/15"
+                  >
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                      <path d="M14.5 4h-5L8 6H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-4l-1.5-2z" />
+                      <circle cx="12" cy="13" r="3.2" />
+                    </svg>
+                    Add a photo to Day {day.n}
+                  </Link>
+                )}
               </div>
             </Reveal>
           </div>

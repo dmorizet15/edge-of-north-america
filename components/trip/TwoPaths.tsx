@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
 import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
@@ -157,6 +158,27 @@ function SharedMorning() {
               <StepRow key={i} step={s} />
             ))}
           </ol>
+        </Reveal>
+
+        <Reveal delay={0.26}>
+          <div className="mt-6 flex flex-wrap items-center gap-2.5">
+            <span className="eyebrow text-paper/50" style={{ fontSize: "0.6rem" }}>
+              Add a photo
+            </span>
+            {["11", "12"].map((n) => (
+              <Link
+                key={n}
+                href={`/trips/nova-scotia/upload?day=${n}`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-amber/40 bg-amber/[0.08] px-3 py-1.5 font-sans text-[0.82rem] font-medium text-amber transition-colors hover:border-amber hover:bg-amber/15"
+              >
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M14.5 4h-5L8 6H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-4l-1.5-2z" />
+                  <circle cx="12" cy="13" r="3.2" />
+                </svg>
+                Day {n}
+              </Link>
+            ))}
+          </div>
         </Reveal>
       </div>
     </div>

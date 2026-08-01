@@ -27,7 +27,13 @@ function shortDate(n: string): string {
 }
 
 /** Private page (behind the passcode gate) to add photos to a day/stop. */
-export default function UploadPage() {
+export default async function UploadPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ day?: string }>;
+}) {
+  const sp = await searchParams;
+  const defaultDay = NS_DAYS.some((d) => d.n === sp.day) ? sp.day : undefined;
   const days: DayOption[] = NS_DAYS.map((d) => ({
     n: d.n,
     label: `Day ${d.n} · ${shortDate(d.n)} · ${plain(d.region)}`,
@@ -53,7 +59,7 @@ export default function UploadPage() {
         photo. They&rsquo;ll appear in the family view, grouped by day.
       </p>
 
-      <UploadForm days={days} />
+      <UploadForm days={days} defaultDay={defaultDay} />
     </main>
   );
 }

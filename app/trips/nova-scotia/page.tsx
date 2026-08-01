@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import SectionDivider from "@/components/ui/SectionDivider";
 import TextChapter from "@/components/sections/TextChapter";
@@ -35,6 +36,20 @@ export default function NovaScotiaTrip() {
   return (
     <main className="relative bg-nearblack">
       <ScrollProgress />
+
+      {/* Add-photos button — only on this gated private view (so family never
+          sees it). Fixed so it's always reachable while scrolling the trip. */}
+      <Link
+        href="/trips/nova-scotia/upload"
+        aria-label="Add photos to the trip"
+        className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-40 inline-flex items-center gap-2 rounded-full bg-amber px-4 py-3 font-sans text-[0.9rem] font-semibold text-nearblack shadow-lg shadow-black/50 transition-all duration-200 hover:brightness-110 active:scale-95"
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <path d="M14.5 4h-5L8 6H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-4l-1.5-2z" />
+          <circle cx="12" cy="13" r="3.2" />
+        </svg>
+        Add photos
+      </Link>
 
       {/* ─────────── PART ONE · The cinematic overview (gated by SHOW_INTRO) ─────────── */}
       {showIntro && (
@@ -147,7 +162,11 @@ export default function NovaScotiaTrip() {
           final-night branch (the decision made Aug 15). NS_DAYS keeps all 12
           days of data intact — the branch just renders the last two. */}
       {NS_DAYS.filter((day) => Number(day.n) <= 10).map((day) => (
-        <TripDayChapter key={day.n} day={day} />
+        <TripDayChapter
+          key={day.n}
+          day={day}
+          addPhotoHref={`/trips/nova-scotia/upload?day=${day.n}`}
+        />
       ))}
       <TwoPaths />
 
