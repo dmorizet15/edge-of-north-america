@@ -1,41 +1,148 @@
 import type { ReactNode } from "react";
 
 /**
- * Lightweight inline-link renderer for itinerary copy. Turns a plain string
- * containing markdown-style links — `[Eventide Oyster Co.](https://…)` — into
- * React nodes, with real anchors for the linked spans. Everything else renders
- * as text. Keeps content authorable as simple strings while letting hotels,
- * restaurants, wineries, parks, and the ferry be clickable.
+ * Lightweight inline renderer for itinerary copy. Turns a plain string into
+ * React nodes, supporting three inline tokens so content stays authorable as
+ * simple strings:
+ *
+ *   [label](https://…)          a normal link to a page (hotel, restaurant,
+ *                               park, ferry). Rendered with a ↗ marker.
+ *
+ *   [[map|Words|Address]]       makes the words themselves clickable, launching
+ *   [[map|Words]]               Google Maps directions to Address (defaults to
+ *                               Words when no Address is given). Rendered with a
+ *                               pin marker. Use when a stop has no page link.
+ *
+ *   [[dir|Address]]             a compact "Directions" button that opens Google
+ *                               Maps directions to Address. Use to add
+ *                               directions to a place that already links to its
+ *                               own page, without replacing that link.
+ *
+ * Everything else renders as plain text.
  */
-const LINK = /\[([^\]]+)\]\(([^)\s]+)\)/g;
+
+// Google Maps "directions" deep link with the destination pre-populated.
+// Opens the Maps app (or web) with the address filled in as the destination.
+const MAPS_DIR = "https://www.google.com/maps/dir/?api=1&destination=";
+
+function mapsHref(query: string): string {
+  return MAPS_DIR + encodeURIComponent(query.trim());
+}
+
+// Ordered alternation: directions button, then inline maps link, then a normal
+// markdown link. The [[…]] alternatives are tried before the [label](url) one
+// so a leading "[[" is never mistaken for a markdown link.
+const TOKEN =
+  /\[\[dir\|([^\]]+)\]\]|\[\[map\|([^\]]+)\]\]|\[([^\]]+)\]\(([^)\s]+)\)/g;
+
+const LINK_CLASS =
+  "font-medium underline decoration-2 decoration-[#E0A24A]/45 underline-offset-[3px] transition-all duration-200 hover:decoration-[#E0A24A] hover:brightness-110";
 
 export function renderText(input?: string): ReactNode {
   if (!input) return null;
   const out: ReactNode[] = [];
   let last = 0;
   let m: RegExpExecArray | null;
-  LINK.lastIndex = 0;
+  TOKEN.lastIndex = 0;
   let key = 0;
-  while ((m = LINK.exec(input)) !== null) {
+  while ((m = TOKEN.exec(input)) !== null) {
     if (m.index > last) out.push(input.slice(last, m.index));
-    const [, label, href] = m;
-    out.push(
-      <a
-        key={key++}
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: "#E0A24A" }}
-        className="font-medium underline decoration-2 decoration-[#E0A24A]/45 underline-offset-[3px] transition-all duration-200 hover:decoration-[#E0A24A] hover:brightness-110"
-      >
-        {label}
-        <span aria-hidden className="ml-[0.15em] text-[0.72em] align-baseline opacity-70">
-          ↗
-        </span>
-      </a>
-    );
+
+    if (m[1] !== undefined) {
+      // [[dir|address]] — a standalone "Directions" button.
+      out.push(<DirectionsButton key={key++} query={m[1]} />);
+    } else if (m[2] !== undefined) {
+      // [[map|label|address]] — the words themselves open Google Maps.
+      const parts = m[2].split("|");
+      const label = parts[0];
+      const query = parts.length > 1 ? parts.slice(1).join("|") : parts[0];
+      out.push(
+        <a
+          key={key++}
+          href={mapsHref(query)}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#E0A24A" }}
+          className={LINK_CLASS}
+        >
+          {label}
+          <PinMark />
+        </a>
+      );
+    } else {
+      // [label](url) — a normal link to a page.
+      const label = m[3];
+      const href = m[4];
+      out.push(
+        <a
+          key={key++}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#E0A24A" }}
+          className={LINK_CLASS}
+        >
+          {label}
+          <span
+            aria-hidden
+            className="ml-[0.15em] align-baseline text-[0.72em] opacity-70"
+          >
+            ↗
+          </span>
+        </a>
+      );
+    }
     last = m.index + m[0].length;
   }
   if (last < input.length) out.push(input.slice(last));
   return out.length === 1 ? out[0] : out;
+}
+
+/** A small map-pin glyph, sized to the surrounding text via `em` units. */
+function PinGlyph() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      aria-hidden
+      className="inline-block align-[-0.12em]"
+    >
+      <path d="M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" />
+    </svg>
+  );
+}
+
+/** Pin marker trailing an inline maps link (parallels the ↗ on page links). */
+function PinMark() {
+  return (
+    <span
+      aria-hidden
+      className="ml-[0.15em] inline-block align-baseline text-[0.78em] opacity-70"
+    >
+      <PinGlyph />
+    </span>
+  );
+}
+
+/**
+ * A compact "Directions" pill that opens Google Maps directions to `query`.
+ * Used to add directions to a place that already has its own page link, so the
+ * original link is preserved and the button is added alongside it.
+ */
+function DirectionsButton({ query }: { query: string }) {
+  return (
+    <a
+      href={mapsHref(query)}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Directions to ${query.trim()} in Google Maps`}
+      style={{ color: "#E0A24A" }}
+      className="ml-2 inline-flex items-center gap-[0.28em] whitespace-nowrap rounded-full border border-[#E0A24A]/40 px-[0.6em] py-[0.12em] align-[0.08em] text-[0.62em] font-medium uppercase tracking-[0.08em] no-underline transition-colors duration-200 hover:border-[#E0A24A] hover:bg-[#E0A24A]/10"
+    >
+      <PinGlyph />
+      Directions
+    </a>
+  );
 }
