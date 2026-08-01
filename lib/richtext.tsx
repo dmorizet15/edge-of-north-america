@@ -2,38 +2,45 @@ import type { ReactNode } from "react";
 
 /**
  * Lightweight inline renderer for itinerary copy. Turns a plain string into
- * React nodes, supporting three inline tokens so content stays authorable as
+ * React nodes, supporting these inline tokens so content stays authorable as
  * simple strings:
  *
- *   [label](https://…)          a normal link to a page (hotel, restaurant,
- *                               park, ferry). Rendered with a ↗ marker.
+ *   [label](https://…)          a normal link to a page (restaurant, hotel,
+ *                               park, ferry). Rendered with a ↗ marker. Used in
+ *                               the day "summary" copy so places link to their
+ *                               own websites.
  *
  *   [[map|Words|Address]]       makes the words themselves clickable, launching
  *   [[map|Words]]               Google Maps directions to Address (defaults to
  *                               Words when no Address is given). Rendered with a
- *                               pin marker. Use when a stop has no page link.
+ *                               pin marker. Used in the "Detailed daily plan"
+ *                               rows so each stop is one tap to GPS directions.
  *
  *   [[dir|Address]]             a compact "Directions" button that opens Google
- *                               Maps directions to Address. Use to add
- *                               directions to a place that already links to its
- *                               own page, without replacing that link.
+ *                               Maps directions to Address, added alongside a
+ *                               place that already links to its own page.
+ *
+ *   **bold**                    inline emphasis; may itself contain links or
+ *                               other tokens (rendered recursively).
  *
  * Everything else renders as plain text.
  */
 
 // Google Maps "directions" deep link with the destination pre-populated.
-// Opens the Maps app (or web) with the address filled in as the destination.
 const MAPS_DIR = "https://www.google.com/maps/dir/?api=1&destination=";
 
 function mapsHref(query: string): string {
   return MAPS_DIR + encodeURIComponent(query.trim());
 }
 
-// Ordered alternation: directions button, then inline maps link, then a normal
-// markdown link. The [[…]] alternatives are tried before the [label](url) one
-// so a leading "[[" is never mistaken for a markdown link.
-const TOKEN =
-  /\[\[dir\|([^\]]+)\]\]|\[\[map\|([^\]]+)\]\]|\[([^\]]+)\]\(([^)\s]+)\)/g;
+// Ordered alternation: bold, directions button, inline maps link, then a normal
+// markdown link. A fresh RegExp is built per call so renderText can recurse
+// (for bold spans) without clobbering an outer scan's lastIndex.
+const TOKEN_SRC =
+  "\\*\\*([^*]+)\\*\\*" + // 1: **bold**
+  "|\\[\\[dir\\|([^\\]]+)\\]\\]" + // 2: [[dir|address]]
+  "|\\[\\[map\\|([^\\]]+)\\]\\]" + // 3: [[map|label|address]]
+  "|\\[([^\\]]+)\\]\\(([^)\\s]+)\\)"; // 4: label, 5: href
 
 const LINK_CLASS =
   "font-medium underline decoration-2 decoration-[#E0A24A]/45 underline-offset-[3px] transition-all duration-200 hover:decoration-[#E0A24A] hover:brightness-110";
@@ -41,19 +48,26 @@ const LINK_CLASS =
 export function renderText(input?: string): ReactNode {
   if (!input) return null;
   const out: ReactNode[] = [];
+  const re = new RegExp(TOKEN_SRC, "g");
   let last = 0;
   let m: RegExpExecArray | null;
-  TOKEN.lastIndex = 0;
   let key = 0;
-  while ((m = TOKEN.exec(input)) !== null) {
+  while ((m = re.exec(input)) !== null) {
     if (m.index > last) out.push(input.slice(last, m.index));
 
     if (m[1] !== undefined) {
-      // [[dir|address]] — a standalone "Directions" button.
-      out.push(<DirectionsButton key={key++} query={m[1]} />);
+      // **bold** — emphasised span; render its contents recursively.
+      out.push(
+        <strong key={key++} className="font-semibold text-paper">
+          {renderText(m[1])}
+        </strong>
+      );
     } else if (m[2] !== undefined) {
+      // [[dir|address]] — a standalone "Directions" button.
+      out.push(<DirectionsButton key={key++} query={m[2]} />);
+    } else if (m[3] !== undefined) {
       // [[map|label|address]] — the words themselves open Google Maps.
-      const parts = m[2].split("|");
+      const parts = m[3].split("|");
       const label = parts[0];
       const query = parts.length > 1 ? parts.slice(1).join("|") : parts[0];
       out.push(
@@ -71,8 +85,8 @@ export function renderText(input?: string): ReactNode {
       );
     } else {
       // [label](url) — a normal link to a page.
-      const label = m[3];
-      const href = m[4];
+      const label = m[4];
+      const href = m[5];
       out.push(
         <a
           key={key++}
@@ -128,8 +142,7 @@ function PinMark() {
 
 /**
  * A compact "Directions" pill that opens Google Maps directions to `query`.
- * Used to add directions to a place that already has its own page link, so the
- * original link is preserved and the button is added alongside it.
+ * Used to add directions alongside a place that already has its own page link.
  */
 function DirectionsButton({ query }: { query: string }) {
   return (
