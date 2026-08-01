@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
 import DayGallery from "@/components/trip/DayGallery";
+import BackButton from "@/components/trip/BackButton";
 import { NS_DAYS } from "@/content/nova-scotia/itinerary";
 import { NS_WAYPOINTS } from "@/content/nova-scotia/route";
 import { NS_TRIP, dateForDay, tripStatus, statusLine } from "@/content/nova-scotia/trip-meta";
@@ -43,8 +44,9 @@ export default async function FamilyView() {
   return (
     <main className="min-h-screen w-full bg-nearblack">
       {/* Header + you-are-here */}
-      <section className="mx-auto max-w-4xl px-[clamp(1.3rem,5vw,3rem)] pt-[12vh]">
-        <span className="eyebrow text-amber">Follow along</span>
+      <section className="mx-auto max-w-4xl px-[clamp(1.3rem,5vw,3rem)] pt-[8vh]">
+        <BackButton />
+        <span className="mt-8 block eyebrow text-amber">Follow along</span>
         <h1 className="mt-5 font-serif text-[clamp(2.2rem,7vw,4rem)] font-normal leading-[1.03] tracking-title text-paper">
           Nova Scotia, day by day
         </h1>

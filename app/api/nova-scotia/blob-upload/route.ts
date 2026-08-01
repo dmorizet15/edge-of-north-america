@@ -7,6 +7,13 @@ import { NextResponse, type NextRequest } from "next/server";
  * (middleware covers /api/nova-scotia/*), so only unlocked clients can get a
  * token. Metadata is written separately by the client via /api/nova-scotia/photos
  * once the blob URL is known.
+ *
+ * NOTE: we deliberately do NOT set `onUploadCompleted`. Defining it makes the
+ * SDK bake a completion callback URL into the token, and the Blob service then
+ * calls that URL back server-to-server after the upload — with no auth cookie,
+ * so our middleware 307-redirects it to /unlock and the client `upload()` never
+ * resolves (the dreaded "Uploading 0/1…" hang). We store metadata client-side
+ * via /api/nova-scotia/photos, so there is nothing for a completion hook to do.
  */
 export const runtime = "nodejs";
 
@@ -21,8 +28,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         addRandomSuffix: true,
         maximumSizeInBytes: 25 * 1024 * 1024,
       }),
-      // Metadata is stored client-side after upload; nothing to do here.
-      onUploadCompleted: async () => {},
     });
     return NextResponse.json(json);
   } catch (err) {
