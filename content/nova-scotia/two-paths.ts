@@ -55,12 +55,23 @@ export interface PathStay {
   warnings?: string[];
 }
 
+export interface PathMapPoint {
+  label: string;
+  lat: number;
+  lon: number;
+  ferry?: boolean;
+}
+
 export interface PathDayPlan {
   date: string;
   intro?: string;
   steps: PathStep[];
   stay?: PathStay;
-  /** Plain route list, used when there is no baked map (Path B). */
+  /** Route points for the day map, projected onto the baked basemap `mapId`. */
+  map?: PathMapPoint[];
+  /** Key into lib/mapmeta.json, e.g. "ns-day-11", "ns-pathb-mon". */
+  mapId?: string;
+  /** Plain route list, a fallback used only when there is no baked map. */
   route?: string[];
   sunset?: string;
 }
@@ -186,6 +197,13 @@ export const PATHS: FinalPath[] = [
     tradeoff: "Nothing here is weather-dependent, but you have already had eleven days of coastline.",
     monday: {
       date: "Monday, August 17 — Bar Harbor, Acadia, Rockland",
+      mapId: "ns-day-11",
+      map: [
+        { label: "Yarmouth", lat: 43.84, lon: -66.12 },
+        { label: "Bar Harbor", lat: 44.39, lon: -68.2, ferry: true },
+        { label: "Acadia", lat: 44.34, lon: -68.25 },
+        { label: "Rockland", lat: 44.1, lon: -69.11 },
+      ],
       steps: [
         {
           time: "1:00 PM",
@@ -255,6 +273,13 @@ export const PATHS: FinalPath[] = [
     tuesday: {
       date: "Tuesday, August 18 — Rockland home to Salt Point",
       intro: "Two things that were in the original plan are closed on Tuesdays: the Farnsworth Art Museum and Home Kitchen Café. Both are handled below.",
+      mapId: "ns-day-12",
+      map: [
+        { label: "Rockland", lat: 44.1, lon: -69.11 },
+        { label: "Portland", lat: 43.66, lon: -70.26 },
+        { label: "Portsmouth", lat: 43.07, lon: -70.76 },
+        { label: "Salt Point", lat: 41.87, lon: -73.8 },
+      ],
       steps: [
         {
           time: "7:30 AM",
@@ -319,6 +344,12 @@ export const PATHS: FinalPath[] = [
     tradeoff: "A five-hour Monday drive, no Acadia, and roughly a one-in-four chance of the clear summit.",
     monday: {
       date: "Monday, August 17 — Bar Harbor to Gorham, New Hampshire",
+      mapId: "ns-pathb-mon",
+      map: [
+        { label: "Bar Harbor", lat: 44.39, lon: -68.2 },
+        { label: "Bethel", lat: 44.4, lon: -70.79 },
+        { label: "Gorham", lat: 44.39, lon: -71.18 },
+      ],
       steps: [
         {
           time: "1:00 PM",
@@ -374,6 +405,13 @@ export const PATHS: FinalPath[] = [
     },
     tuesday: {
       date: "Tuesday, August 18 — the summit, the Kancamagus, and home",
+      mapId: "ns-pathb-tue",
+      map: [
+        { label: "Mt Washington", lat: 44.27, lon: -71.3 },
+        { label: "Conway", lat: 43.98, lon: -71.12 },
+        { label: "Lincoln", lat: 44.05, lon: -71.69 },
+        { label: "Salt Point", lat: 41.87, lon: -73.8 },
+      ],
       steps: [
         {
           time: "7:00 AM",
@@ -453,14 +491,6 @@ export const PATHS: FinalPath[] = [
           ],
         },
         { time: "~7:00 PM", heading: "Home — [[map|Salt Point, NY|Salt Point, New York]]" },
-      ],
-      route: [
-        "The summit — Mount Washington Auto Road (7.6 mi up), Gorham NH",
-        "Route 16 south to Conway",
-        "Optional: Cathedral Ledge, Bartlett NH",
-        "The Kancamagus Highway (Route 112), Conway to Lincoln — 34.5 mi",
-        "Lunch at North Woodstock, then I-93 / I-91 south",
-        "I-90 west to Lee MA, then the Taconic south to Salt Point NY",
       ],
     },
     checklist: [

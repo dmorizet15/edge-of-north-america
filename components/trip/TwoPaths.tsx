@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
+import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
 import { renderText } from "@/lib/richtext";
 import {
   SHARED_MORNING,
@@ -491,6 +492,17 @@ function PathDayBlock({ plan }: { plan: PathDayPlan }) {
           </p>
         )}
 
+        {plan.map && plan.mapId && (
+          <div className="mt-6 rounded-sm border border-paper/10 bg-black/20 p-4">
+            <ScrollRouteMap
+              points={plan.map}
+              mapId={plan.mapId}
+              variant="day"
+              ariaLabel={`Map: ${plan.map.map((p) => p.label).join(" to ")}.`}
+            />
+          </div>
+        )}
+
         <ol className="mt-6 border-l border-paper/15 pl-5 sm:pl-7">
           {plan.steps.map((s, i) => (
             <StepRow key={i} step={s} />
@@ -499,7 +511,7 @@ function PathDayBlock({ plan }: { plan: PathDayPlan }) {
 
         {plan.stay && <StayBlock stay={plan.stay} />}
 
-        {plan.route && (
+        {!plan.map && plan.route && (
           <div className="mt-6 rounded-sm border border-paper/12 bg-black/20 p-5">
             <span className="eyebrow text-paper/55" style={{ fontSize: "0.58rem" }}>
               Route (no baked map yet)

@@ -288,5 +288,25 @@
     "w": 1200,
     "h": 760,
     "src": "/assets/maps/ns/ns-route.png"
+  },
+  "ns-pathb-mon": {
+    "center": [
+      44.395,
+      -69.69
+    ],
+    "zoom": 8,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-pathb-mon.png"
+  },
+  "ns-pathb-tue": {
+    "center": [
+      43.07,
+      -72.46
+    ],
+    "zoom": 7,
+    "w": 800,
+    "h": 480,
+    "src": "/assets/maps/ns/ns-pathb-tue.png"
   }
 }
