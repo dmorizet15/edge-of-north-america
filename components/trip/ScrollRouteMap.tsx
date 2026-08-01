@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   motion,
   useMotionValue,
@@ -40,6 +40,7 @@ const lat2y = (lat: number, z: number) => {
 export default function ScrollRouteMap({ points, mapId, ariaLabel, variant = "day" }: Props) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
+  const [baseFailed, setBaseFailed] = useState(false);
   const meta = META[mapId];
 
   // Drive the line-draw from the enclosing section's scroll position (not this
@@ -109,10 +110,24 @@ export default function ScrollRouteMap({ points, mapId, ariaLabel, variant = "da
   const labelSize = isRoute ? 13 : 15;
 
   return (
-    <div ref={ref} className="relative overflow-hidden rounded-sm ring-1 ring-paper/12">
-      {/* Real baked dark map */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={meta.src} alt={ariaLabel ?? "Route map"} className="block w-full" loading="lazy" />
+    <div
+      ref={ref}
+      className="relative overflow-hidden rounded-sm bg-nearblack ring-1 ring-paper/12"
+      style={{ aspectRatio: `${w} / ${h}` }}
+    >
+      {/* Real baked dark map. The container holds its aspect ratio so a slow or
+          failed basemap load never collapses the map — the route + labels still
+          draw on the dark field, and a broken-image icon never shows. */}
+      {!baseFailed && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={meta.src}
+          alt={ariaLabel ?? "Route map"}
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+          onError={() => setBaseFailed(true)}
+        />
+      )}
       {/* gentle depth + edge fade so the raster sits on the page */}
       <div
         className="pointer-events-none absolute inset-0"
