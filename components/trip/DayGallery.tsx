@@ -6,12 +6,15 @@ import type { PhotoMeta } from "@/lib/photos";
 
 /**
  * One day's photos on the family view. The first photo shows on the page as a
- * preview that fills its column; tapping it opens a centered lightbox that
- * floats over a dimmed (still-visible) page. The lightbox auto-advances like a
- * slideshow (play/pause, a progress bar, 6s per photo — the common default),
- * with prev/next arrows, keyboard, touch swipe, a real full-screen toggle, and
- * a caption/uploader per photo. Auto-advance stays off when the visitor prefers
- * reduced motion.
+ * preview; tapping it opens a centered lightbox that floats over a dimmed
+ * (still-visible) page. The lightbox auto-advances like a slideshow (play/pause,
+ * a progress bar, 6s per photo — the common default), with prev/next arrows,
+ * keyboard, touch swipe, a caption/uploader per photo, and an expand-to-full
+ * control. Auto-advance stays off when the visitor prefers reduced motion.
+ *
+ * Full screen: uses the native Fullscreen API where it exists, and falls back to
+ * a CSS full-viewport "cover" mode on browsers that don't support it (notably
+ * Safari on iPhone), so the control is always available and always works.
  */
 
 const SLIDE_MS = 6000;
@@ -98,13 +101,14 @@ function Lightbox({
   const touchX = useRef<number | null>(null);
   const progressRef = useRef(0);
   const [mounted, setMounted] = useState(false);
-  const [isFs, setIsFs] = useState(false);
-  const [fsSupported, setFsSupported] = useState(false);
+  const [nativeFs, setNativeFs] = useState(false);
+  const [cover, setCover] = useState(false); // CSS full-viewport fallback (iOS)
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const p = photos[index];
   const count = photos.length;
   const canAdvance = count > 1;
+  const isFull = nativeFs || cover;
 
   useEffect(() => setMounted(true), []);
 
@@ -116,14 +120,15 @@ function Lightbox({
     setPlaying(!reduced && count > 1);
   }, [count]);
 
-  // Keyboard nav + body scroll lock + fullscreen tracking while open.
+  // Keyboard nav + body scroll lock + native-fullscreen tracking while open.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      else if (e.key === "ArrowRight") onGo(1);
+      if (e.key === "Escape") {
+        if (cover) setCover(false);
+        else onClose();
+      } else if (e.key === "ArrowRight") onGo(1);
       else if (e.key === "ArrowLeft") onGo(-1);
       else if (e.key === " ") {
-        // Don't hijack Space when a button/control is focused — let it activate.
         const tag = (e.target as HTMLElement | null)?.tagName;
         if (tag === "BUTTON" || tag === "INPUT" || tag === "TEXTAREA") return;
         e.preventDefault();
@@ -133,15 +138,14 @@ function Lightbox({
     window.addEventListener("keydown", onKey);
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    setFsSupported(!!document.fullscreenEnabled);
-    const onFs = () => setIsFs(!!document.fullscreenElement);
+    const onFs = () => setNativeFs(!!document.fullscreenElement);
     document.addEventListener("fullscreenchange", onFs);
     return () => {
       window.removeEventListener("keydown", onKey);
       document.removeEventListener("fullscreenchange", onFs);
       document.body.style.overflow = prevOverflow;
     };
-  }, [onClose, onGo, canAdvance]);
+  }, [onClose, onGo, canAdvance, cover]);
 
   // Reset the progress bar whenever the slide changes.
   useEffect(() => {
@@ -168,11 +172,21 @@ function Lightbox({
     return () => window.clearInterval(id);
   }, [playing, canAdvance, index, onGo]);
 
-  function toggleFullscreen() {
+  function toggleFull() {
     const el = cardRef.current;
-    if (!el) return;
-    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
-    else el.requestFullscreen?.().catch(() => {});
+    const nativeOK =
+      typeof document !== "undefined" &&
+      document.fullscreenEnabled &&
+      !!el?.requestFullscreen;
+    if (nativeOK) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      } else {
+        el!.requestFullscreen().catch(() => setCover(true));
+      }
+    } else {
+      setCover((c) => !c);
+    }
   }
 
   function onTouchStart(e: React.TouchEvent) {
@@ -199,15 +213,15 @@ function Lightbox({
       <div
         ref={cardRef}
         className={`relative flex flex-col overflow-hidden border border-paper/15 bg-nearblack shadow-2xl shadow-black/60 ${
-          isFs
-            ? "h-screen w-screen rounded-none"
+          isFull
+            ? "h-[100dvh] w-screen rounded-none"
             : "max-h-[90dvh] w-[min(96vw,68rem)] rounded-lg"
         }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Auto-advance progress bar */}
         {canAdvance && (
-          <div className="h-[3px] w-full bg-paper/10">
+          <div className="h-[3px] w-full shrink-0 bg-paper/10">
             <div
               className="h-full bg-amber"
               style={{
@@ -218,9 +232,9 @@ function Lightbox({
           </div>
         )}
 
-        {/* Top bar */}
-        <div className="flex items-center justify-between px-4 pt-3 pb-2">
-          <span className="font-sans text-[0.9rem] tabular-nums text-paper/70">
+        {/* Control bar — always visible, high-contrast, generous tap targets */}
+        <div className="flex shrink-0 items-center justify-between gap-2 bg-black/40 px-3 py-2">
+          <span className="pl-1 font-sans text-[0.95rem] font-medium tabular-nums text-paper/85">
             {index + 1} / {count}
           </span>
           <div className="flex items-center gap-1">
@@ -229,26 +243,24 @@ function Lightbox({
                 type="button"
                 onClick={() => setPlaying((v) => !v)}
                 aria-label={playing ? "Pause slideshow" : "Play slideshow"}
-                className="rounded-full p-2 text-paper/70 transition-colors hover:bg-white/10 hover:text-paper"
+                className="rounded-full p-2.5 text-paper transition-colors hover:bg-white/15 active:bg-white/25"
               >
                 {playing ? <PauseIcon /> : <PlayIcon />}
               </button>
             )}
-            {fsSupported && (
-              <button
-                type="button"
-                onClick={toggleFullscreen}
-                aria-label={isFs ? "Exit full screen" : "Full screen"}
-                className="rounded-full p-2 text-paper/70 transition-colors hover:bg-white/10 hover:text-paper"
-              >
-                <FsIcon exit={isFs} />
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={toggleFull}
+              aria-label={isFull ? "Exit full screen" : "Full screen"}
+              className="rounded-full p-2.5 text-paper transition-colors hover:bg-white/15 active:bg-white/25"
+            >
+              <FsIcon exit={isFull} />
+            </button>
             <button
               type="button"
               onClick={onClose}
               aria-label="Close"
-              className="rounded-full p-2 text-paper/70 transition-colors hover:bg-white/10 hover:text-paper"
+              className="rounded-full p-2.5 text-paper transition-colors hover:bg-white/15 active:bg-white/25"
             >
               <CloseIcon />
             </button>
@@ -279,7 +291,7 @@ function Lightbox({
         </div>
 
         {/* Caption + dots */}
-        <div className="px-5 pb-4 pt-3 text-center">
+        <div className="shrink-0 px-5 pb-4 pt-3 text-center">
           {p.caption && (
             <p className="mx-auto max-w-2xl font-sans text-[1.02rem] font-light leading-relaxed text-paper/90">
               {p.caption}
@@ -317,7 +329,7 @@ function NavButton({ side, onClick }: { side: "left" | "right"; onClick: () => v
       type="button"
       onClick={onClick}
       aria-label={side === "left" ? "Previous photo" : "Next photo"}
-      className={`absolute top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2.5 text-paper/80 backdrop-blur transition-colors hover:bg-black/70 hover:text-paper ${
+      className={`absolute top-1/2 -translate-y-1/2 rounded-full bg-black/45 p-2.5 text-paper/90 backdrop-blur transition-colors hover:bg-black/70 hover:text-paper ${
         side === "left" ? "left-2" : "right-2"
       }`}
     >
@@ -338,28 +350,28 @@ function StackIcon() {
 }
 function CloseIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
       <path d="M6 6l12 12M18 6L6 18" />
     </svg>
   );
 }
 function PlayIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden>
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden>
       <path d="M8 5v14l11-7z" />
     </svg>
   );
 }
 function PauseIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden>
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden>
       <path d="M7 5h3v14H7zM14 5h3v14h-3z" />
     </svg>
   );
 }
 function FsIcon({ exit }: { exit: boolean }) {
   return (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       {exit ? (
         <path d="M9 4v3a2 2 0 0 1-2 2H4M20 9h-3a2 2 0 0 1-2-2V4M15 20v-3a2 2 0 0 1 2-2h3M4 15h3a2 2 0 0 1 2 2v3" />
       ) : (

@@ -10,10 +10,13 @@ Routes under `app/trips/nova-scotia/`:
 
 - `/trips/nova-scotia` — the private planning view (full itinerary + Two Paths).
   **Gated** by `middleware.ts`.
-- `/trips/nova-scotia/family` — **public** archive/follow-along view (route map,
-  day-by-day with a "you are here" from `trip-meta.ts`, and a per-day photo
-  gallery read from KV). Deliberately omits the hour-by-hour, bookings, and any
-  upload controls.
+- `/trips/nova-scotia/family` — **public** archive/follow-along view. Each day
+  leads with the same cinematic full-bleed hero photo as the private day headers
+  (`day.photo` via `EditorialImage`, title/subtitle overlaid), then a body panel
+  with the stops, a per-day family-photo gallery read from KV (`DayGallery`, a
+  slideshow lightbox — auto-advance/play-pause/fullscreen, iOS-safe), and a
+  no-login guestbook (`DayComments`). A "you are here" comes from `trip-meta.ts`.
+  Deliberately omits the hour-by-hour, bookings, and any upload controls.
 - `/trips/nova-scotia/upload` — private, mobile-first photo upload (client →
   Vercel Blob, then metadata → KV). Gated.
 - `/trips/nova-scotia/unlock` — the passcode page (public); posts to
@@ -21,8 +24,17 @@ Routes under `app/trips/nova-scotia/`:
   cookie (`lib/auth.ts`, HMAC via Web Crypto so it runs on the Edge).
 
 `middleware.ts` gates `/trips/nova-scotia*` and `/api/nova-scotia*` **except**
-`/family`, `/unlock`, and `/api/nova-scotia/unlock`. Newfoundland and the hub
-are untouched.
+`/family`, `/unlock`, `/api/nova-scotia/unlock`, and `/api/nova-scotia/comments`
+(the public family guestbook). Newfoundland still builds at `/trips/newfoundland`
+but is intentionally unlinked.
+
+**Entry / navigation.** Nova Scotia is the only active trip, so the site root
+(`app/page.tsx`) `redirect()`s straight to `/trips/nova-scotia` (the gated
+private view; the family use their direct `/family` link) instead of showing the
+old two-trip picker. The "All trips" chrome (`TripNav` in `app/trips/layout.tsx`)
+and the family `BackButton` were removed so nothing surfaces Newfoundland; those
+components and `lib/trips.ts` / `TripCard` remain in the tree, just unused, ready
+to re-wire if a second trip goes live.
 
 **Required Vercel env vars** (the app degrades gracefully without them — the
 build passes, gate fails closed, gallery renders empty):
@@ -30,7 +42,8 @@ build passes, gate fails closed, gallery renders empty):
 - `TRIP_PASSCODE` — the private-view passcode (set it in Vercel; never in code).
 - `COOKIE_SECRET` — HMAC secret for the auth cookie (any long random string).
 - `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` — Upstash Redis
-  (Vercel Marketplace) for photo metadata. Key shape: `photos:nova-scotia:{day}`.
+  (Vercel Marketplace) for photo metadata and family guestbook comments. Key
+  shapes: `photos:nova-scotia:{day}` and `comments:nova-scotia:{day}`.
 - `BLOB_READ_WRITE_TOKEN` — Vercel Blob store (auto-injected once the store is added).
 - `SHOW_INTRO` — set to `true` to show the cinematic intro on the private page;
   unset/false hides it (read at build time, so toggling needs a redeploy).

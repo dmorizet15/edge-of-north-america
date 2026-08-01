@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
 import DayGallery from "@/components/trip/DayGallery";
 import DayComments from "@/components/trip/DayComments";
-import BackButton from "@/components/trip/BackButton";
+import EditorialImage from "@/components/ui/EditorialImage";
 import { NS_DAYS } from "@/content/nova-scotia/itinerary";
 import { NS_WAYPOINTS } from "@/content/nova-scotia/route";
 import { NS_TRIP, dateForDay, tripStatus, statusLine } from "@/content/nova-scotia/trip-meta";
@@ -51,8 +51,7 @@ export default async function FamilyView() {
     <main className="min-h-screen w-full bg-nearblack">
       {/* Header + you-are-here */}
       <section className="mx-auto max-w-6xl px-[clamp(1.3rem,5vw,4.5rem)] pt-[8vh]">
-        <BackButton />
-        <span className="mt-8 block eyebrow text-amber">Follow along</span>
+        <span className="block eyebrow text-amber">Follow along</span>
         <h1 className="mt-5 font-serif text-[clamp(2.2rem,7vw,4rem)] font-normal leading-[1.03] tracking-title text-paper">
           Nova Scotia, day by day
         </h1>
@@ -93,7 +92,7 @@ export default async function FamilyView() {
 
       {/* Day by day */}
       <section className="mx-auto mt-16 max-w-6xl px-[clamp(1.3rem,5vw,4.5rem)] pb-[16vh]">
-        <ol className="flex flex-col gap-5">
+        <ol className="flex flex-col gap-8">
           {NS_DAYS.map((day) => {
             const iso = dateForDay(day.n);
             const isPast = iso < status.todayISO;
@@ -104,83 +103,80 @@ export default async function FamilyView() {
             return (
               <li
                 key={day.n}
-                className={`rounded-sm border p-5 sm:p-7 ${
+                className={`overflow-hidden rounded-lg border ${
                   isCurrent
-                    ? "border-amber/60 bg-amber/[0.06]"
-                    : isPast
-                      ? "border-paper/10 bg-black/20"
-                      : "border-paper/10 bg-black/10"
+                    ? "border-amber/60"
+                    : "border-paper/10"
                 }`}
               >
-                <div
-                  className={
-                    hasPhotos
-                      ? "grid gap-6 md:gap-9 lg:grid-cols-[1fr_minmax(0,26rem)] lg:items-start"
-                      : ""
-                  }
-                >
-                  {/* Text column */}
-                  <div>
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                      <span className="eyebrow tabular-nums text-amber">Day {day.n}</span>
-                      <span className="h-px w-6 bg-paper/25" aria-hidden />
-                      <span
-                        className={`eyebrow ${isPast && !isCurrent ? "text-paper/50" : "text-paper/80"}`}
-                      >
-                        {longDate(day.n)}
-                      </span>
-                      {isCurrent && (
-                        <span className="rounded-full bg-amber px-2.5 py-0.5 text-[0.62rem] font-semibold uppercase tracking-wide text-nearblack">
+                {/* Dramatic full-bleed day hero — same treatment as the private view */}
+                <div className="relative h-[62vh] max-h-[820px] min-h-[440px] w-full overflow-hidden">
+                  {day.photo && (
+                    <EditorialImage photo={day.photo} fill drift showBrief={false} />
+                  )}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-nearblack via-nearblack/45 to-black/20" />
+
+                  {(isCurrent || isPast) && (
+                    <div className="absolute right-4 top-4">
+                      {isCurrent ? (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber px-3 py-1 text-[0.66rem] font-semibold uppercase tracking-wide text-nearblack shadow-lg shadow-black/40">
+                          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-nearblack/70" aria-hidden />
                           You are here
                         </span>
-                      )}
-                      {isPast && !isCurrent && (
-                        <span className="text-[0.66rem] uppercase tracking-wide text-paper/40">
-                          done
+                      ) : (
+                        <span className="rounded-full bg-black/50 px-3 py-1 text-[0.66rem] font-medium uppercase tracking-wide text-paper/80 backdrop-blur">
+                          Done
                         </span>
                       )}
                     </div>
+                  )}
 
-                    <h2
-                      className={`mt-3 font-serif text-[clamp(1.4rem,2.6vw,2rem)] font-normal leading-snug tracking-title ${
-                        isPast && !isCurrent ? "text-paper/75" : "text-paper"
-                      }`}
-                    >
+                  <div className="absolute inset-x-0 bottom-0 p-[clamp(1.4rem,4vw,3.25rem)]">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                      <span className="eyebrow tabular-nums text-amber">Day {day.n}</span>
+                      <span className="h-px w-7 bg-paper/40" aria-hidden />
+                      <span className="eyebrow tabular-nums text-paper/85">{longDate(day.n)}</span>
+                      <span className="h-px w-7 bg-paper/40" aria-hidden />
+                      <span className="eyebrow text-paper/75">{plain(day.region)}</span>
+                    </div>
+                    <h2 className="mt-3 font-serif text-[clamp(2rem,5vw,3.4rem)] font-normal leading-[1.03] tracking-title text-paper drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
                       {plain(day.title)}
                     </h2>
-                    <p className="mt-2 font-sans text-[1.05rem] font-light leading-snug text-paper/65">
-                      {plain(day.region)} · {plain(day.leg)}
-                    </p>
-
                     {subtitle && (
-                      <p className="mt-4 max-w-2xl font-serif text-[clamp(1.12rem,1.8vw,1.35rem)] font-light leading-relaxed text-paper/80">
+                      <p className="mt-3 max-w-2xl font-serif text-[clamp(1.15rem,2vw,1.5rem)] font-light italic leading-relaxed text-paper/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)]">
                         {subtitle}
                       </p>
                     )}
-
-                    {day.stops.length > 0 && (
-                      <ul className="mt-5 flex flex-wrap gap-2">
-                        {day.stops.map((s, i) => (
-                          <li
-                            key={i}
-                            className="rounded-full border border-paper/15 px-3.5 py-1.5 font-sans text-[0.95rem] font-light text-paper/80"
-                          >
-                            {plain(s.name)}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                    <p className="eyebrow mt-4 text-paper/65">{plain(day.leg)}</p>
                   </div>
-
-                  {/* Photo column (only when the day has photos) */}
-                  {hasPhotos && (
-                    <div className="lg:pt-1">
-                      <DayGallery photos={photos} />
-                    </div>
-                  )}
                 </div>
 
-                <DayComments day={day.n} initialCount={commentCounts[day.n] ?? 0} />
+                {/* Body — stops, family photos, and the guestbook, one clean panel */}
+                <div className={`p-5 sm:p-7 ${isCurrent ? "bg-amber/[0.05]" : "bg-black/20"}`}>
+                  {day.stops.length > 0 && (
+                    <ul className="flex flex-wrap gap-2">
+                      {day.stops.map((s, i) => (
+                        <li
+                          key={i}
+                          className="rounded-full border border-paper/15 px-3.5 py-1.5 font-sans text-[0.95rem] font-light text-paper/80"
+                        >
+                          {plain(s.name)}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {hasPhotos && (
+                    <div className={day.stops.length > 0 ? "mt-6" : ""}>
+                      <span className="eyebrow text-amber">From the road</span>
+                      <div className="mt-3 max-w-lg">
+                        <DayGallery photos={photos} />
+                      </div>
+                    </div>
+                  )}
+
+                  <DayComments day={day.n} initialCount={commentCounts[day.n] ?? 0} />
+                </div>
               </li>
             );
           })}
