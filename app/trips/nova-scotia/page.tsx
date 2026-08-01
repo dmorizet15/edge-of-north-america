@@ -27,12 +27,18 @@ export const metadata: Metadata = {
  * warmer register — closer, gentler, and easy to say yes to.
  */
 export default function NovaScotiaTrip() {
+  // The cinematic overview ("sales pitch") is hidden by default; set the Vercel
+  // env var SHOW_INTRO=true to show it. Read at build time — toggling it takes
+  // a redeploy. None of the intro content or styling is removed, only gated.
+  const showIntro = process.env.SHOW_INTRO === "true";
+
   return (
     <main className="relative bg-nearblack">
       <ScrollProgress />
 
-      {/* ─────────── PART ONE · The cinematic overview ─────────── */}
-
+      {/* ─────────── PART ONE · The cinematic overview (gated by SHOW_INTRO) ─────────── */}
+      {showIntro && (
+        <>
       {/* 01 — Hero · The Ocean Road */}
       <SceneChapter
         photo={NS_PHOTOS.cover}
@@ -135,6 +141,8 @@ export default function NovaScotiaTrip() {
 
       {/* ─────────── PART TWO · The Journey, Day by Day ─────────── */}
       <ActTwoIntroNS />
+        </>
+      )}
       {/* Days 1–10 render normally; Days 11–12 are replaced by the Two Paths
           final-night branch (the decision made Aug 15). NS_DAYS keeps all 12
           days of data intact — the branch just renders the last two. */}
