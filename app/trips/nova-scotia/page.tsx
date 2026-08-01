@@ -9,6 +9,7 @@ import SceneChapter from "@/components/trip/SceneChapter";
 import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
 import Starfield from "@/components/trip/Starfield";
 import TripDayChapter from "@/components/trip/TripDayChapter";
+import TwoPaths from "@/components/trip/TwoPaths";
 import { NS_PHOTOS } from "@/content/nova-scotia/photos";
 import { NS_WAYPOINTS } from "@/content/nova-scotia/route";
 import { NS_DAYS, NS_GLANCE, NS_ROUTE_NOTES } from "@/content/nova-scotia/itinerary";
@@ -134,9 +135,13 @@ export default function NovaScotiaTrip() {
 
       {/* ─────────── PART TWO · The Journey, Day by Day ─────────── */}
       <ActTwoIntroNS />
-      {NS_DAYS.map((day) => (
+      {/* Days 1–10 render normally; Days 11–12 are replaced by the Two Paths
+          final-night branch (the decision made Aug 15). NS_DAYS keeps all 12
+          days of data intact — the branch just renders the last two. */}
+      {NS_DAYS.filter((day) => Number(day.n) <= 10).map((day) => (
         <TripDayChapter key={day.n} day={day} />
       ))}
+      <TwoPaths />
 
       {/* Closing */}
       <SceneChapter

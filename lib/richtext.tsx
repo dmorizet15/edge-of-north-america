@@ -20,6 +20,9 @@ import type { ReactNode } from "react";
  *                               Maps directions to Address, added alongside a
  *                               place that already links to its own page.
  *
+ *   [[tel|207-555-0000]]        a tap-to-call phone link (tel:). For use on the
+ *                               road from a phone.
+ *
  *   **bold**                    inline emphasis; may itself contain links or
  *                               other tokens (rendered recursively).
  *
@@ -33,14 +36,21 @@ function mapsHref(query: string): string {
   return MAPS_DIR + encodeURIComponent(query.trim());
 }
 
-// Ordered alternation: bold, directions button, inline maps link, then a normal
-// markdown link. A fresh RegExp is built per call so renderText can recurse
-// (for bold spans) without clobbering an outer scan's lastIndex.
+function telHref(raw: string): string {
+  const digits = raw.replace(/[^\d]/g, "");
+  if (digits.length === 10) return "tel:+1" + digits;
+  if (digits.length === 11 && digits.startsWith("1")) return "tel:+" + digits;
+  return "tel:" + digits;
+}
+
+// Ordered alternation. A fresh RegExp is built per call so renderText can
+// recurse (for bold spans) without clobbering an outer scan's lastIndex.
 const TOKEN_SRC =
   "\\*\\*([^*]+)\\*\\*" + // 1: **bold**
-  "|\\[\\[dir\\|([^\\]]+)\\]\\]" + // 2: [[dir|address]]
-  "|\\[\\[map\\|([^\\]]+)\\]\\]" + // 3: [[map|label|address]]
-  "|\\[([^\\]]+)\\]\\(([^)\\s]+)\\)"; // 4: label, 5: href
+  "|\\[\\[tel\\|([^\\]]+)\\]\\]" + // 2: [[tel|number]]
+  "|\\[\\[dir\\|([^\\]]+)\\]\\]" + // 3: [[dir|address]]
+  "|\\[\\[map\\|([^\\]]+)\\]\\]" + // 4: [[map|label|address]]
+  "|\\[([^\\]]+)\\]\\(([^)\\s]+)\\)"; // 5: label, 6: href
 
 const LINK_CLASS =
   "font-medium underline decoration-2 decoration-[#E0A24A]/45 underline-offset-[3px] transition-all duration-200 hover:decoration-[#E0A24A] hover:brightness-110";
@@ -63,11 +73,24 @@ export function renderText(input?: string): ReactNode {
         </strong>
       );
     } else if (m[2] !== undefined) {
-      // [[dir|address]] — a standalone "Directions" button.
-      out.push(<DirectionsButton key={key++} query={m[2]} />);
+      // [[tel|number]] — tap-to-call.
+      out.push(
+        <a
+          key={key++}
+          href={telHref(m[2])}
+          style={{ color: "#E0A24A" }}
+          className="font-medium underline decoration-[#E0A24A]/45 underline-offset-[3px] whitespace-nowrap transition-all duration-200 hover:decoration-[#E0A24A] hover:brightness-110"
+        >
+          <PhoneMark />
+          {m[2].trim()}
+        </a>
+      );
     } else if (m[3] !== undefined) {
+      // [[dir|address]] — a standalone "Directions" button.
+      out.push(<DirectionsButton key={key++} query={m[3]} />);
+    } else if (m[4] !== undefined) {
       // [[map|label|address]] — the words themselves open Google Maps.
-      const parts = m[3].split("|");
+      const parts = m[4].split("|");
       const label = parts[0];
       const query = parts.length > 1 ? parts.slice(1).join("|") : parts[0];
       out.push(
@@ -85,8 +108,8 @@ export function renderText(input?: string): ReactNode {
       );
     } else {
       // [label](url) — a normal link to a page.
-      const label = m[4];
-      const href = m[5];
+      const label = m[5];
+      const href = m[6];
       out.push(
         <a
           key={key++}
@@ -136,6 +159,20 @@ function PinMark() {
       className="ml-[0.15em] inline-block align-baseline text-[0.78em] opacity-70"
     >
       <PinGlyph />
+    </span>
+  );
+}
+
+/** Phone marker leading a tel: link. */
+function PhoneMark() {
+  return (
+    <span
+      aria-hidden
+      className="mr-[0.3em] inline-block align-[-0.1em] text-[0.82em] opacity-80"
+    >
+      <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden className="inline-block">
+        <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1l-2.2 2.3z" />
+      </svg>
     </span>
   );
 }
