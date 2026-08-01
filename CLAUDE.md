@@ -70,10 +70,14 @@ Gorham NH). This is built as its own feature, not as ordinary `NS_DAYS` days:
 - Two Tuesday closures were baked into Path A: the **Farnsworth Art Museum** and
   **Home Kitchen Café** are both closed Tuesdays (Aug 18). Rockland dinner is now
   **13 Oak** (the old In Good Company / Cafe Miranda backups are closed Mondays).
-- **Path B has no baked route map** — the day-map PNGs are framed for the Bar
-  Harbor/Rockland routing. New NH basemaps via `scripts/bake-ns-maps.py` are a
-  tracked follow-up; Path B renders a plain route list instead. Path B sunset
-  lines are omitted rather than showing the (wrong) Maine value.
+- **Both paths have day maps.** Path A reuses the existing Rockland-framed
+  `ns-day-11` / `ns-day-12` basemaps; Path B has its own baked New Hampshire
+  basemaps, `ns-pathb-mon` (Bar Harbor → Bethel → Gorham) and `ns-pathb-tue`
+  (Mt Washington → Conway → Lincoln → home). `scripts/bake-pathb-maps.py` bakes
+  only those two (reusing `bake-ns-maps.py`'s renderer, `TERRAIN=0` for a clean
+  dark field); run it as `SSL_CERT_FILE=/root/.ccr/ca-bundle.crt python3
+  scripts/bake-pathb-maps.py`. Path B sunset lines are still omitted rather than
+  showing the (wrong) Maine value.
 
 The **dining pass** below applies to Days 1–10 (and the shared Day 11 morning).
 Days 11–12 dining now lives in the Two Paths content.
