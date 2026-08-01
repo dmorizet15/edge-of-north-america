@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
+import DayGallery from "@/components/trip/DayGallery";
 import { NS_DAYS } from "@/content/nova-scotia/itinerary";
 import { NS_WAYPOINTS } from "@/content/nova-scotia/route";
 import { NS_TRIP, dateForDay, tripStatus, statusLine } from "@/content/nova-scotia/trip-meta";
-import { getAllPhotosByDay, type PhotoMeta } from "@/lib/photos";
+import { getAllPhotosByDay } from "@/lib/photos";
 
 export const metadata: Metadata = {
   title: "Nova Scotia — Follow Along",
@@ -131,7 +132,7 @@ export default async function FamilyView() {
                   </ul>
                 )}
 
-                {photos.length > 0 && <Gallery photos={photos} />}
+                {photos.length > 0 && <DayGallery photos={photos} />}
               </li>
             );
           })}
@@ -141,42 +142,3 @@ export default async function FamilyView() {
   );
 }
 
-function Gallery({ photos }: { photos: PhotoMeta[] }) {
-  return (
-    <div className="mt-5">
-      <span className="eyebrow text-ice/70" style={{ fontSize: "0.58rem" }}>
-        {photos.length} photo{photos.length === 1 ? "" : "s"}
-      </span>
-      <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-        {photos.map((p) => (
-          <figure
-            key={p.id}
-            className="overflow-hidden rounded-sm border border-paper/10 bg-black/30"
-          >
-            {/* Blob-hosted image; plain <img> avoids next/image remote config. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={p.url}
-              alt={p.caption || `${p.stop} — Nova Scotia`}
-              loading="lazy"
-              className="aspect-square w-full object-cover"
-            />
-            {(p.caption || p.uploader || p.stop) && (
-              <figcaption className="px-2.5 py-2">
-                {p.caption && (
-                  <p className="font-sans text-[0.82rem] font-light leading-snug text-paper/85">
-                    {p.caption}
-                  </p>
-                )}
-                <p className="mt-1 font-sans text-[0.68rem] uppercase tracking-wide text-paper/45">
-                  {p.stop}
-                  {p.uploader ? ` · ${p.uploader}` : ""}
-                </p>
-              </figcaption>
-            )}
-          </figure>
-        ))}
-      </div>
-    </div>
-  );
-}
