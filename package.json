@@ -5,7 +5,7 @@
   "description": "A cinematic scrollable pitch for a Newfoundland expedition.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/_purge.mjs && next build",
     "start": "next start",
     "lint": "next lint"
   },
