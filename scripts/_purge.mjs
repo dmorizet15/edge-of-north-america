@@ -13,7 +13,7 @@
  */
 import { Redis } from "@upstash/redis";
 
-const COMMIT = false; // false = dry run (print only); true = DEL the two keys
+const COMMIT = true; // false = dry run (print only); true = DEL the two keys
 const KEYS = ["photos:nova-scotia:01", "photos:nova-scotia:02"];
 const TAG = "[_purge]";
 
