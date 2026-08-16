@@ -10,7 +10,8 @@ import SceneChapter from "@/components/trip/SceneChapter";
 import ScrollRouteMap from "@/components/trip/ScrollRouteMap";
 import Starfield from "@/components/trip/Starfield";
 import TripDayChapter from "@/components/trip/TripDayChapter";
-import TwoPaths from "@/components/trip/TwoPaths";
+import Reroute from "@/components/trip/Reroute";
+import AppleAllergy from "@/components/trip/AppleAllergy";
 import SkipToItinerary from "@/components/trip/SkipToItinerary";
 import { NS_PHOTOS } from "@/content/nova-scotia/photos";
 import { NS_WAYPOINTS } from "@/content/nova-scotia/route";
@@ -33,6 +34,12 @@ export default function NovaScotiaTrip() {
   // env var SHOW_INTRO=true to show it. Read at build time — toggling it takes
   // a redeploy. None of the intro content or styling is removed, only gated.
   const showIntro = process.env.SHOW_INTRO === "true";
+
+  // Day maps for the rerouted days, read off the itinerary spine so there is a
+  // single source for the geography.
+  const rerouteMaps = Object.fromEntries(
+    NS_DAYS.filter((d) => Number(d.n) >= 10).map((d) => [d.n, d.map])
+  );
 
   return (
     <main className="relative bg-nearblack">
@@ -164,25 +171,32 @@ export default function NovaScotiaTrip() {
       <ActTwoIntroNS />
         </>
       )}
-      {/* Days 1–10 render normally; Days 11–12 are replaced by the Two Paths
-          final-night branch (the decision made Aug 15). NS_DAYS keeps all 12
-          days of data intact — the branch just renders the last two. */}
-      {NS_DAYS.filter((day) => Number(day.n) <= 10).map((day) => (
+      {/* Days 1–9 are the completed trip, as driven. Days 10–12 were rerouted on
+          Aug 16 when the carrier cancelled the CAT sailing, and render from the
+          verified reroute data instead of the prose day template. NS_DAYS still
+          holds their spine (dates, stops, maps) so the photo dropdowns, family
+          view and #day-NN anchors all stay correct. */}
+      {NS_DAYS.filter((day) => Number(day.n) <= 9).map((day) => (
         <TripDayChapter
           key={day.n}
           day={day}
           addPhotoHref={`/trips/nova-scotia/upload?day=${day.n}`}
         />
       ))}
-      <TwoPaths />
+
+      <Reroute mapPoints={rerouteMaps} />
+
+      {/* The apple-allergy field guide — a medical constraint, given its own
+          band rather than buried in a day's copy. */}
+      <AppleAllergy />
 
       {/* Closing */}
       <SceneChapter
         photo={NS_PHOTOS.closing}
         index="—"
-        chapter="Home by a different sea"
-        title="Say yes to the easy one."
-        line="Twelve days, one ocean crossing home, and the trip you'll keep talking about. August 7–18, 2026 — when do we go?"
+        chapter="Home the long way round"
+        title="Twelve days, and a last act nobody planned."
+        line="The ferry was cancelled on the morning of the sixteenth, so the road turned west — New Brunswick, a lake at Témiscouata, a day inside the walls of Old Québec, and home down the I-87 on the eighteenth."
         placement="center"
         scale="lg"
         overlay="strong"
@@ -202,8 +216,6 @@ function DarkSkyBand() {
     "Bras d'Or Lake, around Baddeck",
     "Cape Breton Highlands, the Gulf side",
     "Ingonish & the northern Highlands — the best bet",
-    "Cape Forchu & the coast near Yarmouth",
-    "The Maine coast on the ferry day — an optional last look",
   ];
 
   return (
@@ -219,7 +231,7 @@ function DarkSkyBand() {
         </Reveal>
         <Reveal delay={0.08}>
           <h2 className="mx-auto mt-8 max-w-3xl text-center font-serif text-[clamp(1.8rem,4vw,3rem)] font-normal leading-[1.1] tracking-title text-paper">
-            Six chances at a sky you can&rsquo;t see from home.
+            Four chances at a sky you can&rsquo;t see from home.
           </h2>
         </Reveal>
         <Reveal delay={0.16}>
@@ -269,7 +281,7 @@ function RouteBand() {
               points={NS_WAYPOINTS}
               mapId="ns-route"
               variant="route"
-              ariaLabel="Route map: Salt Point, New York, north up the Maine coast into Canada, a loop around Nova Scotia to Cape Breton, and home by ferry from Yarmouth to Bar Harbor, Maine."
+              ariaLabel="Route map: Salt Point, New York, north up the Maine coast into Canada, a loop around Nova Scotia to Cape Breton, then west through New Brunswick to Témiscouata and Québec City and south down the I-87 back to Salt Point."
             />
           </div>
         </Reveal>
@@ -328,11 +340,12 @@ function ActTwoIntroNS() {
       </Reveal>
       <Reveal delay={0.28}>
         <p className="mt-10 max-w-prose font-serif text-[clamp(1.2rem,2.2vw,1.6rem)] font-light italic leading-relaxed text-paper/80">
-          Twelve days from Salt Point to the Cabot Trail and home across the
-          Gulf of Maine — August 7 to 18, 2026, timed around the Yarmouth ferry.
-          Planned around the meals, the views, the rest, and the charging. Each
-          day is a luxury guide, not a spreadsheet: where to wake, where to stop,
-          where to look up.
+          Twelve days from Salt Point to the Cabot Trail and back — August 7 to
+          18, 2026. The Yarmouth ferry that was to bring us home was cancelled on
+          the sixteenth, so the last three days run west through New Brunswick to
+          Québec instead. Planned around the meals, the views, the rest, and the
+          charging. Each day is a luxury guide, not a spreadsheet: where to wake,
+          where to stop, where to look up.
         </p>
       </Reveal>
     </section>

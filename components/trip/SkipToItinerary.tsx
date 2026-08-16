@@ -8,8 +8,8 @@ import { tripStatus } from "@/content/nova-scotia/trip-meta";
  * jumps straight to the day that matters right now:
  *
  *   - before the trip  → Day 1 (the start)
- *   - during the trip  → today's day (Days 11–12 land on the Two Paths branch)
- *   - after the trip   → the Two Paths finale (the last of the content)
+ *   - during the trip  → today's day
+ *   - after the trip   → Day 12 (the drive home)
  *
  * "Today" is computed on the client (this page is otherwise static), so the
  * target is always current without a redeploy. Fixed bottom-left so it mirrors
@@ -30,20 +30,15 @@ export default function SkipToItinerary() {
       return;
     }
     if (s.phase === "after") {
-      setTarget("two-paths");
-      setLabel("Skip to the finale");
+      setTarget("day-12");
+      setLabel("Skip to the last day");
       return;
     }
-    // During the trip: Days 1–10 are their own sections; Days 11–12 live on the
-    // Two Paths branch, which has no per-day anchor.
+    // During the trip: every day 1–12 is its own section with a #day-NN anchor,
+    // including the rerouted days 10–12 (see components/trip/Reroute.tsx).
     const n = s.currentDay;
-    if (n >= 11) {
-      setTarget("two-paths");
-      setLabel(`Skip to today · Day ${n}`);
-    } else {
-      setTarget(`day-${String(n).padStart(2, "0")}`);
-      setLabel(`Skip to today · Day ${n}`);
-    }
+    setTarget(`day-${String(n).padStart(2, "0")}`);
+    setLabel(`Skip to today · Day ${n}`);
   }, []);
 
   function onSkip() {

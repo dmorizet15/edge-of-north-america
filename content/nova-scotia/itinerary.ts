@@ -10,19 +10,28 @@ import { NS_PHOTOS } from "./photos";
  * bookings, updated as reservations land — which favours value over luxury:
  * honest, well-reviewed inns that support the trip instead of becoming it.
  *
- * Fixed points: the Yarmouth -> Bar Harbor CAT ferry on Monday, August 17
- * (booked). Locked overnights: Bangor / Bangor Inn & Suites, St. Andrews /
+ * REROUTED AUG 16, 2026. The carrier cancelled the Yarmouth -> Bar Harbor CAT
+ * sailing booked for Monday the 17th, which killed the whole Maine return leg
+ * (Bar Harbor, Acadia, Cadillac, and the Two Paths final night). Days 10-12 now
+ * run west instead — New Brunswick to Temiscouata, a day in Old Quebec, and
+ * home down the I-87 on Tuesday the 18th. Days 1-9 are the completed trip as
+ * driven and are deliberately untouched. The rerouted days keep only their
+ * spine here (dates, regions, stops, maps) so the photo-upload dropdowns, the
+ * family view and the #day-NN anchors stay correct; their verified timed plans,
+ * warnings and booking detail live in ./reroute.ts.
+ *
+ * Locked overnights: Bangor / Bangor Inn & Suites, St. Andrews /
  * Kennedy House, Alma / Rodd Moncton (refundable fallback — Alma village was
  * sold out; still chasing Alpine Motor Inn / Parkland Village Inn direct for
  * an in-village upgrade), Halifax / Cambridge Suites, Lunenburg / The Kinley
  * House (Sail Inn sold out for this date), Baddeck / Auberge Gisele's Inn
  * (Telegraph House archived — Gisele's won on king bed + rate), Chéticamp /
  * L'Auberge Doucet Inn (waitlisted for an upgrade to Outback Inn or Archie &
- * Isidore), Ingonish / Seascape, Yarmouth / Rodd Grand (Comfort Inn archived).
- * Rockland is a PLACEHOLDER ONLY, not yet booked — Rockland Harbor Hotel is
- * teed up (~$313, Hotels.com) but still being weighed against alternatives
- * for the final night. Added by request during planning: Blue Rocks, Ovens
- * Natural Park, and Meat Cove.
+ * Isidore), Ingonish / Seascape. Yarmouth / Rodd Grand was CANCELLED on Aug 16
+ * with the ferry; the last two nights are Temiscouata-sur-le-Lac / Hotel
+ * Chateau Fraser and Quebec City / Hotel Clarendon. All 11 nights are booked.
+ * Added by request during planning: Blue Rocks, Ovens Natural Park, and Meat
+ * Cove.
  *
  * LINK MODEL (as of the Aug 2026 dining pass):
  *  - The day "summary" copy (breakfast/lunch/dinner/stops/stay) links each place
@@ -30,11 +39,11 @@ import { NS_PHOTOS } from "./photos";
  *  - The expandable "Detailed daily plan — hour by hour" carries the Google Maps
  *    GPS directions, one tap per stop, via [[map|Words|Address]] tokens.
  *  - Verified restaurant facts and closures were refreshed in this pass; six
- *    permanently-closed businesses were removed. Day 11's Rockland dinner/stay
- *    and all of Day 12 were intentionally left untouched (Rockland leg pending).
+ *    permanently-closed businesses were removed. Days 10-12 were later replaced
+ *    wholesale by the Aug 16 reroute and no longer carry dining prose here.
  *
- * NOTE: the small route-map graphics still show the earlier Portland / Bar
- * Harbor framing; regenerating those basemaps is a tracked follow-up.
+ * NOTE: the day basemaps for the rerouted days were re-baked on Aug 16 (see
+ * scripts/bake-reroute-maps.py). Days 1-9 still show the earlier framing.
  */
 
 export const NS_DAYS: TripDay[] = [
@@ -430,129 +439,82 @@ export const NS_DAYS: TripDay[] = [
   {
     n: "10",
     date: "Sunday · August 16, 2026",
-    region: "The long, kind reposition",
-    leg: "Ingonish → the Annapolis Valley → Yarmouth",
-    title: "Home starts turning west",
-    subtitle: "The trip's second long drive — broken into a string of small, good reasons to stop, ending on the last Nova Scotia coast.",
-    photo: NS_PHOTOS.capeForchu,
-    morningLocation: "Ingonish — an early, unhurried start; the day is long on the map but never grim on the ground.",
-    breakfast: "Nothing in Ingonish opens before 8 on a Sunday except the Keltic Resort's Arduaine at 7, and that is a 3.3-star room with repeated reports of long waits for service. Better plan: buy pastries at the Main Street Bakery on Saturday evening, use the cottage coffee maker, and leave on time. Then take the real breakfast ninety minutes down the road at [Highwheeler Cafe & Bakery](https://visitbaddeck.com/listings/highwheeler-cafe-bakery/) in Baddeck, open Sunday from 7 — and buy one of their Cabot Trail box lunches while you are there, which quietly solves the middle of the day. Worth one call: Seascape's own site mentions breakfast cooked to order, but three current sources list the cottages as kitchenette-only, so ring 902-285-3003 and find out which it is.",
-    drive: "≈ 7 hr moving · 640 km — off the island and down the western side of the province to Yarmouth. Long, but deliberately split with stops so it reads as a tour, not a haul. (Prefer gentler? Break it with a night in Wolfville or Annapolis Royal.)",
+    region: "The reroute west",
+    leg: "Whycocomagh, NS → Témiscouata-sur-le-Lac, QC",
+    title: "892 kilometres west",
+    subtitle:
+      "The CAT was cancelled this morning, so the road turned west instead — New Brunswick end to end, drive-thru meals only, and Lake Témiscouata by 10:45 PM.",
+    drive:
+      "892 km · 10h05 moving — Hwy 105 → Hwy 104 → NB Route 2 → A-85. Gain one hour at the Québec border. **No Tesla Supercharger anywhere in Nova Scotia on this route — the first is Aulac NB, 330 km out.**",
     stops: [
-      { name: "Masstown Market", time: "45 min", note: "A beloved roadside institution near Truro — chowder, fresh bread, a lighthouse, and the best ice cream on the highway." },
-      { name: "Annapolis Royal", time: "45 min", note: "Canada's oldest European settlement, the Historic Gardens, and Fort Anne's grassy earthworks over a tidal basin — a lovely leg-stretch on the Fundy shore. This is the longest driving day of the trip and the one most likely to run late — if it does, shorten this to a 15-minute stretch and protect Cape Forchu, since that one's timed to sunset and won't repeat." },
-      { name: "[Cape Forchu Lightstation](https://www.novascotia.com/)", time: "1 hr", note: "The tapered 'apple-core' light on bare rock outside Yarmouth — the trip's last great Atlantic view, timed for sunset, with a café in the old keeper's house." },
+      { name: "Wendy's · New Glasgow", time: "Lunch", note: "750 Westville Road, Hwy 104 Exit 23 — about two minutes off the highway, drive-thru, open to midnight." },
+      { name: "Aulac, NB", time: "Charge", note: "170 Aulac Road — 8 stalls, 150 kW, 20 min to 80%. The first Supercharger since Cape Breton, 330 km out." },
+      { name: "Lincoln, NB", time: "Charge", note: "415 Nevers Road, Waasis — 8 stalls, 20 min." },
+      { name: "McDonald's · Woodstock, NB", time: "Dinner", note: "392 Connell Street, Route 2 Exit 188 — about five minutes off, open 24 hours." },
+      { name: "Saint-Léonard, NB", time: "Charge", note: "382 Rue Saint Jean — 25 min. The Tim Hortons at 388 Rue St Jean is open 24h on the same Irving site." },
+      { name: "Hôtel Château Fraser · Témiscouata-sur-le-Lac", time: "Stay", note: "1 rue du Quai, Cabano sector, on Lake Témiscouata — 4.4 across 74 reviews, #1 of 3 hotels in town. A 14-unit boutique with EV charging on site. Booked by phone on Aug 16." },
     ],
-    lunch: "[Masstown Market](https://masstownmarket.com/) near Truro for chowder and warm bread at a picnic table, then that ice cream for the road. The real midday sit-down is in Annapolis Royal: [Maison St George](https://garrisonhouseinn.ca/dine-with-us) inside the Garrison House Inn, Sunday 10 to 8, the only restaurant in town verified open straight through 1:30 on a Sunday — no lunch cutoff, which matters on the trip's longest driving day when every other place stops lunch at 1:30 or 2. It opened in April 2026 so there is no review history yet; call 902-532-5750 to confirm and reserve. Backup up the street: the [German Bakery Sachsen](http://www.germanbakery.ca/) for schnitzel sandwiches and strudel.",
-    afternoon: "The easy 101 down the Fundy side of the valley, then out to Cape Forchu near Yarmouth for the evening light.",
-    hotel: "[Rodd Grand Yarmouth](https://www.roddvacations.com/rodd-grand-yarmouth) — booked: a King Room on Main St by the CAT terminal, pool + restaurant on site, fully refundable before Aug 15. (Comfort Inn was the original sensible pick, archived when this beat it by $31 all-in, plus One Key.)",
-    dinner: "Yarmouth — [Rudder's](https://ruddersbrewpub.com/) on the harbour. Rolling in past a reasonable dinner hour on this long a driving day? Rodd Grand Yarmouth has its own restaurant on site — zero travel time if you're later than planned.",
-    evening: "Sunset at Cape Forchu — the light, the rocks, the whole Atlantic going gold — the last, best Nova Scotia sundown before the crossing home.",
-    charging: "A well-charged, well-fed long day: fast charging along the 104/102/101 at Port Hastings/Aulds Cove, Truro/Masstown, and New Minas; bring the car to full in Yarmouth tonight for the drive home after tomorrow's ferry.",
-    walking: "Easy — a market, a garden, and a lighthouse point; the driving is the day's real effort, and it's shared and broken up.",
-    rainy: "Masstown is indoor; Annapolis Royal's heritage streets and Cape Forchu's keeper's-house café shrug off rain; the drive is comfortable throughout.",
-    sky: "A fine last dark sky: Cape Forchu and the coast southwest of Yarmouth are excellent. If it's clear, it's Atlantic on one side and stars on the other.",
-    detailedPlan: [
-      { time: "7:30 AM", label: "Early depart Ingonish", detail: "Pastries from the Main Street Bakery (bought Saturday) + the cottage coffee maker; charge off the island via Baddeck / Aulds Cove." },
-      { time: "8:45 AM", label: "Breakfast in Baddeck — [[map|Highwheeler Cafe|Highwheeler Cafe & Bakery, Chebucto St, Baddeck, Nova Scotia]] (and buy a box lunch)" },
-      { time: "11:00 AM", label: "[[map|Masstown Market|Masstown Market, Nova Scotia]] — 45 min", detail: "Chowder + ice cream." },
-      { time: "1:30 PM", label: "[[map|Annapolis Royal|Annapolis Royal, Nova Scotia]] — lunch at [[map|Maison St George|Maison St George, Garrison House Inn, Annapolis Royal, Nova Scotia]], 45 min–1 hr" },
-      { time: "6:30 PM", label: "Arrive Yarmouth — [[map|Rodd Grand Yarmouth|Rodd Grand Yarmouth, Yarmouth, Nova Scotia]], quick check-in" },
-      { time: "7:00 PM", label: "Dinner — [[map|Rudder's|Rudder's Seafood Restaurant & Brew Pub, Yarmouth, Nova Scotia]]" },
-      { time: "7:45 PM", label: "[[map|Cape Forchu Lightstation|Cape Forchu Lightstation, Yarmouth, Nova Scotia]] for sunset — ≈ 1 hr" },
-      { time: "8:27 PM", label: "Sunset ≈ 8:27 PM ADT", detail: "The last Nova Scotia sundown." },
-      { time: "10:30 PM", label: "Charge full for tomorrow, then bed" },
-    ],
-    memory: "A market ice cream mid-drive, then the sun dropping behind the apple-core light at Cape Forchu — the trip's long day turned out to be one of its best.",
     map: [
-      { label: "Ingonish", lat: 46.68, lon: -60.39 },
-      { label: "Masstown", lat: 45.4, lon: -63.44 },
-      { label: "Annapolis Royal", lat: 44.74, lon: -65.51 },
-      { label: "Yarmouth", lat: 43.84, lon: -66.12 },
+      { label: "Whycocomagh", lat: 45.98, lon: -61.13 },
+      { label: "New Glasgow", lat: 45.59, lon: -62.65 },
+      { label: "Aulac", lat: 45.86, lon: -64.29 },
+      { label: "Lincoln", lat: 45.86, lon: -66.53 },
+      { label: "Woodstock", lat: 46.15, lon: -67.57 },
+      { label: "Saint-Léonard", lat: 47.16, lon: -67.92 },
+      { label: "Témiscouata", lat: 47.68, lon: -68.88 },
     ],
   },
   {
     n: "11",
     date: "Monday · August 17, 2026",
-    region: "The ocean road home",
-    leg: "Yarmouth, NS → (ferry) → Bar Harbor → Rockland, Maine",
-    title: "Home by a different sea",
-    subtitle: "A crossing of the Gulf of Maine, a relaxed afternoon in Acadia, and a quiet harbour-town finish.",
-    photo: NS_PHOTOS.ferry,
-    morningLocation: "Yarmouth — a calm morning; car-ferry check-in is simple and unhurried. (The CAT doesn't sail Tuesdays — today, a Monday, it runs.)",
-    breakfast: "[Gale's Restaurant](https://roddvacations.com/hotels/rodd-grand-yarmouth/dining/) downstairs in the Rodd Grand opens at 6:30 on Mondays. Eggs benedict one reviewer called the best they ever had, and Yarmouth-style fishcakes, which are the local signature. The ferry terminal is four minutes away, and Bay Ferries needs every passenger checked in by 8:30, so your 8:00 arrival is exactly right.",
-    drive: "The 'drive' is the ≈ 3 hr 30 min sea crossing on [The CAT](https://www.ferries.ca/thecat) (Yarmouth 9:30 AM ADT → Bar Harbor ~12:00 PM EDT, booked), a relaxed Acadia afternoon, then ≈ 1 hr 50 min on to Rockland for the night.",
+    region: "Québec City",
+    leg: "Témiscouata-sur-le-Lac → Québec City",
+    title: "Québec City — the history day",
+    subtitle:
+      "Depart at 7:30, in Old Québec by 10:15, and on foot from there until Tuesday. Two plans below: one for fair weather, one for rain.",
+    drive:
+      "255 km · 2h45 — A-85 → A-20. Depart Témiscouata 7:30 AM ET, arrive Québec City ~10:15 AM.",
     stops: [
-      { name: "The Gulf of Maine crossing", time: "3.5 hr", ferry: true, note: "Open water on a fast catamaran — watch for whales, porpoises, and shearwaters while Nova Scotia sinks quietly astern. This is the day's main event, and it's a good one. Onboard, the CAT has the Scotia Market Café serving breakfast through dinner, Sip@Sea for espresso and house-made gelato, and the Forchu Lounge with Nova Scotia wine, craft beer and bacon-wrapped scallops. Service start times aren't published, so eat before boarding and treat the Forchu scallops as a mid-crossing stop around 11." },
-      { name: "[Acadia National Park](https://www.nps.gov/acad/) — a relaxed loop", time: "2.5 hr", note: "Sand Beach, Thunder Hole, and [Jordan Pond House](https://jordanpondhouse.com/) for the century-old popovers. Just walk up: reservations are indoor only — the lawn runs as a walk-up Popover and Prosecco bar with blanket seating, so budget about forty minutes' wait plus another thirty to forty-five for August parking. Unhurried on purpose — Cadillac is deliberately skipped so the evening in Rockland stays calm. If you do want the summit, the timed-entry reservation is required for 2026 ($6 a vehicle, plus a park pass) through [recreation.gov](https://www.recreation.gov/timed-entry/400000), and seventy percent of slots release two days ahead at 10:00 AM Eastern — for August 17 that batch drops on August 15 at 10:00 AM ET. Running later off the ferry than planned? Thunder Hole is the one to skip — Sand Beach and Jordan Pond's popovers are the two worth protecting." },
+      { name: "Hotel Clarendon", time: "Stay", note: "57 rue Sainte-Anne, Upper Town — the 2nd-floor room, one flight up. Car to the valet, bags to the desk, and on foot from here." },
+      { name: "Basilique-cathédrale Notre-Dame de Québec", time: "15 min", note: "16 rue De Buade — free, Monday 7:30–4:00. The Holy Door, the only one outside Europe. The crypt and museum are closed; the basilica is not." },
+      { name: "Morrin Centre", time: "Anchor", note: "44 chaussée des Écossais — an 1808 prison cell, then twenty steps into a gaslit Victorian library of 28,000 books. 89 m from the hotel door." },
+      { name: "Portofino Bistro Italiano", time: "Lunch", note: "54 rue Couillard — Italian in a 1760s building, 192 m away. The food menu is screened clean of apple." },
+      { name: "'The Grand Tour' · Tours Voir Québec", time: "2 hr", note: "Meets 12 rue Sainte-Anne — Upper and Lower Town on foot, max 14 to a guide, ending at the funicular. Place Royale sits on the exact footprint of Champlain's 1608 Habitation." },
+      { name: "Saint-Louis Forts & Châteaux crypt", time: "Anchor", note: "Under the Dufferin Terrace boardwalk — free, daily 9:30–5:00. The original 1690s vaults and the governors' kitchen beneath Frontenac's château." },
+      { name: "Musée de la civilisation", time: "Rain plan", note: "85 rue Dalhousie — 300 m, flat, no climb, benches throughout. The rain-day anchor, 2.5–3 hours." },
+      { name: "MATTO", time: "Dinner", note: "71 rue Saint-Pierre — Monday 5:30–10:30. The full menu is screened, zero apple." },
+      { name: "Québec–Lévis ferry", time: "Evening", note: "10 rue des Traversiers — 700 m and nine minutes across, heated enclosed cabin, last boat 2:20 AM. No booking; decide at the table." },
     ],
-    lunch: "A lobster roll on the Bar Harbor pier once you land ([Stewman's](https://www.stewmanslobsterpound.com/) or [Side Street Cafe](https://www.sidestreetbarharbor.com/)) — take your time; there's no rush from here.",
-    afternoon: "Acadia's Park Loop — Sand Beach, Thunder Hole, and popovers at Jordan Pond House — then charge at Ellsworth (right on the route) and drive on to Rockland by early evening.",
-    hotel: "🟡 PLACEHOLDER — not yet booked: [Rockland Harbor Hotel](https://www.rocklandharborhotel.com)[[dir|Rockland Harbor Hotel, Rockland, Maine]] is teed up (~$313, Hotels.com) but still being weighed against alternatives for this final night — nothing here is locked. If it's the one: central, walkable, free breakfast; a calmer, better-value finish than Bar Harbor, an hour closer to home, in a town with the coast's best food and the Farnsworth (Wyeth) museum.",
-    dinner: "Rockland — [[map|Archer's on the Pier|Archer's on the Pier, Rockland, Maine]] right on the water, or [[map|In Good Company|In Good Company, Rockland, Maine]] / [[map|Cafe Miranda|Cafe Miranda, Rockland, Maine]] a block off it (reserve). Sunset over the harbour. If Archer's didn't come through or you're later off Acadia than planned, In Good Company and Cafe Miranda are both a short walk off the water and easier to land a table at last-minute.",
-    evening: "A golden-hour harbour walk before dinner, then an easy, low-key last night on the Maine coast.",
-    charging: "Supercharge at Ellsworth (8 stalls, ~20 min from Bar Harbor and directly on the route to Rockland) — no detour; Level 2 at the hotel overnight to leave full for the drive home.",
-    walking: "Easy — a deck, a pier, exactly as much of Acadia as you feel like, and a flat harbour-town stroll.",
-    rainy: "The crossing sails rain or shine; Acadia is atmospheric in mist; and Rockland's Farnsworth museum and Main Street fill a wet evening beautifully.",
-    sky: "An optional last look up on the drive west — but you'll have already had the best of it in Cape Breton.",
-    detailedPlan: [
-      { time: "6:45 AM", label: "Breakfast at [[map|Gale's|Gale's Restaurant, Rodd Grand Yarmouth, Yarmouth, Nova Scotia]], downstairs in the hotel" },
-      { time: "8:00 AM ADT", label: "[[map|Ferry terminal|Bay Ferries CAT Terminal, Yarmouth, Nova Scotia]] check-in", detail: "Arrive 60–90 min early; have plate #, length & height." },
-      { time: "9:30 AM ADT", label: "The CAT departs Yarmouth (booked)" },
-      { time: "12:00 PM EDT", label: "Arrive Bar Harbor", detail: "Clocks back 1 hr; clear US customs." },
-      { time: "12:30 PM", label: "Lobster-roll lunch on the pier — [[map|Stewman's|Stewman's Lobster Pound, Bar Harbor, Maine]]" },
-      { time: "1:30 PM", label: "[[map|Acadia|Acadia National Park, Maine]] — Sand Beach, Thunder Hole, [[map|Jordan Pond popovers|Jordan Pond House, Acadia National Park, Maine]]" },
-      { time: "4:00 PM", label: "Charge at [[map|Ellsworth Supercharger|Tesla Supercharger, Ellsworth, Maine]] — ~20 min", detail: "On the route; no detour." },
-      { time: "6:00 PM", label: "Arrive Rockland — hotel TBD (placeholder: Rockland Harbor Hotel)", detail: "Harbour walk at golden hour." },
-      { time: "7:15 PM", label: "Dinner — Archer's on the Pier (reserve)" },
-      { time: "7:38 PM", label: "Sunset ≈ 7:38 PM EDT" },
-      { time: "10:30 PM", label: "Bedtime" },
-    ],
-    memory: "Standing at the stern as Nova Scotia dissolved into the Gulf, popovers in Acadia by afternoon, and a quiet Rockland harbour dinner at sunset — the most elegant possible last chapter.",
     map: [
-      { label: "Yarmouth", lat: 43.84, lon: -66.12 },
-      { label: "Bar Harbor", lat: 44.39, lon: -68.2, ferry: true },
-      { label: "Acadia", lat: 44.34, lon: -68.25 },
-      { label: "Rockland", lat: 44.1, lon: -69.11 },
+      { label: "Témiscouata", lat: 47.68, lon: -68.88 },
+      { label: "Québec City", lat: 46.81, lon: -71.21 },
     ],
   },
   {
     n: "12",
     date: "Tuesday · August 18, 2026",
-    region: "The closing chapter",
-    leg: "Rockland, Maine → Salt Point, New York",
-    title: "The long way home, on purpose",
-    subtitle: "A leisurely breakfast, one last museum if you want it, then an easy road south — an hour shorter than it would have been.",
+    region: "The road home",
+    leg: "Québec City → Salt Point, New York",
+    title: "745 kilometres home",
+    subtitle:
+      "Two lunches on the table and neither one chosen — a sit-down in Old Montréal, or a drive-thru at Queensbury that buys back ninety minutes.",
+    drive:
+      "745 km / 463 mi · 7h50–8h30 — A-20 → A-15 → I-87 → Thruway Exit 19 → NY-199 → US-9G → US-44. Home between 6:15 and 7:45 PM, against a 10:00 PM target.",
     photo: NS_PHOTOS.closing,
-    morningLocation: "Rockland — a slow breakfast and a last look at the working waterfront before you point the car west.",
-    breakfast: "[[map|Home Kitchen Café|Home Kitchen Cafe, Rockland, Maine]] (Rockland's best brunch) or the [[map|Brass Compass|Brass Compass Cafe, Rockland, Maine]]; coffee from [[map|Rock City|Rock City Coffee, Rockland, Maine]] to go.",
-    drive: "≈ 6 hr 45 min · 620 km to Salt Point — an hour shorter than leaving from Bar Harbor. Split it with a Portland stop, or run it in one gentle go.",
     stops: [
-      { name: "Optional: [[map|Farnsworth Art Museum|Farnsworth Art Museum, Rockland, Maine]]", time: "1–1.5 hr", note: "Right in downtown Rockland — the great Wyeth collection (N.C., Andrew, and Jamie). A perfect, unhurried last morning if you're interested; skip it and roll early if you'd rather. Want to keep the Portland stop for lunch? Skip the Farnsworth rather than rushing it — a relaxed Old Port lunch beats a hurried museum." },
-      { name: "[[map|Portland, Maine]]", time: "1 hr", note: "The midpoint break — one last Old Port stroll and a lobster roll, or oysters at [[map|Eventide|Eventide Oyster Co., Portland, Maine]], before the interstate south." },
+      { name: "Stellina, Old Montréal", time: "Lunch · option", note: "410 rue Saint-Jacques — Tuesday lunch 11:30–3:00, 4.7 across 768 reviews. Park at the Palais des congrès garage, 1025 rue Chenneville. Not yet apple-screened. Home ~7:45 PM." },
+      { name: "Wendy's, Queensbury NY", time: "Lunch · option", note: "714 Upper Glen Street — one mile from the Queensbury Supercharger at I-87 Exit 19, drive-thru, open to 3 AM. Eat while charging. Saves ~90 min; home ~6:15 PM." },
+      { name: "Champlain – Lacolle · US POE 0712", time: "Border", note: "Open 24/7. Tuesday early afternoon runs 15–30 min, typically 20." },
+      { name: "Plattsburgh, NY", time: "Charge", note: "60 Smithfield Blvd — 8 stalls, 150 kW, 20 min." },
+      { name: "Glenmont, NY", time: "Charge", note: "33 Frontage Road — 8 V4 stalls, 325 kW, 15 min. The best charger on the run, 83 miles from home." },
+      { name: "Home · Salt Point, NY", time: "≈ 7:45p", note: "The driveway at Salt Point, twelve days after leaving it — by a road nobody planned on Friday." },
     ],
-    lunch: "Portland — a last lobster roll, or a browse and a bite in Freeport if you want one more stop.",
-    afternoon: "The easy run south through New England; home to Salt Point by evening.",
-    hotel: "Home — your own bed; twelve days of Atlantic behind you.",
-    dinner: "Home, or a last coastal-Maine dinner if you split the drive — no wrong answer.",
-    evening: "The driveway at Salt Point, the car ticking as it cools, already saying 'next year, the other one'.",
-    charging: "A fully solved corridor — Superchargers at West Gardiner/Augusta (about an hour in), Kennebunk, Portsmouth, and Sturbridge. Leave Rockland full on the hotel's Level 2; the last day asks nothing of you.",
-    walking: "None required — a driving day, kept deliberately humane.",
-    rainy: "Nothing outdoors to protect; a rainy drive home is a gentle, unbothered way to land.",
-    detailedPlan: [
-      { time: "8:30 AM", label: "Leisurely breakfast — Home Kitchen Café" },
-      { time: "10:00 AM", label: "Optional: Farnsworth Art Museum — ≈ 1–1.5 hr" },
-      { time: "11:00 AM", label: "Depart for home", detail: "≈ 6 hr 45 min; charge at West Gardiner ~1 hr in." },
-      { time: "12:30 PM", label: "Portland — lunch + Old Port stroll, ≈ 1 hr" },
-      { time: "2:30 PM", label: "Portsmouth, NH — quick stretch (optional)" },
-      { time: "6:30 PM", label: "Home — Salt Point, NY" },
-      { time: "7:52 PM", label: "Sunset ≈ 7:52 PM (on the road / home)" },
-    ],
-    memory: "Pulling into Salt Point at dusk after a slow Rockland morning — the trip that was supposed to be the easy one, and turned out to be the one you'd keep talking about.",
     map: [
-      { label: "Rockland", lat: 44.1, lon: -69.11 },
-      { label: "Portland", lat: 43.66, lon: -70.26 },
-      { label: "Portsmouth", lat: 43.07, lon: -70.76 },
+      { label: "Québec City", lat: 46.81, lon: -71.21 },
+      { label: "Montréal", lat: 45.5, lon: -73.57 },
+      { label: "Lacolle", lat: 45.08, lon: -73.37 },
+      { label: "Plattsburgh", lat: 44.7, lon: -73.45 },
+      { label: "Glenmont", lat: 42.6, lon: -73.79 },
       { label: "Salt Point", lat: 41.87, lon: -73.8 },
     ],
   },
@@ -561,14 +523,14 @@ export const NS_DAYS: TripDay[] = [
 /** Headline numbers for the "trip at a glance" band. */
 export const NS_GLANCE: { k: string; v: string }[] = [
   { k: "12", v: "days · Aug 7–18, 2026" },
-  { k: "1", v: "ocean crossing home" },
-  { k: "6", v: "dark-sky chances" },
-  { k: "2", v: "longer drives — the rest are short" },
+  { k: "11", v: "nights, all booked" },
+  { k: "4", v: "dark-sky chances" },
+  { k: "3", v: "longer drives — the rest are short" },
 ];
 
 /** The three-beat route summary for the map section. */
 export const NS_ROUTE_NOTES: { k: string; v: string }[] = [
   { k: "Out", v: "Up the Maine coast to Bangor, then a soft road-crossing at Calais — no ferry to make on the way north." },
   { k: "Around", v: "A relaxed loop: Fundy, the Valley, Halifax, the South Shore, and the Cabot Trail — value inns, not luxury, unhurried the whole way." },
-  { k: "Home", v: "The Yarmouth ferry across the Gulf of Maine to Bar Harbor, a relaxed Acadia afternoon, and a last night at Rockland — home by a different sea than you left on." },
+  { k: "Home", v: "The Aug 17 CAT sailing was cancelled by the carrier, so the way back turned west instead — New Brunswick, a night in Témiscouata, a day in Old Québec, and home down the I-87." },
 ];

@@ -60,6 +60,8 @@ export default function TripDayChapter({
               <Moment label="Dinner" body={day.dinner} />
               <Moment label="Evening" body={day.evening} last />
             </ol>
+            {/* Moments render nothing when their field is absent — the rerouted
+                days 10–12 carry only a spine here and are drawn by <Reroute/>. */}
           </div>
 
           {/* Practical detail + map — sticky so the map holds while you read the day */}
@@ -121,16 +123,18 @@ export default function TripDayChapter({
         )}
 
         {/* Today's Memory */}
-        <Reveal>
-          <figure className="mt-16 border-l-2 border-amber pl-6 sm:pl-10">
-            <figcaption className="eyebrow text-amber" style={{ fontSize: "0.66rem" }}>
-              Today&rsquo;s memory
-            </figcaption>
-            <blockquote className="mt-4 max-w-3xl font-serif text-[clamp(1.5rem,3vw,2.3rem)] font-normal italic leading-snug tracking-title text-paper/95">
-              {renderText(day.memory)}
-            </blockquote>
-          </figure>
-        </Reveal>
+        {day.memory && (
+          <Reveal>
+            <figure className="mt-16 border-l-2 border-amber pl-6 sm:pl-10">
+              <figcaption className="eyebrow text-amber" style={{ fontSize: "0.66rem" }}>
+                Today&rsquo;s memory
+              </figcaption>
+              <blockquote className="mt-4 max-w-3xl font-serif text-[clamp(1.5rem,3vw,2.3rem)] font-normal italic leading-snug tracking-title text-paper/95">
+                {renderText(day.memory)}
+              </blockquote>
+            </figure>
+          </Reveal>
+        )}
       </div>
     </section>
   );
@@ -217,10 +221,11 @@ function Moment({
   last = false,
 }: {
   label: string;
-  body: string;
+  body?: string;
   accent?: boolean;
   last?: boolean;
 }) {
+  if (!body) return null;
   return (
     <Reveal>
       <li className="relative grid grid-cols-[7rem_1fr] gap-5 pb-8">
@@ -285,7 +290,8 @@ function StopMoment({ stop }: { stop: TripStop }) {
   );
 }
 
-function Detail({ label, value }: { label: string; value: string }) {
+function Detail({ label, value }: { label: string; value?: string }) {
+  if (!value) return null;
   return (
     <div className="grid grid-cols-[5.5rem_1fr] gap-4 py-4">
       <dt className="eyebrow pt-0.5 text-amber/90" style={{ fontSize: "0.64rem" }}>

@@ -4,9 +4,10 @@ import type { TripWaypoint } from "@/lib/trip-types";
  * NOVA SCOTIA — ROUTE + COORDINATES
  * ---------------------------------
  * Waypoints for the bespoke route map, projected from real lat/lon. The shape
- * is the whole reassurance: north up the Maine coast, a soft road crossing into
- * Canada, a relaxed loop around Nova Scotia to Cape Breton, and home across the
- * Gulf of Maine by ferry — a different water than the one you left on.
+ * is the whole shape: north up the Maine coast, a soft road crossing into
+ * Canada, a relaxed loop around Nova Scotia to Cape Breton — and then, after
+ * the Aug 16 CAT cancellation, west through New Brunswick to Québec and south
+ * down the I-87 instead of home across the Gulf of Maine.
  *
  * Coordinates are approximate, chosen for the map's geography. Verify exact
  * figures before any booking use.
@@ -23,9 +24,12 @@ export const NS_WAYPOINTS: TripWaypoint[] = [
   { id: "baddeck", label: "Baddeck", lat: 46.1, lon: -60.75, major: true },
   { id: "cheticamp", label: "Chéticamp", lat: 46.63, lon: -61.01, major: true },
   { id: "ingonish", label: "Ingonish", lat: 46.68, lon: -60.39, major: true },
-  { id: "yarmouth", label: "Yarmouth", lat: 43.84, lon: -66.12, major: true },
-  { id: "barharbor", label: "Bar Harbor, ME", lat: 44.39, lon: -68.2, major: true, ferry: true },
-  { id: "rockland", label: "Rockland, ME", lat: 44.1, lon: -69.11, major: true },
+  { id: "whycocomagh", label: "Whycocomagh", lat: 45.98, lon: -61.13 },
+  { id: "aulac", label: "Aulac, NB", lat: 45.86, lon: -64.29 },
+  { id: "temiscouata", label: "Témiscouata", lat: 47.68, lon: -68.88, major: true },
+  { id: "quebec", label: "Québec City", lat: 46.81, lon: -71.21, major: true },
+  { id: "plattsburgh", label: "Plattsburgh, NY", lat: 44.7, lon: -73.45 },
+  { id: "home", label: "Salt Point, NY", lat: 41.87, lon: -73.8, major: true },
 ];
 
 /**
@@ -46,14 +50,17 @@ export const NS_LABELS: Record<
   baddeck: { dx: 14, dy: 16, anchor: "start" },
   cheticamp: { dx: -14, dy: -2, anchor: "end" },
   ingonish: { dx: 14, dy: -4, anchor: "start" },
-  yarmouth: { dx: -14, dy: 10, anchor: "end" },
-  barharbor: { dx: -14, dy: 20, anchor: "end" },
-  rockland: { dx: -14, dy: 4, anchor: "end" },
+  whycocomagh: { dx: 14, dy: -4, anchor: "start" },
+  aulac: { dx: 0, dy: -14, anchor: "middle" },
+  temiscouata: { dx: 14, dy: -6, anchor: "start" },
+  quebec: { dx: -14, dy: -4, anchor: "end" },
+  plattsburgh: { dx: -14, dy: 6, anchor: "end" },
+  home: { dx: 0, dy: 26, anchor: "middle" },
 };
 
-/** The single fact the whole return points toward. */
-export const YARMOUTH_CROSSING = {
-  coord: "43.84° N · 66.12° W → 44.39° N · 68.20° W",
-  label: "Yarmouth → Bar Harbor",
-  fact: "The elegant ocean road home, across the Gulf of Maine",
+/** The single fact the whole return points toward — after the Aug 16 reroute. */
+export const RETURN_LEG = {
+  coord: "45.98° N · 61.13° W → 41.87° N · 73.80° W",
+  label: "Whycocomagh → Québec City → Salt Point",
+  fact: "The ferry was cancelled, so the way home turned west by road",
 };

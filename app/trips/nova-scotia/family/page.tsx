@@ -76,6 +76,21 @@ export default async function FamilyView() {
           or use the arrows. Scroll down and leave a note under any day; no sign-in,
           just add your name.
         </p>
+
+        {/* The plan changed mid-trip — say so here too, so the family aren't
+            following an itinerary that stopped being true on the 16th. */}
+        <div className="mt-7 max-w-2xl rounded-sm border border-amber/30 bg-amber/[0.06] p-5">
+          <span className="eyebrow text-amber" style={{ fontSize: "0.6rem" }}>
+            The plan changed · Aug 16
+          </span>
+          <p className="mt-2.5 font-sans text-[1rem] font-light leading-relaxed text-paper/80">
+            The ferry home from Yarmouth to Bar Harbor was cancelled by the
+            carrier, so the last three days turned west instead — across New
+            Brunswick, a night on Lake Témiscouata, a day inside the walls of Old
+            Québec, and home to Salt Point on the eighteenth. Days 10 to 12 below
+            are the road actually driven.
+          </p>
+        </div>
       </section>
 
       {/* The whole route, drawn */}
@@ -85,7 +100,7 @@ export default async function FamilyView() {
             points={NS_WAYPOINTS}
             mapId="ns-route"
             variant="route"
-            ariaLabel="The Nova Scotia route: up the Maine coast into Canada, around Nova Scotia to Cape Breton, and home by ferry."
+            ariaLabel="The route: up the Maine coast into Canada, around Nova Scotia to Cape Breton, then west through New Brunswick to Québec City and south home to Salt Point."
           />
         </div>
       </section>

@@ -42,7 +42,20 @@ export default async function UploadPage({
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-xl bg-nearblack px-5 py-12">
-      <div className="flex items-center justify-between">
+      {/* Always a way back to the itinerary — deep-linked to the day you came
+          from, so "add a photo" is a round trip rather than a dead end. */}
+      <Link
+        href={`/trips/nova-scotia${defaultDay ? `#day-${defaultDay}` : ""}`}
+        className="inline-flex items-center gap-2 rounded-full border border-paper/20 bg-black/20 px-4 py-2 font-sans text-[0.88rem] font-medium text-paper/75 transition-colors hover:border-amber hover:text-amber"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <path d="M19 12H5" />
+          <path d="M12 19l-7-7 7-7" />
+        </svg>
+        {defaultDay ? `Back to Day ${defaultDay}` : "Back to the itinerary"}
+      </Link>
+
+      <div className="mt-7 flex items-center justify-between">
         <span className="eyebrow text-amber">Add photos</span>
         <Link
           href="/trips/nova-scotia/family"

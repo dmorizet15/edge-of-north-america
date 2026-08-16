@@ -54,19 +54,24 @@ export interface TripDay {
   subtitle: string;
   /** Resolved photo object for the day's cinematic band. */
   photo?: Photo;
-  /** Where the morning begins — a gentle sense of place. */
-  morningLocation: string;
-  breakfast: string;
+  /**
+   * The narrative "The day" fields. Optional because the Aug 16 reroute days
+   * (10–12) are rendered by <RerouteDayCard/> from verified, timed source data
+   * rather than the prose template — inventing a "breakfast" or "memory" line
+   * for them would mean making facts up. Days 1–9 still supply all of them.
+   */
+  morningLocation?: string;
+  breakfast?: string;
   drive: string;
   stops: TripStop[];
-  lunch: string;
-  afternoon: string;
-  hotel: string;
-  dinner: string;
-  evening: string;
-  charging: string;
-  walking: string;
-  rainy: string;
+  lunch?: string;
+  afternoon?: string;
+  hotel?: string;
+  dinner?: string;
+  evening?: string;
+  charging?: string;
+  walking?: string;
+  rainy?: string;
   /**
    * "Tonight's Sky" — the recurring dark-sky / stargazing note. Present only
    * on days where it makes sense; always phrased as weather-dependent.
@@ -74,7 +79,7 @@ export interface TripDay {
   sky?: string;
   /** Optional expandable hour-by-hour plan for use on the road. */
   detailedPlan?: TripPlanRow[];
-  memory: string;
+  memory?: string;
   map: TripMapPoint[];
 }
 

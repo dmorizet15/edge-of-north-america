@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { upload } from "@vercel/blob/client";
 
 export interface DayOption {
@@ -225,6 +226,29 @@ export default function UploadForm({
         >
           {msg}
         </p>
+      )}
+
+      {/* After a successful upload there needs to be somewhere to go — back to
+          the day you were just photographing, not a dead end on this form. */}
+      {phase === "done" && (
+        <div className="flex flex-wrap gap-2.5">
+          <Link
+            href={`/trips/nova-scotia#day-${dayN}`}
+            className="inline-flex items-center gap-2 rounded-full border border-amber/45 bg-amber/[0.08] px-4 py-2.5 font-sans text-[0.88rem] font-semibold text-amber transition-colors hover:border-amber hover:bg-amber/15"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M19 12H5" />
+              <path d="M12 19l-7-7 7-7" />
+            </svg>
+            Back to Day {dayN}
+          </Link>
+          <Link
+            href="/trips/nova-scotia/family"
+            className="inline-flex items-center gap-2 rounded-full border border-paper/20 px-4 py-2.5 font-sans text-[0.88rem] font-medium text-paper/75 transition-colors hover:border-paper/45 hover:text-paper"
+          >
+            See it in the gallery
+          </Link>
+        </div>
       )}
     </form>
   );
